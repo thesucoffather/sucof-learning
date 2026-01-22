@@ -354,6 +354,7 @@
 
             if (!typed) {
                 setFeedback("Bé chưa nhập đáp án.", "bad");
+                answerInput.value = "";
                 answerInput.focus();
                 return;
             }
@@ -366,6 +367,7 @@
                 setFeedback("Đúng rồi ✅", "ok");
                 // chuyển câu sau 1 nhịp ngắn để bé nhìn thấy
                 setTimeout(() => {
+                    answerInput.value = "";
                     nextQuestion();
                 }, 350);
             } else {
