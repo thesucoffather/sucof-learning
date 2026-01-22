@@ -45,12 +45,6 @@
             <hr class="divider" />
 
             <div id="quizArea" class="quiz hidden">
-                <div class="stats">
-                    <div class="pill"><span class="pill-label">Câu hỏi:</span> <span id="statQ">0/0</span></div>
-                    <div class="pill"><span class="pill-label">Đúng:</span> <span id="statCorrect">0</span></div>
-                    <div class="pill"><span class="pill-label">Tổng submit:</span> <span id="statSubmit">0</span></div>
-                    <div class="pill"><span class="pill-label">Tỷ lệ đúng:</span> <span id="statRate">0%</span></div>
-                </div>
 
                 <div class="prompt">
                     <div id="imgWrap" class="img-wrap hidden">
@@ -71,12 +65,19 @@
 
                     <div id="feedback" class="feedback" aria-live="polite"></div>
                 </div>
+
+                <div class="stats">
+                    <div class="pill"><span class="pill-label">Câu hỏi:</span> <span id="statQ">0/0</span></div>
+                    <div class="pill"><span class="pill-label">Đúng:</span> <span id="statCorrect">0</span></div>
+                    <div class="pill"><span class="pill-label">Tổng submit:</span> <span id="statSubmit">0</span></div>
+                    <div class="pill"><span class="pill-label">Tỷ lệ đúng:</span> <span id="statRate">0%</span></div>
+                </div>
             </div>
 
             <div id="doneArea" class="done hidden">
                 <div class="done-title">Hoàn thành 🎉</div>
                 <div class="done-sub">Bé làm rất tốt!</div>
-                <button id="doneResetBtn" class="btn btn-primary">Làm lại</button>
+                <!-- <button id="doneResetBtn" class="btn btn-primary">Làm lại</button> -->
             </div>
         </section>
     </main>
@@ -105,7 +106,7 @@
 
         const quizArea = document.getElementById("quizArea");
         const doneArea = document.getElementById("doneArea");
-        const doneResetBtn = document.getElementById("doneResetBtn");
+        // const doneResetBtn = document.getElementById("doneResetBtn");
 
         const imgWrap = document.getElementById("imgWrap");
         const questionImg = document.getElementById("questionImg");
@@ -439,7 +440,7 @@
         // ====== EVENTS ======
         startBtn.addEventListener("click", () => startQuiz());
         resetBtn.addEventListener("click", () => { resetAll(); });
-        doneResetBtn.addEventListener("click", () => { resetAll(); });
+        // doneResetBtn.addEventListener("click", () => { resetAll(); });
 
         submitBtn.addEventListener("click", handleSubmit);
         nextBtn.addEventListener("click", () => {
