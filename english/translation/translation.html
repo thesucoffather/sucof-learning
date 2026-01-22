@@ -236,16 +236,30 @@
             // Image
             if (showImg) {
                 imgWrap.classList.remove("hidden");
-                questionImg.src = imagePathFromEnglish(item.english);
-                questionImg.alt = ""; // không hiển thị tên file
-                // nếu ảnh không tồn tại -> ẩn ảnh + báo nhẹ
+
+                // 🔥 RESET IMG TRƯỚC (RẤT QUAN TRỌNG CHO MOBILE)
+                questionImg.onerror = null;
+                questionImg.onload = null;
+                questionImg.removeAttribute("src");
+
+                const imgSrc = imagePathFromEnglish(item.english);
+
+                questionImg.onload = () => {
+                    imgWrap.classList.remove("hidden");
+                };
+
                 questionImg.onerror = () => {
                     imgWrap.classList.add("hidden");
                     setFeedback("Không tìm thấy hình ảnh cho từ này.", "bad");
-                    questionImg.onerror = null;
                 };
+
+                // ⚠️ gán src SAU KHI set onload/onerror
+                questionImg.src = imgSrc;
+
             } else {
                 imgWrap.classList.add("hidden");
+                questionImg.onerror = null;
+                questionImg.onload = null;
                 questionImg.removeAttribute("src");
             }
 
