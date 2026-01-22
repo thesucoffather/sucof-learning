@@ -12,7 +12,7 @@
     <main class="page">
         <section class="card">
             <header class="header">
-                <h1 class="title">HTML Listening</h1>
+                <h1 class="title">Listening</h1>
                 <p class="subtitle">Chọn giọng đọc, chọn chủ đề, nghe và điền từ</p>
             </header>
 
@@ -249,7 +249,7 @@
             // thêm .mp3 nếu CSV không có extension
             const fileName = rawName.endsWith(".mp3") ? rawName : rawName + ".mp3";
             // chỉ encode khoảng trắng
-            const safeName = fileName.replaceAll(" ", "%20");
+            let safeName = fileName.replaceAll(" ", "%20");
             safeName = safeName.toLowerCase();
             return base + "/" + safeName;
         }
@@ -267,7 +267,7 @@
             if (!currentList.length || idx >= currentList.length) return;
 
             const row = currentList[idx];
-            elVN.textContent = row.vietnamese || "(Không có nghĩa tiếng Việt)";
+            elVN.textContent = "Hãy điền câu trả lời"; <!--row.vietnamese || "(Không có nghĩa tiếng Việt)";-->
             elBadge.textContent = `Câu: ${Math.min(idx + 1, totalQuestions)}/${totalQuestions}`;
 
             const audioSrc = getAudioFileForRow(row);

@@ -16,6 +16,8 @@
   --warn:#f59e0b;
 
   --gap:14px;
+  --control-height-voice: 52px;
+  
 }
 
 *{ box-sizing:border-box; }
@@ -93,6 +95,7 @@ body{
 }
 
 .select{
+    height: var(--control-height-voice);
   width:100%;
   padding: 12px 12px;
   border-radius: 14px;
@@ -106,6 +109,7 @@ body{
 }
 
 .seg{
+    height: var(--control-height-voice);
   display:flex;
   gap:10px;
   background:#fff;

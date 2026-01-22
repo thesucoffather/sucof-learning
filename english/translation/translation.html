@@ -1,73 +1,464 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Audio iPad</title>
-    <style>
-        body { 
-            font-family: sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            margin: 0; 
-            background-color: #f0f2f5; 
-        }
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        button {
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        button:active {
-            transform: scale(0.95);
-            background-color: #1557b0;
-        }
-        h1 { color: #333; margin-bottom: 30px; }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sucof Learning - Vocabulary</title>
+    <link rel="stylesheet" href="quiz.css" />
 </head>
+
 <body>
+    <main class="page">
+        <section class="card">
+            <header class="header">
+                <h1 class="title">Vocabulary</h1>
+                <p class="subtitle">Chọn danh mục và bắt đầu làm bài</p>
+            </header>
 
-    <div class="card">
-        <h1>Từ: Apple</h1>
-        <button onclick="play()">🔊 Nghe âm thanh</button>
-    </div>
+            <div class="controls">
+                <div class="control">
+                    <label class="label" for="categorySelect">Category</label>
+                    <select id="categorySelect" class="select" disabled>
+                        <option value="__loading__">Đang tải...</option>
+                    </select>
+                </div>
 
-    <audio id="player">
-        <source src="apple_female.mp3" type="audio/mpeg">
-        Trình duyệt không hỗ trợ audio.
-    </audio>
+                <div class="toggles">
+                    <label class="toggle">
+                        <input id="toggleImage" type="checkbox" checked />
+                        <span>Hiển thị hình ảnh</span>
+                    </label>
+
+                    <label class="toggle">
+                        <input id="toggleVn" type="checkbox" checked />
+                        <span>Hiển thị tiếng Việt</span>
+                    </label>
+                </div>
+
+                <div class="actions">
+                    <button id="startBtn" class="btn btn-primary" disabled>Bắt đầu</button>
+                    <button id="resetBtn" class="btn btn-ghost" disabled>Làm lại</button>
+                </div>
+            </div>
+
+            <hr class="divider" />
+
+            <div id="quizArea" class="quiz hidden">
+                <div class="stats">
+                    <div class="pill"><span class="pill-label">Câu hỏi:</span> <span id="statQ">0/0</span></div>
+                    <div class="pill"><span class="pill-label">Đúng:</span> <span id="statCorrect">0</span></div>
+                    <div class="pill"><span class="pill-label">Tổng submit:</span> <span id="statSubmit">0</span></div>
+                    <div class="pill"><span class="pill-label">Tỷ lệ đúng:</span> <span id="statRate">0%</span></div>
+                </div>
+
+                <div class="prompt">
+                    <div id="imgWrap" class="img-wrap hidden">
+                        <img id="questionImg" class="question-img" alt="" />
+                    </div>
+
+                    <div id="vnText" class="vn hidden"></div>
+                    <div id="helper" class="helper">Hãy gõ từ tiếng Anh vào ô bên dưới</div>
+                </div>
+
+                <div class="answer">
+                    <input id="answerInput" class="input" type="text" inputmode="text" autocomplete="off"
+                        spellcheck="false" placeholder="Bé gõ từ tiếng Anh ở đây..." disabled />
+                    <div class="btn-row">
+                        <button id="submitBtn" class="btn btn-success" disabled>Submit</button>
+                        <button id="nextBtn" class="btn btn-secondary" disabled>Next</button>
+                    </div>
+
+                    <div id="feedback" class="feedback" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <div id="doneArea" class="done hidden">
+                <div class="done-title">Hoàn thành 🎉</div>
+                <div class="done-sub">Bé làm rất tốt!</div>
+                <button id="doneResetBtn" class="btn btn-primary">Làm lại</button>
+            </div>
+        </section>
+    </main>
 
     <script>
-        function play() {
-            var audio = document.getElementById("player");
-            
-            // Trên iOS đôi khi cần .load() trước khi .play() ở lần đầu
-            audio.load();
-            
-            var promise = audio.play();
-            
-            if (promise !== undefined) {
-                promise.catch(error => {
-                    console.log("Lỗi: " + error);
-                    alert("Lỗi phát audio. Hãy đảm bảo file mp3 nằm cùng thư mục.");
-                });
+        // ====== CONFIG PATHS ======
+        const CSV_PATH = "../../assets/vocabulary/vocabulary.csv";
+        const PICTURES_DIR = "../../assets/pictures/"; // file name = english (lower case, có khoảng trắng) + ".jpg"
+
+        // ====== STATE ======
+        let rows = [];             // all csv rows
+        let categories = [];       // unique category list
+        let queue = [];            // selected questions, shuffled
+        let idx = 0;               // current question index
+        let correctCount = 0;      // number of correct submits
+        let submitCount = 0;       // total submits
+        let started = false;
+
+        // ====== ELEMENTS ======
+        const categorySelect = document.getElementById("categorySelect");
+        const toggleImage = document.getElementById("toggleImage");
+        const toggleVn = document.getElementById("toggleVn");
+
+        const startBtn = document.getElementById("startBtn");
+        const resetBtn = document.getElementById("resetBtn");
+
+        const quizArea = document.getElementById("quizArea");
+        const doneArea = document.getElementById("doneArea");
+        const doneResetBtn = document.getElementById("doneResetBtn");
+
+        const imgWrap = document.getElementById("imgWrap");
+        const questionImg = document.getElementById("questionImg");
+        const vnText = document.getElementById("vnText");
+        const helper = document.getElementById("helper");
+
+        const answerInput = document.getElementById("answerInput");
+        const submitBtn = document.getElementById("submitBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const feedback = document.getElementById("feedback");
+
+        const statQ = document.getElementById("statQ");
+        const statCorrect = document.getElementById("statCorrect");
+        const statSubmit = document.getElementById("statSubmit");
+        const statRate = document.getElementById("statRate");
+
+        // ====== CSV PARSER (handles quotes + commas) ======
+        function parseCSV(text) {
+            const out = [];
+            let row = [];
+            let cur = "";
+            let inQuotes = false;
+
+            for (let i = 0; i < text.length; i++) {
+                const ch = text[i];
+                const next = text[i + 1];
+
+                if (ch === '"') {
+                    if (inQuotes && next === '"') { // escaped quote
+                        cur += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                    continue;
+                }
+
+                if (!inQuotes && ch === ",") {
+                    row.push(cur);
+                    cur = "";
+                    continue;
+                }
+
+                if (!inQuotes && (ch === "\n")) {
+                    row.push(cur);
+                    cur = "";
+                    // ignore empty last line
+                    if (row.some(cell => cell.trim() !== "")) out.push(row);
+                    row = [];
+                    continue;
+                }
+
+                if (ch === "\r") continue; // windows line endings
+                cur += ch;
+            }
+
+            // last cell
+            row.push(cur);
+            if (row.some(cell => cell.trim() !== "")) out.push(row);
+            return out;
+        }
+
+        function normalizeAnswer(s) {
+            return (s ?? "").trim().toLowerCase();
+        }
+
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function setFeedback(msg, type) {
+            feedback.textContent = msg || "";
+            feedback.className = "feedback";
+            if (type === "ok") feedback.classList.add("ok");
+            if (type === "bad") feedback.classList.add("bad");
+        }
+
+        function updateStats() {
+            statQ.textContent = `${Math.min(idx + 1, queue.length)}/${queue.length}`;
+            statCorrect.textContent = String(correctCount);
+            statSubmit.textContent = String(submitCount);
+            const rate = submitCount === 0 ? 0 : Math.round((correctCount / submitCount) * 100);
+            statRate.textContent = `${rate}%`;
+        }
+
+        function showDone() {
+            started = false;
+
+            // disable thao tác
+            answerInput.disabled = true;
+            submitBtn.disabled = true;
+            nextBtn.disabled = true;
+
+            // ẩn phần câu hỏi (ảnh + input)
+            document.querySelector(".prompt").classList.add("hidden");
+            document.querySelector(".answer").classList.add("hidden");
+
+            // HIỆN thông báo hoàn thành
+            doneArea.classList.remove("hidden");
+
+            resetBtn.disabled = false;
+        }
+
+        function currentItem() {
+            return queue[idx];
+        }
+
+        function imagePathFromEnglish(english) {
+            // yêu cầu: filename = English (có khoảng trắng, lower case) + ".jpg"
+            const name = (english ?? "").toLowerCase();
+            return PICTURES_DIR + name + ".jpg";
+        }
+
+        function renderQuestion() {
+            setFeedback("", null);
+
+            if (!queue.length) return;
+
+            const item = currentItem();
+            const showImg = toggleImage.checked;
+            const showVN = toggleVn.checked;
+
+            // Image
+            if (showImg) {
+                imgWrap.classList.remove("hidden");
+                questionImg.src = imagePathFromEnglish(item.english);
+                questionImg.alt = ""; // không hiển thị tên file
+                // nếu ảnh không tồn tại -> ẩn ảnh + báo nhẹ
+                questionImg.onerror = () => {
+                    imgWrap.classList.add("hidden");
+                    setFeedback("Không tìm thấy hình ảnh cho từ này.", "bad");
+                    questionImg.onerror = null;
+                };
+            } else {
+                imgWrap.classList.add("hidden");
+                questionImg.removeAttribute("src");
+            }
+
+            // Vietnamese
+            if (showVN) {
+                vnText.classList.remove("hidden");
+                vnText.textContent = item.vietnamese || "";
+            } else {
+                vnText.classList.add("hidden");
+                vnText.textContent = "";
+            }
+
+            // helper
+            if (!showImg && !showVN) {
+                helper.textContent = "Hãy gõ từ tiếng Anh (không có gợi ý hình/tiếng Việt)";
+            } else {
+                helper.textContent = "Hãy gõ từ tiếng Anh vào ô bên dưới";
+            }
+
+            // input
+            answerInput.value = "";
+            answerInput.focus();
+
+            updateStats();
+        }
+
+        function nextQuestion() {
+            if (!queue.length) return;
+
+            idx++;
+            if (idx >= queue.length) {
+                showDone();
+                return;
+            }
+            renderQuestion();
+        }
+
+        function buildQueue() {
+            const selected = categorySelect.value;
+
+            let filtered;
+            if (selected === "__all__") {
+                filtered = rows.slice();
+                shuffle(filtered);
+                filtered = filtered.slice(0, Math.min(20, filtered.length)); // all -> 20 câu
+            } else {
+                filtered = rows.filter(r => r.category === selected);
+                shuffle(filtered); // category -> random toàn bộ
+            }
+
+            return filtered;
+        }
+
+        function startQuiz() {
+            queue = buildQueue();
+            idx = 0;
+            correctCount = 0;
+            submitCount = 0;
+
+            doneArea.classList.add("hidden");
+            quizArea.classList.remove("hidden");
+
+            started = true;
+
+            answerInput.disabled = false;
+            submitBtn.disabled = false;
+            nextBtn.disabled = false;
+
+            resetBtn.disabled = false;
+
+            if (queue.length === 0) {
+                setFeedback("Không có từ nào trong lựa chọn này.", "bad");
+                showDone();
+                return;
+            }
+
+            renderQuestion();
+        }
+
+        function resetAll() {
+            queue = [];
+            idx = 0;
+            correctCount = 0;
+            submitCount = 0;
+            started = false;
+
+            quizArea.classList.add("hidden");
+            doneArea.classList.add("hidden");
+
+            answerInput.value = "";
+            answerInput.disabled = true;
+            submitBtn.disabled = true;
+            nextBtn.disabled = true;
+
+            setFeedback("", null);
+
+            updateStats();
+        }
+
+        function handleSubmit() {
+            if (!started || !queue.length) return;
+
+            const item = currentItem();
+            const typed = normalizeAnswer(answerInput.value);
+            const target = normalizeAnswer(item.english);
+
+            if (!typed) {
+                setFeedback("Bé chưa nhập đáp án.", "bad");
+                answerInput.focus();
+                return;
+            }
+
+            submitCount++;
+
+            if (typed === target) {
+                correctCount++;
+                updateStats();
+                setFeedback("Đúng rồi ✅", "ok");
+                // chuyển câu sau 1 nhịp ngắn để bé nhìn thấy
+                setTimeout(() => {
+                    nextQuestion();
+                }, 350);
+            } else {
+                updateStats();
+                setFeedback("Sai rồi ❌ (thử lại nhé)", "bad");
+                answerInput.value = "";
+                answerInput.focus();
             }
         }
-    </script>
 
+        // ====== LOAD CSV ======
+        async function loadData() {
+            try {
+                const res = await fetch(CSV_PATH, { cache: "no-store" });
+                if (!res.ok) throw new Error("Fetch failed: " + res.status);
+                const text = await res.text();
+
+                const table = parseCSV(text);
+                if (table.length < 2) throw new Error("CSV empty or missing header");
+
+                const header = table[0].map(h => (h ?? "").trim().toLowerCase());
+                const idxCategory = header.indexOf("category");
+                const idxEnglish = header.indexOf("english");
+                const idxVn = header.indexOf("vietnamese");
+
+                // audio columns exist but not required for this UI
+                if (idxCategory === -1 || idxEnglish === -1 || idxVn === -1) {
+                    throw new Error("CSV must have columns: category, english, vietnamese");
+                }
+
+                rows = table.slice(1).map(r => ({
+                    category: (r[idxCategory] ?? "").trim(),
+                    english: (r[idxEnglish] ?? "").trim(),
+                    vietnamese: (r[idxVn] ?? "").trim(),
+                }))
+                    .filter(r => r.english && r.category); // basic sanity
+
+                const set = new Set(rows.map(r => r.category));
+                categories = Array.from(set).sort((a, b) => a.localeCompare(b, "vi"));
+
+                // Populate select
+                categorySelect.innerHTML = "";
+                const optAll = document.createElement("option");
+                optAll.value = "__all__";
+                optAll.textContent = "All";
+                categorySelect.appendChild(optAll);
+
+                for (const c of categories) {
+                    const opt = document.createElement("option");
+                    opt.value = c;
+                    opt.textContent = c;
+                    categorySelect.appendChild(opt);
+                }
+
+                categorySelect.disabled = false;
+                startBtn.disabled = rows.length === 0;
+                resetBtn.disabled = false;
+
+                updateStats();
+            } catch (err) {
+                categorySelect.innerHTML = `<option value="__error__">Lỗi tải dữ liệu</option>`;
+                categorySelect.disabled = true;
+                startBtn.disabled = true;
+                resetBtn.disabled = false;
+
+                // hiển thị lỗi nhẹ (không lộ stack)
+                setFeedback("Không đọc được vocabulary.csv. Kiểm tra đường dẫn và tên cột.", "bad");
+                console.error(err);
+            }
+        }
+
+        // ====== EVENTS ======
+        startBtn.addEventListener("click", () => startQuiz());
+        resetBtn.addEventListener("click", () => { resetAll(); });
+        doneResetBtn.addEventListener("click", () => { resetAll(); });
+
+        submitBtn.addEventListener("click", handleSubmit);
+        nextBtn.addEventListener("click", () => {
+            if (!started) return;
+            nextQuestion();
+        });
+
+        answerInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") handleSubmit();
+        });
+
+        // If toggles changed during quiz, rerender current question (không đổi đáp án)
+        toggleImage.addEventListener("change", () => { if (started && queue.length) renderQuestion(); });
+        toggleVn.addEventListener("change", () => { if (started && queue.length) renderQuestion(); });
+
+        // init
+        resetAll();
+        loadData();
+    </script>
 </body>
+
 </html>
