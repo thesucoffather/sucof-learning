@@ -253,6 +253,7 @@
         const fileName = rawName.endsWith(".mp3") ? rawName : rawName + ".mp3";
         // chỉ encode khoảng trắng
         const safeName = fileName.replaceAll(" ", "%20");
+        safeName = safeName.toLowerCase();
         return base + "/" + safeName;
     }
 
