@@ -72,7 +72,7 @@ body{
 .row{
   display:flex;
   gap: var(--gap);
-  align-items:flex-end;
+  align-items:stretch;
   justify-content:space-between;
   flex-wrap:wrap;
 }

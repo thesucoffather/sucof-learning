@@ -1,482 +1,480 @@
 <!doctype html>
 <html lang="vi">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HTML Listening</title>
-  <link rel="stylesheet" href="./style.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML Listening</title>
+    <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
-  <main class="page">
-    <section class="card">
-      <header class="header">
-        <h1 class="title">HTML Listening</h1>
-        <p class="subtitle">Chọn giọng đọc, chọn chủ đề, nghe và điền từ</p>
-      </header>
+    <main class="page">
+        <section class="card">
+            <header class="header">
+                <h1 class="title">HTML Listening</h1>
+                <p class="subtitle">Chọn giọng đọc, chọn chủ đề, nghe và điền từ</p>
+            </header>
 
-      <!-- Controls -->
-      <div class="panel">
-        <div class="row">
-          <div class="field">
-            <div class="label">Giọng đọc</div>
-            <div class="seg">
-              <label class="seg-item">
-                <input type="radio" name="voice" value="male" checked />
-                <span>Nam</span>
-              </label>
-              <label class="seg-item">
-                <input type="radio" name="voice" value="female" />
-                <span>Nữ</span>
-              </label>
+            <!-- Controls -->
+            <div class="panel">
+                <div class="row">
+                    <div class="field">
+                        <div class="label">Giọng đọc</div>
+                        <div class="seg">
+                            <label class="seg-item">
+                                <input type="radio" name="voice" value="male" checked />
+                                <span>Nam</span>
+                            </label>
+                            <label class="seg-item">
+                                <input type="radio" name="voice" value="female" />
+                                <span>Nữ</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="label">Category</div>
+                        <select id="categorySelect" class="select" disabled>
+                            <option value="__loading__">Đang tải...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row row-tight">
+                    <label class="check">
+                        <input id="autoListen" type="checkbox" checked />
+                        <span>Tự phát audio</span>
+                    </label>
+
+                    <button id="btnPlay" class="btn btn-secondary" type="button" disabled>
+                        🔊 Phát âm
+                    </button>
+                </div>
             </div>
-          </div>
 
-          <div class="field">
-            <div class="label">Category</div>
-            <select id="categorySelect" class="select" disabled>
-              <option value="__loading__">Đang tải...</option>
-            </select>
-          </div>
-        </div>
+            <!-- Question -->
+            <div class="question">
+                <div class="q-top">
+                    <div class="q-badge" id="qBadge">Câu: 0/0</div>
+                    <div class="q-vn" id="vnText">Đang tải dữ liệu...</div>
+                </div>
 
-        <div class="row row-tight">
-          <label class="check">
-            <input id="autoListen" type="checkbox" />
-            <span>Tích “Nghe” (tự phát audio)</span>
-          </label>
+                <textarea id="answerInput" class="textarea" rows="3"
+                    placeholder="Bé gõ từ tiếng Anh vào đây (có thể gõ dài hơn một chút)…" disabled></textarea>
 
-          <button id="btnPlay" class="btn btn-secondary" type="button" disabled>
-            🔊 Nghe lại
-          </button>
-        </div>
-      </div>
+                <div class="actions">
+                    <button id="btnSubmit" class="btn btn-primary" type="button" disabled>
+                        ✅ Submit (Nộp bài)
+                    </button>
+                    <button id="btnNext" class="btn btn-ghost" type="button" disabled>
+                        ⏭ Next (Câu tiếp theo)
+                    </button>
+                </div>
 
-      <!-- Question -->
-      <div class="question">
-        <div class="q-top">
-          <div class="q-badge" id="qBadge">Câu: 0/0</div>
-          <div class="q-vn" id="vnText">Đang tải dữ liệu...</div>
-        </div>
+                <div id="feedback" class="feedback" aria-live="polite"></div>
 
-        <textarea
-          id="answerInput"
-          class="textarea"
-          rows="3"
-          placeholder="Bé gõ từ tiếng Anh vào đây (có thể gõ dài hơn một chút)…"
-          disabled
-        ></textarea>
+                <!-- Stats -->
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-k">Số câu hỏi</div>
+                        <div class="stat-v" id="statTotalQ">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-k">Đúng</div>
+                        <div class="stat-v" id="statCorrect">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-k">Tổng submit</div>
+                        <div class="stat-v" id="statTotalSubmit">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-k">Tỷ lệ đúng</div>
+                        <div class="stat-v" id="statAcc">0%</div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="actions">
-          <button id="btnSubmit" class="btn btn-primary" type="button" disabled>
-            ✅ Submit (Nộp bài)
-          </button>
-          <button id="btnNext" class="btn btn-ghost" type="button" disabled>
-            ⏭ Next (Câu tiếp theo)
-          </button>
-        </div>
+            <audio id="player" preload="auto"></audio>
 
-        <div id="feedback" class="feedback" aria-live="polite"></div>
+            <footer class="footer">
+                <small class="hint">
+                    Dữ liệu: <code>../assets/vocabulary/vocabulary.csv</code> • Audio: <code>../assets/audio/male</code>
+                    / <code>../assets/audio/female</code>
+                </small>
+            </footer>
+        </section>
+    </main>
 
-        <!-- Stats -->
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-k">Số câu hỏi</div>
-            <div class="stat-v" id="statTotalQ">0</div>
-          </div>
-          <div class="stat">
-            <div class="stat-k">Đúng</div>
-            <div class="stat-v" id="statCorrect">0</div>
-          </div>
-          <div class="stat">
-            <div class="stat-k">Tổng submit</div>
-            <div class="stat-v" id="statTotalSubmit">0</div>
-          </div>
-          <div class="stat">
-            <div class="stat-k">Tỷ lệ đúng</div>
-            <div class="stat-v" id="statAcc">0%</div>
-          </div>
-        </div>
-      </div>
-
-      <audio id="player" preload="auto"></audio>
-
-      <footer class="footer">
-        <small class="hint">
-          Dữ liệu: <code>../assets/vocabulary/vocabulary.csv</code> • Audio: <code>../assets/audio/male</code> / <code>../assets/audio/female</code>
-        </small>
-      </footer>
-    </section>
-  </main>
-
-  <script>
-    // ====== Paths (theo yêu cầu của bạn) ======
-    const CSV_PATH = "../../assets/vocabulary/vocabulary.csv";
-    const AUDIO_BASE = {
-    male: "../../assets/audio/male",
-    female: "../../assets/audio/female",
-    };
-
-    // ====== State ======
-    let rows = [];              // toàn bộ từ vựng
-    let currentList = [];       // danh sách câu hỏi đang chạy (đã random)
-    let idx = 0;                // câu hiện tại (index trong currentList)
-    let totalQuestions = 0;     // tổng câu theo rule (category: full, all: 20)
-    let correctCount = 0;       // số lần submit đúng
-    let totalSubmit = 0;        // tổng số lần submit
-    let selectedCategory = "__all__";
-    let voice = "male";
-
-    // ====== Elements ======
-    const elCategory = document.getElementById("categorySelect");
-    const elAutoListen = document.getElementById("autoListen");
-    const elBtnPlay = document.getElementById("btnPlay");
-    const elBtnSubmit = document.getElementById("btnSubmit");
-    const elBtnNext = document.getElementById("btnNext");
-    const elInput = document.getElementById("answerInput");
-    const elFeedback = document.getElementById("feedback");
-    const elVN = document.getElementById("vnText");
-    const elBadge = document.getElementById("qBadge");
-    const player = document.getElementById("player");
-
-    const elStatTotalQ = document.getElementById("statTotalQ");
-    const elStatCorrect = document.getElementById("statCorrect");
-    const elStatTotalSubmit = document.getElementById("statTotalSubmit");
-    const elStatAcc = document.getElementById("statAcc");
-
-    // ====== Helpers ======
-    function normalizeAnswer(s) {
-      return (s || "")
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, " ");
-    }
-
-    function setFeedback(type, text) {
-      elFeedback.className = "feedback " + (type ? ("fb-" + type) : "");
-      elFeedback.textContent = text || "";
-    }
-
-    function shuffle(arr) {
-      const a = arr.slice();
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    // CSV parser (đủ dùng cho dấu phẩy + dấu ngoặc kép)
-    function parseCSV(text) {
-      const out = [];
-      let row = [];
-      let cur = "";
-      let inQuotes = false;
-
-      for (let i = 0; i < text.length; i++) {
-        const ch = text[i];
-        const next = text[i + 1];
-
-        if (ch === '"' ) {
-          if (inQuotes && next === '"') { // escaped quote
-            cur += '"';
-            i++;
-          } else {
-            inQuotes = !inQuotes;
-          }
-          continue;
-        }
-
-        if (!inQuotes && ch === ",") {
-          row.push(cur);
-          cur = "";
-          continue;
-        }
-
-        if (!inQuotes && (ch === "\n" || ch === "\r")) {
-          if (ch === "\r" && next === "\n") i++;
-          row.push(cur);
-          cur = "";
-          // bỏ dòng rỗng
-          if (row.some(v => String(v).trim() !== "")) out.push(row);
-          row = [];
-          continue;
-        }
-
-        cur += ch;
-      }
-
-      // last cell
-      row.push(cur);
-      if (row.some(v => String(v).trim() !== "")) out.push(row);
-      return out;
-    }
-
-    function rowsFromCSV(csvText) {
-      const table = parseCSV(csvText);
-      if (!table.length) return [];
-
-      const header = table[0].map(h => String(h).trim().toLowerCase());
-      const idxCategory = header.indexOf("category");
-      const idxEn = header.indexOf("english");
-      const idxVi = header.indexOf("vietnamese");
-      const idxAF = header.indexOf("audio-f");
-      const idxAM = header.indexOf("audio-m");
-
-      // Nếu thiếu cột bắt buộc, báo lỗi rõ ràng (không đoán)
-      const required = { category: idxCategory, english: idxEn, vietnamese: idxVi, "audio-f": idxAF, "audio-m": idxAM };
-      const missing = Object.entries(required).filter(([,v]) => v === -1).map(([k]) => k);
-      if (missing.length) {
-        throw new Error("Thiếu cột trong vocabulary.csv: " + missing.join(", "));
-      }
-
-      const data = [];
-      for (let r = 1; r < table.length; r++) {
-        const line = table[r];
-        const obj = {
-          category: (line[idxCategory] ?? "").trim(),
-          english: (line[idxEn] ?? "").trim(),
-          vietnamese: (line[idxVi] ?? "").trim(),
-          audioF: (line[idxAF] ?? "").trim(),
-          audioM: (line[idxAM] ?? "").trim(),
+    <script>
+        // ====== Paths (theo yêu cầu của bạn) ======
+        const CSV_PATH = "../../assets/vocabulary/vocabulary.csv";
+        const AUDIO_BASE = {
+            male: "../../assets/audio/male",
+            female: "../../assets/audio/female",
         };
-        if (obj.english) data.push(obj);
-      }
-      return data;
-    }
 
-    function getAudioFileForRow(row) {
-        const rawName = (voice === "male") ? row.audioM : row.audioF;
-        if (!rawName) return null;
-        const base = AUDIO_BASE[voice];
-        // thêm .mp3 nếu CSV không có extension
-        const fileName = rawName.endsWith(".mp3") ? rawName : rawName + ".mp3";
-        // chỉ encode khoảng trắng
-        const safeName = fileName.replaceAll(" ", "%20");
-        safeName = safeName.toLowerCase();
-        return base + "/" + safeName;
-    }
+        // ====== State ======
+        let rows = [];              // toàn bộ từ vựng
+        let currentList = [];       // danh sách câu hỏi đang chạy (đã random)
+        let idx = 0;                // câu hiện tại (index trong currentList)
+        let totalQuestions = 0;     // tổng câu theo rule (category: full, all: 20)
+        let correctCount = 0;       // số lần submit đúng
+        let totalSubmit = 0;        // tổng số lần submit
+        let selectedCategory = "__all__";
+        let voice = "male";
 
-    function updateStatsUI() {
-      elStatTotalQ.textContent = String(totalQuestions);
-      elStatCorrect.textContent = String(correctCount);
-      elStatTotalSubmit.textContent = String(totalSubmit);
+        // ====== Elements ======
+        const elCategory = document.getElementById("categorySelect");
+        const elAutoListen = document.getElementById("autoListen");
+        const elBtnPlay = document.getElementById("btnPlay");
+        const elBtnSubmit = document.getElementById("btnSubmit");
+        const elBtnNext = document.getElementById("btnNext");
+        const elInput = document.getElementById("answerInput");
+        const elFeedback = document.getElementById("feedback");
+        const elVN = document.getElementById("vnText");
+        const elBadge = document.getElementById("qBadge");
+        const player = document.getElementById("player");
 
-      const acc = totalSubmit === 0 ? 0 : (correctCount / totalSubmit) * 100;
-      elStatAcc.textContent = acc.toFixed(0) + "%";
-    }
+        const elStatTotalQ = document.getElementById("statTotalQ");
+        const elStatCorrect = document.getElementById("statCorrect");
+        const elStatTotalSubmit = document.getElementById("statTotalSubmit");
+        const elStatAcc = document.getElementById("statAcc");
 
-    function updateQuestionUI() {
-      if (!currentList.length || idx >= currentList.length) return;
-
-      const row = currentList[idx];
-      elVN.textContent = row.vietnamese || "(Không có nghĩa tiếng Việt)";
-      elBadge.textContent = `Câu: ${Math.min(idx + 1, totalQuestions)}/${totalQuestions}`;
-
-      const audioSrc = getAudioFileForRow(row);
-      elBtnPlay.disabled = !audioSrc;
-      player.src = audioSrc || "";
-      player.load();
-
-      elInput.value = "";
-      elInput.focus();
-
-      setFeedback("", "");
-      updateStatsUI();
-
-      if (elAutoListen.checked && audioSrc) {
-        // cố gắng autoplay; nếu trình duyệt chặn thì bé bấm "Nghe lại"
-        player.play().catch(() => {});
-      }
-    }
-
-    function finishUI() {
-      elVN.textContent = "🎉 Hoàn thành!";
-      elBadge.textContent = `Câu: ${totalQuestions}/${totalQuestions}`;
-      elBtnPlay.disabled = true;
-      elBtnSubmit.disabled = true;
-      elBtnNext.disabled = true;
-      elInput.disabled = true;
-
-      setFeedback("ok", `Bé đã làm xong. Đúng ${correctCount}/${totalSubmit} lần submit.`);
-      updateStatsUI();
-    }
-
-    function buildQuizList() {
-      // lọc theo category
-      let list = [];
-      if (selectedCategory === "__all__") {
-        list = rows.slice();
-        list = shuffle(list).slice(0, Math.min(20, list.length)); // all -> 20 từ
-      } else {
-        list = rows.filter(r => r.category === selectedCategory);
-        list = shuffle(list); // category -> random toàn bộ trong category
-      }
-
-      currentList = list;
-      idx = 0;
-      totalQuestions = currentList.length;
-
-      // reset stats
-      correctCount = 0;
-      totalSubmit = 0;
-      updateStatsUI();
-
-      elBtnSubmit.disabled = totalQuestions === 0;
-      elBtnNext.disabled = totalQuestions === 0;
-      elInput.disabled = totalQuestions === 0;
-
-      if (totalQuestions === 0) {
-        setFeedback("bad", "Không có dữ liệu cho lựa chọn này.");
-        elVN.textContent = "Không có câu hỏi.";
-        elBadge.textContent = "Câu: 0/0";
-        elBtnPlay.disabled = true;
-        return;
-      }
-
-      updateQuestionUI();
-    }
-
-    // ====== Actions ======
-    function onSubmit() {
-      if (!currentList.length || idx >= currentList.length) return;
-
-      const row = currentList[idx];
-      const expected = normalizeAnswer(row.english);
-      const got = normalizeAnswer(elInput.value);
-
-      if (!got) {
-        setFeedback("warn", "Bé chưa nhập đáp án.");
-        elInput.focus();
-        return;
-      }
-
-      totalSubmit += 1;
-
-      if (got === expected) {
-        correctCount += 1;
-        setFeedback("ok", "✅ Đúng rồi! Chuyển sang câu tiếp theo…");
-        updateStatsUI();
-
-        // chuyển câu
-        idx += 1;
-        if (idx >= totalQuestions) {
-          finishUI();
-        } else {
-          updateQuestionUI();
-        }
-      } else {
-        // sai: báo đỏ + clear input, KHÔNG chuyển câu
-        setFeedback("bad", "❌ Sai rồi. Bé thử lại nhé!");
-        updateStatsUI();
-        elInput.value = "";
-        elInput.focus();
-      }
-    }
-
-    function onNext() {
-      if (!currentList.length) return;
-      idx += 1;
-      if (idx >= totalQuestions) {
-        finishUI();
-      } else {
-        updateQuestionUI();
-      }
-    }
-
-    function onPlay() {
-      if (!player.src) return;
-      player.play().catch(() => {});
-    }
-
-    function onVoiceChange(newVoice) {
-      voice = newVoice;
-      // đổi giọng thì giữ nguyên câu hiện tại, chỉ đổi audio
-      if (currentList.length && idx < currentList.length) {
-        const audioSrc = getAudioFileForRow(currentList[idx]);
-        elBtnPlay.disabled = !audioSrc;
-        player.src = audioSrc || "";
-        player.load();
-        if (elAutoListen.checked && audioSrc) {
-          player.play().catch(() => {});
-        }
-      }
-    }
-
-    function onCategoryChange(val) {
-      selectedCategory = val;
-      buildQuizList();
-    }
-
-    // ====== Init ======
-    async function init() {
-      try {
-        const res = await fetch(CSV_PATH, { cache: "no-store" });
-        if (!res.ok) throw new Error("Không tải được vocabulary.csv (HTTP " + res.status + ")");
-        const csvText = await res.text();
-
-        rows = rowsFromCSV(csvText);
-
-        // categories
-        const categories = Array.from(new Set(rows.map(r => r.category).filter(Boolean))).sort((a,b) => a.localeCompare(b));
-        elCategory.innerHTML = "";
-        const optAll = document.createElement("option");
-        optAll.value = "__all__";
-        optAll.textContent = "All (20 câu)";
-        elCategory.appendChild(optAll);
-
-        for (const c of categories) {
-          const opt = document.createElement("option");
-          opt.value = c;
-          opt.textContent = c;
-          elCategory.appendChild(opt);
+        // ====== Helpers ======
+        function normalizeAnswer(s) {
+            return (s || "")
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, " ");
         }
 
-        elCategory.disabled = false;
+        function setFeedback(type, text) {
+            elFeedback.className = "feedback " + (type ? ("fb-" + type) : "");
+            elFeedback.textContent = text || "";
+        }
 
-        // enable UI
-        elBtnPlay.disabled = true;
-        elBtnSubmit.disabled = false;
-        elBtnNext.disabled = false;
-        elInput.disabled = false;
+        function shuffle(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
 
-        // build first quiz
-        selectedCategory = "__all__";
-        buildQuizList();
+        // CSV parser (đủ dùng cho dấu phẩy + dấu ngoặc kép)
+        function parseCSV(text) {
+            const out = [];
+            let row = [];
+            let cur = "";
+            let inQuotes = false;
 
-        setFeedback("", "");
-      } catch (err) {
-        elCategory.disabled = true;
-        elBtnPlay.disabled = true;
-        elBtnSubmit.disabled = true;
-        elBtnNext.disabled = true;
-        elInput.disabled = true;
+            for (let i = 0; i < text.length; i++) {
+                const ch = text[i];
+                const next = text[i + 1];
 
-        elVN.textContent = "Lỗi tải dữ liệu.";
-        elBadge.textContent = "Câu: 0/0";
-        setFeedback("bad", String(err && err.message ? err.message : err));
-      }
-    }
+                if (ch === '"') {
+                    if (inQuotes && next === '"') { // escaped quote
+                        cur += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                    continue;
+                }
 
-    // events
-    document.querySelectorAll('input[name="voice"]').forEach(radio => {
-      radio.addEventListener("change", (e) => onVoiceChange(e.target.value));
-    });
+                if (!inQuotes && ch === ",") {
+                    row.push(cur);
+                    cur = "";
+                    continue;
+                }
 
-    elCategory.addEventListener("change", (e) => onCategoryChange(e.target.value));
-    elBtnPlay.addEventListener("click", onPlay);
-    elBtnSubmit.addEventListener("click", onSubmit);
-    elBtnNext.addEventListener("click", onNext);
+                if (!inQuotes && (ch === "\n" || ch === "\r")) {
+                    if (ch === "\r" && next === "\n") i++;
+                    row.push(cur);
+                    cur = "";
+                    // bỏ dòng rỗng
+                    if (row.some(v => String(v).trim() !== "")) out.push(row);
+                    row = [];
+                    continue;
+                }
 
-    elInput.addEventListener("keydown", (e) => {
-      // Ctrl+Enter hoặc Cmd+Enter để submit nhanh
-      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-        e.preventDefault();
-        onSubmit();
-      }
-    });
+                cur += ch;
+            }
 
-    init();
-  </script>
+            // last cell
+            row.push(cur);
+            if (row.some(v => String(v).trim() !== "")) out.push(row);
+            return out;
+        }
+
+        function rowsFromCSV(csvText) {
+            const table = parseCSV(csvText);
+            if (!table.length) return [];
+
+            const header = table[0].map(h => String(h).trim().toLowerCase());
+            const idxCategory = header.indexOf("category");
+            const idxEn = header.indexOf("english");
+            const idxVi = header.indexOf("vietnamese");
+            const idxAF = header.indexOf("audio-f");
+            const idxAM = header.indexOf("audio-m");
+
+            // Nếu thiếu cột bắt buộc, báo lỗi rõ ràng (không đoán)
+            const required = { category: idxCategory, english: idxEn, vietnamese: idxVi, "audio-f": idxAF, "audio-m": idxAM };
+            const missing = Object.entries(required).filter(([, v]) => v === -1).map(([k]) => k);
+            if (missing.length) {
+                throw new Error("Thiếu cột trong vocabulary.csv: " + missing.join(", "));
+            }
+
+            const data = [];
+            for (let r = 1; r < table.length; r++) {
+                const line = table[r];
+                const obj = {
+                    category: (line[idxCategory] ?? "").trim(),
+                    english: (line[idxEn] ?? "").trim(),
+                    vietnamese: (line[idxVi] ?? "").trim(),
+                    audioF: (line[idxAF] ?? "").trim(),
+                    audioM: (line[idxAM] ?? "").trim(),
+                };
+                if (obj.english) data.push(obj);
+            }
+            return data;
+        }
+
+        function getAudioFileForRow(row) {
+            const rawName = (voice === "male") ? row.audioM : row.audioF;
+            if (!rawName) return null;
+            const base = AUDIO_BASE[voice];
+            // thêm .mp3 nếu CSV không có extension
+            const fileName = rawName.endsWith(".mp3") ? rawName : rawName + ".mp3";
+            // chỉ encode khoảng trắng
+            const safeName = fileName.replaceAll(" ", "%20");
+            safeName = safeName.toLowerCase();
+            return base + "/" + safeName;
+        }
+
+        function updateStatsUI() {
+            elStatTotalQ.textContent = String(totalQuestions);
+            elStatCorrect.textContent = String(correctCount);
+            elStatTotalSubmit.textContent = String(totalSubmit);
+
+            const acc = totalSubmit === 0 ? 0 : (correctCount / totalSubmit) * 100;
+            elStatAcc.textContent = acc.toFixed(0) + "%";
+        }
+
+        function updateQuestionUI() {
+            if (!currentList.length || idx >= currentList.length) return;
+
+            const row = currentList[idx];
+            elVN.textContent = row.vietnamese || "(Không có nghĩa tiếng Việt)";
+            elBadge.textContent = `Câu: ${Math.min(idx + 1, totalQuestions)}/${totalQuestions}`;
+
+            const audioSrc = getAudioFileForRow(row);
+            elBtnPlay.disabled = !audioSrc;
+            player.src = audioSrc || "";
+            player.load();
+
+            elInput.value = "";
+            elInput.focus();
+
+            setFeedback("", "");
+            updateStatsUI();
+
+            if (elAutoListen.checked && audioSrc) {
+                // cố gắng autoplay; nếu trình duyệt chặn thì bé bấm "Nghe lại"
+                player.play().catch(() => { });
+            }
+        }
+
+        function finishUI() {
+            elVN.textContent = "🎉 Hoàn thành!";
+            elBadge.textContent = `Câu: ${totalQuestions}/${totalQuestions}`;
+            elBtnPlay.disabled = true;
+            elBtnSubmit.disabled = true;
+            elBtnNext.disabled = true;
+            elInput.disabled = true;
+
+            setFeedback("ok", `Bé đã làm xong. Đúng ${correctCount}/${totalSubmit} lần submit.`);
+            updateStatsUI();
+        }
+
+        function buildQuizList() {
+            // lọc theo category
+            let list = [];
+            if (selectedCategory === "__all__") {
+                list = rows.slice();
+                list = shuffle(list).slice(0, Math.min(20, list.length)); // all -> 20 từ
+            } else {
+                list = rows.filter(r => r.category === selectedCategory);
+                list = shuffle(list); // category -> random toàn bộ trong category
+            }
+
+            currentList = list;
+            idx = 0;
+            totalQuestions = currentList.length;
+
+            // reset stats
+            correctCount = 0;
+            totalSubmit = 0;
+            updateStatsUI();
+
+            elBtnSubmit.disabled = totalQuestions === 0;
+            elBtnNext.disabled = totalQuestions === 0;
+            elInput.disabled = totalQuestions === 0;
+
+            if (totalQuestions === 0) {
+                setFeedback("bad", "Không có dữ liệu cho lựa chọn này.");
+                elVN.textContent = "Không có câu hỏi.";
+                elBadge.textContent = "Câu: 0/0";
+                elBtnPlay.disabled = true;
+                return;
+            }
+
+            updateQuestionUI();
+        }
+
+        // ====== Actions ======
+        function onSubmit() {
+            if (!currentList.length || idx >= currentList.length) return;
+
+            const row = currentList[idx];
+            const expected = normalizeAnswer(row.english);
+            const got = normalizeAnswer(elInput.value);
+
+            if (!got) {
+                setFeedback("warn", "Bé chưa nhập đáp án.");
+                elInput.focus();
+                return;
+            }
+
+            totalSubmit += 1;
+
+            if (got === expected) {
+                correctCount += 1;
+                setFeedback("ok", "✅ Đúng rồi! Chuyển sang câu tiếp theo…");
+                updateStatsUI();
+
+                // chuyển câu
+                idx += 1;
+                if (idx >= totalQuestions) {
+                    finishUI();
+                } else {
+                    updateQuestionUI();
+                }
+            } else {
+                // sai: báo đỏ + clear input, KHÔNG chuyển câu
+                setFeedback("bad", "❌ Sai rồi. Bé thử lại nhé!");
+                updateStatsUI();
+                elInput.value = "";
+                elInput.focus();
+            }
+        }
+
+        function onNext() {
+            if (!currentList.length) return;
+            idx += 1;
+            if (idx >= totalQuestions) {
+                finishUI();
+            } else {
+                updateQuestionUI();
+            }
+        }
+
+        function onPlay() {
+            if (!player.src) return;
+            player.play().catch(() => { });
+        }
+
+        function onVoiceChange(newVoice) {
+            voice = newVoice;
+            // đổi giọng thì giữ nguyên câu hiện tại, chỉ đổi audio
+            if (currentList.length && idx < currentList.length) {
+                const audioSrc = getAudioFileForRow(currentList[idx]);
+                elBtnPlay.disabled = !audioSrc;
+                player.src = audioSrc || "";
+                player.load();
+                if (elAutoListen.checked && audioSrc) {
+                    player.play().catch(() => { });
+                }
+            }
+        }
+
+        function onCategoryChange(val) {
+            selectedCategory = val;
+            buildQuizList();
+        }
+
+        // ====== Init ======
+        async function init() {
+            try {
+                const res = await fetch(CSV_PATH, { cache: "no-store" });
+                if (!res.ok) throw new Error("Không tải được vocabulary.csv (HTTP " + res.status + ")");
+                const csvText = await res.text();
+
+                rows = rowsFromCSV(csvText);
+
+                // categories
+                const categories = Array.from(new Set(rows.map(r => r.category).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+                elCategory.innerHTML = "";
+                const optAll = document.createElement("option");
+                optAll.value = "__all__";
+                optAll.textContent = "All (20 câu)";
+                elCategory.appendChild(optAll);
+
+                for (const c of categories) {
+                    const opt = document.createElement("option");
+                    opt.value = c;
+                    opt.textContent = c;
+                    elCategory.appendChild(opt);
+                }
+
+                elCategory.disabled = false;
+
+                // enable UI
+                elBtnPlay.disabled = true;
+                elBtnSubmit.disabled = false;
+                elBtnNext.disabled = false;
+                elInput.disabled = false;
+
+                // build first quiz
+                selectedCategory = "__all__";
+                buildQuizList();
+
+                setFeedback("", "");
+            } catch (err) {
+                elCategory.disabled = true;
+                elBtnPlay.disabled = true;
+                elBtnSubmit.disabled = true;
+                elBtnNext.disabled = true;
+                elInput.disabled = true;
+
+                elVN.textContent = "Lỗi tải dữ liệu.";
+                elBadge.textContent = "Câu: 0/0";
+                setFeedback("bad", String(err && err.message ? err.message : err));
+            }
+        }
+
+        // events
+        document.querySelectorAll('input[name="voice"]').forEach(radio => {
+            radio.addEventListener("change", (e) => onVoiceChange(e.target.value));
+        });
+
+        elCategory.addEventListener("change", (e) => onCategoryChange(e.target.value));
+        elBtnPlay.addEventListener("click", onPlay);
+        elBtnSubmit.addEventListener("click", onSubmit);
+        elBtnNext.addEventListener("click", onNext);
+
+        elInput.addEventListener("keydown", (e) => {
+            // Ctrl+Enter hoặc Cmd+Enter để submit nhanh
+            if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+                e.preventDefault();
+                onSubmit();
+            }
+        });
+
+        init();
+    </script>
 </body>
+
 </html>
