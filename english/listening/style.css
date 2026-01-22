@@ -81,6 +81,7 @@ body{
 
 .row-tight{
   align-items:center;
+  justify-content: center;
 }
 
 .field{
@@ -134,7 +135,7 @@ body{
 .seg-item input{ transform: scale(1.2); }
 
 .check{
-  display:flex;
+  display:none;
   gap:10px;
   align-items:center;
   font-weight:800;
@@ -186,7 +187,7 @@ body{
   font-weight: 700;
   outline:none;
   resize: vertical;
-  min-height: 84px;
+  min-height: 64px;
 }
 
 .textarea:focus{
