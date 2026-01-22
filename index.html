@@ -1,73 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Audio iPad</title>
-    <style>
-        body { 
-            font-family: sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            margin: 0; 
-            background-color: #f0f2f5; 
-        }
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        button {
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        button:active {
-            transform: scale(0.95);
-            background-color: #1557b0;
-        }
-        h1 { color: #333; margin-bottom: 30px; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Học cùng bé</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+  <main class="page">
+    <section class="card">
+      <h1 class="title">📚 Học cùng bé</h1>
+      <p class="subtitle">Hôm nay bé muốn học gì?</p>
 
-    <div class="card">
-        <h1>Từ: Apple</h1>
-        <button onclick="play()">🔊 Nghe âm thanh</button>
-    </div>
-
-    <audio id="player">
-        <source src="apple_female.mp3" type="audio/mpeg">
-        Trình duyệt không hỗ trợ audio.
-    </audio>
-
-    <script>
-        function play() {
-            var audio = document.getElementById("player");
-            
-            // Trên iOS đôi khi cần .load() trước khi .play() ở lần đầu
-            audio.load();
-            
-            var promise = audio.play();
-            
-            if (promise !== undefined) {
-                promise.catch(error => {
-                    console.log("Lỗi: " + error);
-                    alert("Lỗi phát audio. Hãy đảm bảo file mp3 nằm cùng thư mục.");
-                });
-            }
-        }
-    </script>
-
+      <div class="menu">
+        <a class="btn btn-english" href="english/english.html">🇬🇧 English</a>
+        <a class="btn btn-math" href="toan/index.html">➕ Toán</a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
