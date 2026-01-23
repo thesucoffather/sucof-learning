@@ -26,7 +26,7 @@
 
                 <div class="toggles">
                     <label class="toggle">
-                        <input id="toggleImage" type="checkbox" checked />
+                        <input id="toggleImage" type="checkbox" />
                         <span>Hiển thị hình ảnh</span>
                     </label>
 
@@ -337,7 +337,11 @@
                 return;
             }
 
-            renderQuestion();
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    renderQuestion();
+                });
+            });
         }
 
         function resetAll() {
