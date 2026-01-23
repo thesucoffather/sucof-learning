@@ -224,43 +224,98 @@
             return PICTURES_DIR + name + ".jpg";
         }
 
+        /*        function renderQuestion() {
+                    setFeedback("", null);
+                    if (!queue.length) return;
+        
+                    const item = currentItem();
+                    const showImg = toggleImage.checked;
+                    const showVN = toggleVn.checked;
+        
+                    // Xử lý hình ảnh
+                    if (showImg) {
+                        // 1. Hiện wrap trước
+                        imgWrap.classList.remove("hidden");
+                        imgWrap.innerHTML = ""; // Xóa ảnh cũ
+        
+                        const img = document.createElement("img");
+                        img.className = "question-img";
+        
+                        // 2. Tạo đường dẫn
+                        const src = imagePathFromEnglish(item.english);
+        
+                        // 3. Gán src và chèn vào DOM
+                        img.src = src;
+                        imgWrap.appendChild(img);
+        
+                        img.onerror = () => {
+                            imgWrap.classList.add("hidden");
+                        };
+                    } else {
+                        // Nếu không tích chọn hình ảnh thì ẩn đi
+                        imgWrap.classList.add("hidden");
+                    }
+        
+                    // Xử lý tiếng Việt
+                    if (showVN) {
+                        vnText.classList.remove("hidden");
+                        vnText.textContent = item.vietnamese || "";
+                    } else {
+                        vnText.classList.add("hidden");
+                    }
+        
+                    answerInput.value = "";
+                    answerInput.focus();
+                    updateStats();
+        }                     */
+
+        
         function renderQuestion() {
             setFeedback("", null);
             if (!queue.length) return;
 
             const item = currentItem();
-            const showImg = toggleImage.checked;
-            const showVN = toggleVn.checked;
 
-            // Xử lý hình ảnh
+            // Ép kiểu dữ liệu về Boolean để chắc chắn iOS hiểu đúng
+            const showImg = !!document.getElementById("toggleImage").checked;
+            const showVN = !!document.getElementById("toggleVn").checked;
+
+            // Xử lý Image
             if (showImg) {
-                // 1. Hiện wrap trước
+                // QUAN TRỌNG: Gỡ bỏ class hidden bằng style trực tiếp để ghi đè !important
+                imgWrap.style.display = "flex";
                 imgWrap.classList.remove("hidden");
-                imgWrap.innerHTML = ""; // Xóa ảnh cũ
+                imgWrap.innerHTML = "";
 
                 const img = document.createElement("img");
                 img.className = "question-img";
 
-                // 2. Tạo đường dẫn
+                // Thêm thuộc tính này để tránh cache lỗi trên iOS
                 const src = imagePathFromEnglish(item.english);
+                img.src = src + "?t=" + new Date().getTime();
 
-                // 3. Gán src và chèn vào DOM
-                img.src = src;
-                imgWrap.appendChild(img);
+                img.onload = () => {
+                    console.log("Ảnh đã hiện!");
+                };
 
                 img.onerror = () => {
-                    imgWrap.classList.add("hidden");
+                    imgWrap.style.display = "none";
+                    console.log("Không tìm thấy ảnh");
                 };
+
+                imgWrap.appendChild(img);
             } else {
-                // Nếu không tích chọn hình ảnh thì ẩn đi
+                imgWrap.style.display = "none";
                 imgWrap.classList.add("hidden");
             }
 
-            // Xử lý tiếng Việt
+            // Xử lý Vietnamese (Tương tự hình ảnh)
             if (showVN) {
+                vnText.style.display = "block";
                 vnText.classList.remove("hidden");
                 vnText.textContent = item.vietnamese || "";
             } else {
+                vnText.style.display = "none";
                 vnText.classList.add("hidden");
             }
 
@@ -325,6 +380,9 @@
                 showDone();
                 return;
             }
+
+            if (toggleImage.checked) toggleImage.setAttribute('checked', 'checked');
+            if (toggleVn.checked) toggleVn.setAttribute('checked', 'checked');
 
             // Đảm bảo UI cập nhật xong rồi mới vẽ câu hỏi
             window.requestAnimationFrame(() => {
