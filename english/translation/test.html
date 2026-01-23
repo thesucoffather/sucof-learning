@@ -106,7 +106,7 @@
 
         const quizArea = document.getElementById("quizArea");
         const doneArea = document.getElementById("doneArea");
-        //const doneResetBtn = document.getElementById("doneResetBtn");
+        // const doneResetBtn = document.getElementById("doneResetBtn");
 
         const imgWrap = document.getElementById("imgWrap");
         const questionImg = document.getElementById("questionImg");
@@ -236,21 +236,17 @@
             // Image
             if (showImg) {
                 imgWrap.classList.remove("hidden");
-                imgWrap.innerHTML = "";
-
-                const img = document.createElement("img");
-                img.className = "question-img";
-
-                // Gán src TRƯỚC khi append để trình duyệt bắt đầu bắt luồng tải
-                const src = imagePathFromEnglish(item.english);
-                img.src = src;
-
-                img.onerror = () => {
+                questionImg.src = imagePathFromEnglish(item.english);
+                questionImg.alt = ""; // không hiển thị tên file
+                // nếu ảnh không tồn tại -> ẩn ảnh + báo nhẹ
+                questionImg.onerror = () => {
                     imgWrap.classList.add("hidden");
-                    // setFeedback("Không tìm thấy hình ảnh...", "bad");
+                    setFeedback("Không tìm thấy hình ảnh cho từ này.", "bad");
+                    questionImg.onerror = null;
                 };
-
-                imgWrap.appendChild(img);
+            } else {
+                imgWrap.classList.add("hidden");
+                questionImg.removeAttribute("src");
             }
 
             // Vietnamese
@@ -304,27 +300,20 @@
         }
 
         function startQuiz() {
-            console.log("Đang bắt đầu bài học...");
             queue = buildQueue();
             idx = 0;
             correctCount = 0;
             submitCount = 0;
 
-            setFeedback("", null);
-            updateStats();
-
-            // 1. Reset giao diện chính
             doneArea.classList.add("hidden");
             quizArea.classList.remove("hidden");
 
-            // QUAN TRỌNG: Hiện lại phần câu hỏi và ô nhập liệu (vì bị ẩn ở showDone)
-            document.querySelector(".prompt").classList.remove("hidden");
-            document.querySelector(".answer").classList.remove("hidden");
-
             started = true;
+
             answerInput.disabled = false;
             submitBtn.disabled = false;
             nextBtn.disabled = false;
+
             resetBtn.disabled = false;
 
             if (queue.length === 0) {
@@ -333,11 +322,9 @@
                 return;
             }
 
-            // Đảm bảo UI cập nhật xong rồi mới vẽ câu hỏi
-            window.requestAnimationFrame(() => {
-                renderQuestion();
-            });
+            renderQuestion();
         }
+
         function resetAll() {
             queue = [];
             idx = 0;
@@ -348,16 +335,13 @@
             quizArea.classList.add("hidden");
             doneArea.classList.add("hidden");
 
-            // Hiện lại sẵn các phần này để lần sau Start không bị mất
-            document.querySelector(".prompt").classList.remove("hidden");
-            document.querySelector(".answer").classList.remove("hidden");
-
             answerInput.value = "";
             answerInput.disabled = true;
             submitBtn.disabled = true;
             nextBtn.disabled = true;
 
             setFeedback("", null);
+
             updateStats();
         }
 
@@ -458,7 +442,7 @@
         // ====== EVENTS ======
         startBtn.addEventListener("click", () => startQuiz());
         resetBtn.addEventListener("click", () => { resetAll(); });
-        //doneResetBtn.addEventListener("click", () => { resetAll(); });
+        // doneResetBtn.addEventListener("click", () => { resetAll(); });
 
         submitBtn.addEventListener("click", handleSubmit);
         nextBtn.addEventListener("click", () => {
