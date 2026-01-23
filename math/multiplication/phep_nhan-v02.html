@@ -1,177 +1,11 @@
 <!doctype html>
 <html lang="vi">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bảng cửu chương: Nhân / Chia</title>
-  <style>
-    :root{
-      --bg:#0b1020;
-      --card:#121a33;
-      --muted:#9fb0d0;
-      --text:#e8eeff;
-      --border:rgba(255,255,255,.12);
-      --ok:#20c997;
-      --bad:#ff6b6b;
-      --warn:#ffd43b;
-      --btn:#2b6cff;
-      --btn2:#223058;
-      --input:#0f1630;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-      background: radial-gradient(1000px 700px at 20% 0%, rgba(43,108,255,.25), transparent 55%),
-                  radial-gradient(900px 700px at 80% 10%, rgba(32,201,151,.18), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      padding:16px;
-    }
-    .wrap{max-width:980px;margin:0 auto;display:grid;gap:14px}
-    .row{display:grid;gap:14px}
-    @media(min-width:900px){
-      .row{grid-template-columns: 1.1fr .9fr}
-    }
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
-    }
-    h1{margin:0 0 6px 0;font-size:20px}
-    .sub{color:var(--muted);font-size:13px;line-height:1.4}
-    .controls{
-      display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px
-    }
-    label{
-      display:flex;gap:8px;align-items:center;
-      padding:8px 10px;border:1px solid var(--border);border-radius:12px;
-      background: rgba(0,0,0,.15);
-      user-select:none;
-    }
-    select{
-      background: rgba(0,0,0,.15);
-      color:var(--text);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:8px 10px;
-      outline:none;
-    }
-
-    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;justify-content:center}
-
-    button{
-      border:0;
-      border-radius:14px;
-      padding:10px 12px;
-      color:var(--text);
-      cursor:pointer;
-      font-weight:600;
-    }
-    button.primary{background: var(--btn)}
-    button.secondary{background: var(--btn2); border:1px solid var(--border)}
-    button:disabled{opacity:.55; cursor:not-allowed}
-
-    .quiz{display:grid;gap:10px;align-items:center;margin-top:12px}
-
-    /* ✅ Câu hỏi canh giữa */
-    .qblock{display:grid;gap:10px;justify-items:center}
-    .qexpr{
-      display:flex;gap:10px;align-items:center;flex-wrap:wrap;
-      font-size:32px;
-      justify-content:center;
-      text-align:center;
-    }
-
-    /* ✅ Ô đáp án nằm NGAY chỗ "?" với viền giống ô ? cũ */
-    .ansBox{
-      width:110px;
-      height:54px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border:2px solid rgba(255,255,255,.35);
-      background: rgba(255,255,255,.04);
-      border-radius:12px;
-      padding:0 8px;
-    }
-    input.answerInBox{
-      width:100%;
-      height:100%;
-      border:0;
-      outline:none;
-      background: transparent;
-      color: var(--text);
-      font-size:22px;
-      font-weight:800;
-      text-align:center;
-    }
-    /* ẩn spinner number trên Chrome */
-    input.answerInBox::-webkit-outer-spin-button,
-    input.answerInBox::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
-    input.answerInBox[type=number]{ -moz-appearance:textfield; }
-
-    .status{
-      font-size:14px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.12);
-      line-height:1.35;
-      min-height:44px;
-    }
-    .ok{border-color: rgba(32,201,151,.5); background: rgba(32,201,151,.12)}
-    .bad{border-color: rgba(255,107,107,.55); background: rgba(255,107,107,.12)}
-    .warn{border-color: rgba(255,212,59,.55); background: rgba(255,212,59,.10)}
-
-    .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;justify-content:center}
-    .pill{
-      padding:8px 10px;border:1px solid var(--border);border-radius:999px;
-      background: rgba(0,0,0,.12);
-      font-size:13px;color:var(--muted)
-    }
-    .pill b{color:var(--text)}
-
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.12);
-    }
-    th,td{
-      padding:10px 10px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      font-size:13px;
-      vertical-align:top;
-    }
-    th{color:var(--muted); text-align:left; font-weight:700; background: rgba(255,255,255,.04)}
-    tr:last-child td{border-bottom:0}
-    .tag{
-      display:inline-block;
-      padding:2px 8px;
-      border-radius:999px;
-      font-size:12px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.08);
-      margin-right:6px;
-    }
-    .tag.ok{color:var(--ok); border-color: rgba(32,201,151,.45)}
-    .tag.bad{color:var(--bad); border-color: rgba(255,107,107,.55)}
-    .small{font-size:12px;color:var(--muted)}
-    .hint{color:var(--muted); font-size:12px; margin-top:8px; text-align:center}
-    .hr{height:1px;background:rgba(255,255,255,.10);margin:12px 0}
-
-    .logWrap{
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -228,15 +62,8 @@
             <span>=</span>
 
             <span class="ansBox" title="Điền đáp án">
-              <input
-                id="answer"
-                class="answerInBox"
-                type="number"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                placeholder=""
-                autocomplete="off"
-              />
+              <input id="answer" class="answerInBox" type="number" inputmode="numeric" pattern="[0-9]*" placeholder=""
+                autocomplete="off" />
             </span>
           </div>
         </div>
@@ -262,7 +89,8 @@
     <div class="row">
       <div class="card">
         <h1>Bảng kết quả (mỗi lần nộp bài)</h1>
-        <div class="sub">Mỗi lần bé bấm “Nộp bài”, hệ thống ghi lại <b>thời gian hoàn thành</b>, <b>đúng/sai</b> và <b>tỷ lệ đúng</b>.</div>
+        <div class="sub">Mỗi lần bé bấm “Nộp bài”, hệ thống ghi lại <b>thời gian hoàn thành</b>, <b>đúng/sai</b> và
+          <b>tỷ lệ đúng</b>.</div>
         <div class="hr"></div>
 
         <div class="logWrap" aria-label="Kết quả (cuộn để xem thêm)">
@@ -487,7 +315,7 @@
       nextQuestion(true);
     }
 
-    function nextQuestion(isFirst=false) {
+    function nextQuestion(isFirst = false) {
       if (currentIndex >= totalQuestions && !isFirst) {
         setStatus(
           `Hoàn thành ${totalQuestions} câu 🎉<br><span class="small">Bạn có thể bấm “Bắt đầu / Làm lại” để làm phiên mới.</span>`,
@@ -591,4 +419,5 @@
     });
   </script>
 </body>
+
 </html>
