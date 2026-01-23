@@ -47,7 +47,7 @@
             <div id="quizArea" class="quiz hidden">
 
                 <div class="prompt">
-                    <div id="imgWrap" class="img-wrap hidden">
+                    <div id="imgWrap" class="img-wrap">
                         <img id="questionImg" class="question-img" alt="" />
                     </div>
 
@@ -226,53 +226,46 @@
 
         function renderQuestion() {
             setFeedback("", null);
-
             if (!queue.length) return;
 
             const item = currentItem();
             const showImg = toggleImage.checked;
             const showVN = toggleVn.checked;
 
-            // Image
+            // Xử lý hình ảnh
             if (showImg) {
+                // 1. Hiện wrap trước
                 imgWrap.classList.remove("hidden");
-                imgWrap.innerHTML = "";
+                imgWrap.innerHTML = ""; // Xóa ảnh cũ
 
                 const img = document.createElement("img");
                 img.className = "question-img";
 
-                // Gán src TRƯỚC khi append để trình duyệt bắt đầu bắt luồng tải
+                // 2. Tạo đường dẫn
                 const src = imagePathFromEnglish(item.english);
+
+                // 3. Gán src và chèn vào DOM
                 img.src = src;
+                imgWrap.appendChild(img);
 
                 img.onerror = () => {
                     imgWrap.classList.add("hidden");
-                    // setFeedback("Không tìm thấy hình ảnh...", "bad");
                 };
-
-                imgWrap.appendChild(img);
+            } else {
+                // Nếu không tích chọn hình ảnh thì ẩn đi
+                imgWrap.classList.add("hidden");
             }
 
-            // Vietnamese
+            // Xử lý tiếng Việt
             if (showVN) {
                 vnText.classList.remove("hidden");
                 vnText.textContent = item.vietnamese || "";
             } else {
                 vnText.classList.add("hidden");
-                vnText.textContent = "";
             }
 
-            // helper
-            if (!showImg && !showVN) {
-                helper.textContent = "Hãy gõ từ tiếng Anh (không có gợi ý hình/tiếng Việt)";
-            } else {
-                helper.textContent = "Hãy gõ từ tiếng Anh vào ô bên dưới";
-            }
-
-            // input
             answerInput.value = "";
             answerInput.focus();
-
             updateStats();
         }
 

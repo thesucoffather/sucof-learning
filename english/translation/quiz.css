@@ -216,6 +216,8 @@ body {
 }
 
 .img-wrap {
+    min-width: 150px; /* Thêm dòng này */
+    min-height: 120px; /* Thêm dòng này */
     max-width: 220px;
     /* giới hạn kích thước */
     max-height: 180px;
