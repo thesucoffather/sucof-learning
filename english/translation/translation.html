@@ -237,30 +237,31 @@
             if (showImg) {
                 imgWrap.classList.remove("hidden");
 
-                // 🔥 RESET IMG TRƯỚC (RẤT QUAN TRỌNG CHO MOBILE)
-                questionImg.onerror = null;
-                questionImg.onload = null;
-                questionImg.removeAttribute("src");
+                // 🔥 XÓA IMG CŨ (QUAN TRỌNG)
+                imgWrap.innerHTML = "";
 
-                const imgSrc = imagePathFromEnglish(item.english);
+                const img = document.createElement("img");
+                img.className = "question-img";
+                img.alt = "";
 
-                questionImg.onload = () => {
-                    imgWrap.classList.remove("hidden");
+                const src = imagePathFromEnglish(item.english);
+
+                img.onload = () => {
+                    // OK
                 };
 
-                questionImg.onerror = () => {
+                img.onerror = () => {
                     imgWrap.classList.add("hidden");
                     setFeedback("Không tìm thấy hình ảnh cho từ này.", "bad");
                 };
 
-                // ⚠️ gán src SAU KHI set onload/onerror
-                questionImg.src = imgSrc;
+                img.src = src;
+
+                imgWrap.appendChild(img);
 
             } else {
                 imgWrap.classList.add("hidden");
-                questionImg.onerror = null;
-                questionImg.onload = null;
-                questionImg.removeAttribute("src");
+                imgWrap.innerHTML = "";
             }
 
             // Vietnamese
