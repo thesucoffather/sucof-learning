@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Luyện toán phạm vi 20/100</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    .range-box {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .range-box label {
+      margin: 0 10px;
+    }
+
+    .question-box {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .expression {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .expression span {
+      display: inline-block;
+      min-width: 40px;
+    }
+
+    input[type="tel"] {
+      font-size: 1.5rem;
+      padding: 5px 10px;
+      width: 120px;
+      text-align: center;
+    }
+
+    .button-row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-size: 1.1rem;
+      padding: 8px 16px;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+      min-height: 1.4em;
+    }
+
+    .timer {
+      margin-top: 5px;
+      font-style: italic;
+      color: #555;
+    }
+
+    .stats {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    .info {
+      margin-top: 15px;
+      font-size: 0.95rem;
+    }
+
+    .mistakes {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .mistakes h2 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .mistakes ol {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Toán phạm vi 20 / 100</h1>
+
+  <div class="range-box">
+    Phạm vi:
+    <label>
+      <input type="radio" name="range" value="20" checked> 0 – 20
+    </label>
+    <label>
+      <input type="radio" name="range" value="100"> 0 – 100
+    </label>
+  </div>
+
+  <div class="question-box">
+    <div class="expression" id="expression">
+      <!-- Phép tính sẽ hiển thị ở đây -->
+    </div>
+
+    <input id="answerInput" type="tel" inputmode="numeric" autocomplete="off">
+
+    <div class="button-row">
+      <button id="submitBtn">Nộp bài</button>
+      <button id="newBtn">Bài mới</button>
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+    <div class="timer" id="timer">Thời gian: 0.0 giây</div>
+
+    <div class="stats">
+      <div id="correctCount">Số lần đúng: 0 / Tổng: 0</div>
+      <div id="wrongCount">Số lần sai: 0 / Tổng: 0</div>
+      <div id="accuracy">Tỷ lệ đúng: 0%</div>
+      <div id="avgTime">Thời gian TB (lần đúng): 0.0 giây</div>
+    </div>
+  </div>
+
+  <div class="info">
+    Gợi ý:
+    <ul>
+      <li>Câu hỏi dạng 1: A ± B = C</li>
+      <li>Câu hỏi dạng 2: A ± B ± C = D</li>
+      <li>Dấu hỏi (□) có thể là A, B, C (dạng 1) hoặc A, B, C, D (dạng 2).</li>
+      <li>Các bước tính trung gian và kết quả luôn trong phạm vi đã chọn (0–20 hoặc 0–100), không âm.</li>
+      <li>Mỗi lần bấm "Nộp bài" (khi có kết quả) tính là 1 lần nộp.</li>
+    </ul>
+  </div>
+
+  <div class="mistakes">
+    <h2>Các câu sai</h2>
+    <div id="mistakesBox"><i>Chưa có câu sai nào.</i></div>
+  </div>
+
+  <script>
+    // Trạng thái chung
+    let currentType = 1;   // 1: A ± B = C,  2: A ± B ± C = D
+    let currentRangeMax = 20;
+
+    // Phép tính hiện tại
+    let currentA = 0;
+    let currentB = 0;
+    let currentC = 0;
+    let currentD = 0;      // chỉ dùng cho dạng 2
+    let currentOp1 = "+";
+    let currentOp2 = "+";
+    let hiddenPos = "A";   // "A" | "B" | "C" | "D"
+    let correctAnswer = 0;
+
+    // Timer
+    let startTime = 0;
+
+    // Thống kê
+    let totalCorrectAttempts = 0;
+    let totalWrongAttempts = 0;
+    let totalAttempts = 0;
+    let totalTimeSec = 0;
+
+    // Danh sách câu sai
+    const mistakes = [];
+
+    // DOM
+    const expressionEl   = document.getElementById("expression");
+    const answerInput    = document.getElementById("answerInput");
+    const submitBtn      = document.getElementById("submitBtn");
+    const newBtn         = document.getElementById("newBtn");
+    const feedbackEl     = document.getElementById("feedback");
+    const timerEl        = document.getElementById("timer");
+    const correctCountEl = document.getElementById("correctCount");
+    const wrongCountEl   = document.getElementById("wrongCount");
+    const accuracyEl     = document.getElementById("accuracy");
+    const avgTimeEl      = document.getElementById("avgTime");
+    const mistakesBoxEl  = document.getElementById("mistakesBox");
+    const rangeRadios    = document.querySelectorAll('input[name="range"]');
+
+    function randInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // Dạng 1: A ± B = C
+    function generateType1(max) {
+      const isAdd = Math.random() < 0.5;
+      let A, B, C;
+
+      if (isAdd) {
+        A = randInt(0, max);
+        const maxB = max - A;
+        B = randInt(0, maxB);
+        C = A + B;
+        return { A, B, C, op1: "+", type: 1 };
+      } else {
+        A = randInt(0, max);
+        B = randInt(0, A);
+        C = A - B;
+        return { A, B, C, op1: "-", type: 1 };
+      }
+    }
+
+    // Dạng 2: A ± B ± C = D, các bước trung gian cũng trong [0,max]
+    function generateType2(max) {
+      while (true) {
+        const op1 = Math.random() < 0.5 ? "+" : "-";
+        const op2 = Math.random() < 0.5 ? "+" : "-";
+
+        const A = randInt(0, max);
+        const B = randInt(0, max);
+        const C = randInt(0, max);
+
+        // Bước 1: A op1 B
+        let t1 = (op1 === "+") ? (A + B) : (A - B);
+        if (t1 < 0 || t1 > max) continue;
+
+        // Bước 2: (A op1 B) op2 C
+        let D = (op2 === "+") ? (t1 + C) : (t1 - C);
+        if (D < 0 || D > max) continue;
+
+        return { A, B, C, D, op1, op2, type: 2 };
+      }
+    }
+
+    function updateStats() {
+      correctCountEl.textContent =
+        "Số lần đúng: " + totalCorrectAttempts + " / Tổng: " + totalAttempts;
+
+      wrongCountEl.textContent =
+        "Số lần sai: " + totalWrongAttempts + " / Tổng: " + totalAttempts;
+
+      let accuracy = 0;
+      if (totalAttempts > 0) {
+        accuracy = Math.round((totalCorrectAttempts / totalAttempts) * 100);
+      }
+      accuracyEl.textContent = "Tỷ lệ đúng: " + accuracy + "%";
+
+      let avg = 0;
+      if (totalCorrectAttempts > 0) {
+        avg = totalTimeSec / totalCorrectAttempts;
+      }
+      avgTimeEl.textContent =
+        "Thời gian TB (lần đúng): " + avg.toFixed(1) + " giây";
+    }
+
+    function buildDisplayExpression() {
+      if (currentType === 1) {
+        let showA = (hiddenPos === "A") ? "□" : currentA;
+        let showB = (hiddenPos === "B") ? "□" : currentB;
+        let showC = (hiddenPos === "C") ? "□" : currentC;
+
+        return showA + " " + currentOp1 + " " + showB + " = " + showC;
+      } else {
+        let showA = (hiddenPos === "A") ? "□" : currentA;
+        let showB = (hiddenPos === "B") ? "□" : currentB;
+        let showC = (hiddenPos === "C") ? "□" : currentC;
+        let showD = (hiddenPos === "D") ? "□" : currentD;
+
+        return (
+          showA + " " + currentOp1 + " " + showB + " " +
+          currentOp2 + " " + showC + " = " + showD
+        );
+      }
+    }
+
+    function renderExpression() {
+      const exprStr = buildDisplayExpression();
+      const parts = exprStr.split(" ");
+      let html = "";
+      parts.forEach(p => {
+        html += '<span>' + p + '</span>';
+      });
+      expressionEl.innerHTML = html;
+    }
+
+    function renderMistakes() {
+      if (mistakes.length === 0) {
+        mistakesBoxEl.innerHTML = "<i>Chưa có câu sai nào.</i>";
+        return;
+      }
+
+      let html = "<ol>";
+      mistakes.forEach(item => {
+        html += "<li>" +
+          item.expression +
+          " &nbsp;| Bé trả lời: <b>" + item.userAnswer +
+          "</b></li>";
+      });
+      html += "</ol>";
+      mistakesBoxEl.innerHTML = html;
+    }
+
+    function newQuestion() {
+      currentType = Math.random() < 0.5 ? 1 : 2;
+
+      if (currentType === 1) {
+        const eq = generateType1(currentRangeMax);
+        currentA = eq.A;
+        currentB = eq.B;
+        currentC = eq.C;
+        currentD = 0;
+        currentOp1 = eq.op1;
+        currentOp2 = "+";
+        const options = ["A", "B", "C"];
+        hiddenPos = options[randInt(0, options.length - 1)];
+      } else {
+        const eq = generateType2(currentRangeMax);
+        currentA = eq.A;
+        currentB = eq.B;
+        currentC = eq.C;
+        currentD = eq.D;
+        currentOp1 = eq.op1;
+        currentOp2 = eq.op2;
+        const options = ["A", "B", "C", "D"];
+        hiddenPos = options[randInt(0, options.length - 1)];
+      }
+
+      if (hiddenPos === "A") {
+        correctAnswer = currentA;
+      } else if (hiddenPos === "B") {
+        correctAnswer = currentB;
+      } else if (hiddenPos === "C") {
+        correctAnswer = currentC;
+      } else {
+        correctAnswer = currentD;
+      }
+
+      renderExpression();
+
+      answerInput.value = "";
+      feedbackEl.textContent = "";
+      timerEl.textContent = "Thời gian: 0.0 giây";
+
+      answerInput.focus();
+      startTime = Date.now();
+    }
+
+    function checkAnswer() {
+      const value = answerInput.value.trim();
+      if (value === "") {
+        feedbackEl.textContent = "Hãy nhập đáp án.";
+        return;
+      }
+
+      const userAnswer = Number(value);
+      totalAttempts += 1;
+
+      if (userAnswer === correctAnswer) {
+        const elapsedMs  = Date.now() - startTime;
+        const elapsedSec = elapsedMs / 1000;
+
+        feedbackEl.textContent =
+          "Đúng rồi! 🎉 (" + elapsedSec.toFixed(1) + " giây)";
+        timerEl.textContent =
+          "Thời gian: " + elapsedSec.toFixed(1) + " giây";
+
+        totalCorrectAttempts += 1;
+        totalTimeSec += elapsedSec;
+      } else {
+        feedbackEl.textContent = "Chưa đúng, thử lại nhé.";
+        totalWrongAttempts += 1;
+
+        mistakes.push({
+          expression: buildDisplayExpression(),
+          userAnswer: userAnswer
+        });
+        renderMistakes();
+
+        answerInput.select();
+      }
+
+      updateStats();
+    }
+
+    rangeRadios.forEach(r => {
+      r.addEventListener("change", function () {
+        if (this.checked) {
+          currentRangeMax = Number(this.value);
+          newQuestion();
+        }
+      });
+    });
+
+    submitBtn.addEventListener("click", checkAnswer);
+    newBtn.addEventListener("click", newQuestion);
+
+    answerInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        checkAnswer();
+      }
+    });
+
+    // Khởi tạo
+    currentRangeMax = 20;
+    newQuestion();
+    updateStats();
+    renderMistakes();
+  </script>
+</body>
+</html>

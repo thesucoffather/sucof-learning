@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bảng cửu chương: Nhân / Chia</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#121a33;
+      --muted:#9fb0d0;
+      --text:#e8eeff;
+      --border:rgba(255,255,255,.12);
+      --ok:#20c997;
+      --bad:#ff6b6b;
+      --warn:#ffd43b;
+      --btn:#2b6cff;
+      --btn2:#223058;
+      --input:#0f1630;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1000px 700px at 20% 0%, rgba(43,108,255,.25), transparent 55%),
+                  radial-gradient(900px 700px at 80% 10%, rgba(32,201,151,.18), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      padding:16px;
+    }
+    .wrap{max-width:980px;margin:0 auto;display:grid;gap:14px}
+    .row{display:grid;gap:14px}
+    @media(min-width:900px){
+      .row{grid-template-columns: 1.1fr .9fr}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    h1{margin:0 0 6px 0;font-size:20px}
+    .sub{color:var(--muted);font-size:13px;line-height:1.4}
+    .controls{
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px
+    }
+    label{
+      display:flex;gap:8px;align-items:center;
+      padding:8px 10px;border:1px solid var(--border);border-radius:12px;
+      background: rgba(0,0,0,.15);
+      user-select:none;
+    }
+    select{
+      background: rgba(0,0,0,.15);
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:8px 10px;
+      outline:none;
+    }
+
+    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;justify-content:center}
+
+    button{
+      border:0;
+      border-radius:14px;
+      padding:10px 12px;
+      color:var(--text);
+      cursor:pointer;
+      font-weight:600;
+    }
+    button.primary{background: var(--btn)}
+    button.secondary{background: var(--btn2); border:1px solid var(--border)}
+    button:disabled{opacity:.55; cursor:not-allowed}
+
+    .quiz{display:grid;gap:10px;align-items:center;margin-top:12px}
+
+    /* ✅ Câu hỏi canh giữa */
+    .qblock{display:grid;gap:10px;justify-items:center}
+    .qexpr{
+      display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+      font-size:32px;
+      justify-content:center;
+      text-align:center;
+    }
+
+    /* ✅ Ô đáp án nằm NGAY chỗ "?" với viền giống ô ? cũ */
+    .ansBox{
+      width:110px;
+      height:54px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:2px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.04);
+      border-radius:12px;
+      padding:0 8px;
+    }
+    input.answerInBox{
+      width:100%;
+      height:100%;
+      border:0;
+      outline:none;
+      background: transparent;
+      color: var(--text);
+      font-size:22px;
+      font-weight:800;
+      text-align:center;
+    }
+    /* ẩn spinner number trên Chrome */
+    input.answerInBox::-webkit-outer-spin-button,
+    input.answerInBox::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+    input.answerInBox[type=number]{ -moz-appearance:textfield; }
+
+    .status{
+      font-size:14px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.12);
+      line-height:1.35;
+      min-height:44px;
+    }
+    .ok{border-color: rgba(32,201,151,.5); background: rgba(32,201,151,.12)}
+    .bad{border-color: rgba(255,107,107,.55); background: rgba(255,107,107,.12)}
+    .warn{border-color: rgba(255,212,59,.55); background: rgba(255,212,59,.10)}
+
+    .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;justify-content:center}
+    .pill{
+      padding:8px 10px;border:1px solid var(--border);border-radius:999px;
+      background: rgba(0,0,0,.12);
+      font-size:13px;color:var(--muted)
+    }
+    .pill b{color:var(--text)}
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.12);
+    }
+    th,td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-size:13px;
+      vertical-align:top;
+    }
+    th{color:var(--muted); text-align:left; font-weight:700; background: rgba(255,255,255,.04)}
+    tr:last-child td{border-bottom:0}
+    .tag{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      font-size:12px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.08);
+      margin-right:6px;
+    }
+    .tag.ok{color:var(--ok); border-color: rgba(32,201,151,.45)}
+    .tag.bad{color:var(--bad); border-color: rgba(255,107,107,.55)}
+    .small{font-size:12px;color:var(--muted)}
+    .hint{color:var(--muted); font-size:12px; margin-top:8px; text-align:center}
+    .hr{height:1px;background:rgba(255,255,255,.10);margin:12px 0}
+
+    .logWrap{
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Học bảng cửu chương (x1 → x10)</h1>
+      <div class="sub">
+        Chọn <b>phép nhân</b> hoặc <b>phép chia</b>. Chọn bảng từ <b>2 → 9</b> hoặc bật <b>tự động</b>.
+        Mỗi phiên sẽ có <b>10 câu</b>. Nếu trả lời sai, sẽ <b>không chuyển sang phép tính mới</b>.
+      </div>
+
+      <div class="controls" role="group" aria-label="Cấu hình">
+        <label>
+          <input id="opMul" type="checkbox" checked />
+          Phép nhân
+        </label>
+        <label>
+          <input id="opDiv" type="checkbox" />
+          Phép chia
+        </label>
+
+        <label>
+          Bảng:
+          <select id="tableSelect" aria-label="Chọn bảng">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+          </select>
+        </label>
+
+        <label>
+          <input id="autoTable" type="checkbox" />
+          Tự động chọn bảng (2 → 9)
+        </label>
+      </div>
+
+      <div class="btns">
+        <button id="btnStart" class="primary">Bắt đầu / Làm lại</button>
+        <button id="btnClearLog" class="secondary" title="Xoá bảng kết quả">Xoá kết quả</button>
+      </div>
+
+      <div class="quiz">
+        <!-- ✅ Input nằm ngay vị trí "?" -->
+        <div class="qblock" aria-live="polite">
+          <div class="qexpr">
+            <span id="qA">—</span>
+            <span id="qOp">×</span>
+            <span id="qB">—</span>
+            <span>=</span>
+
+            <span class="ansBox" title="Điền đáp án">
+              <input
+                id="answer"
+                class="answerInBox"
+                type="number"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                placeholder=""
+                autocomplete="off"
+              />
+            </span>
+          </div>
+        </div>
+
+        <div id="status" class="status warn">Nhấn <b>Bắt đầu</b> để tạo câu hỏi.</div>
+
+        <div class="btns">
+          <button id="btnSubmit" class="primary" disabled>Nộp bài</button>
+          <button id="btnNext" class="secondary" disabled>Câu tiếp theo</button>
+        </div>
+
+        <div class="stats">
+          <div class="pill">Câu: <b id="statQ">0/10</b></div>
+          <div class="pill">Đúng: <b id="statCorrect">0</b></div>
+          <div class="pill">Sai: <b id="statWrong">0</b></div>
+          <div class="pill">Tỷ lệ đúng: <b id="statAcc">0%</b></div>
+        </div>
+
+        <div class="hint">Mẹo: Bấm <b>Enter</b> để nộp bài.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <h1>Bảng kết quả (mỗi lần nộp bài)</h1>
+        <div class="sub">Mỗi lần bé bấm “Nộp bài”, hệ thống ghi lại <b>thời gian hoàn thành</b>, <b>đúng/sai</b> và <b>tỷ lệ đúng</b>.</div>
+        <div class="hr"></div>
+
+        <div class="logWrap" aria-label="Kết quả (cuộn để xem thêm)">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:60px;">#</th>
+                <th>Phép tính</th>
+                <th style="width:120px;">Bé trả lời</th>
+                <th style="width:110px;">Kết quả</th>
+                <th style="width:120px;">Thời gian</th>
+                <th style="width:120px;">Tỷ lệ đúng</th>
+              </tr>
+            </thead>
+            <tbody id="logBody">
+              <tr>
+                <td colspan="6" class="small">Chưa có dữ liệu.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="hint">Hiển thị mặc định ~5 kết quả gần nhất. Cuộn trong khung này để xem các kết quả cũ hơn.</div>
+      </div>
+
+      <div class="card">
+        <h1>Quy tắc tạo câu hỏi</h1>
+        <div class="sub" style="margin-top:8px;">
+          <div style="margin:6px 0;">
+            <span class="tag">Phép nhân</span>
+            A = bảng (2→9 hoặc tự động), B = ngẫu nhiên (1→10), câu: <b>A × B = ?</b>
+          </div>
+          <div style="margin:6px 0;">
+            <span class="tag">Phép chia</span>
+            Lấy từ phép nhân: tích = A×B. Khi hỏi chia: <b>(A×B) / A = ?</b> (A là bảng 2→9).
+          </div>
+          <div class="hr"></div>
+          <div class="small">
+            Nếu trả lời sai: vẫn giữ nguyên câu hỏi để bé sửa lại, <b>không chuyển câu mới</b>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Helpers =====
+    const $ = (id) => document.getElementById(id);
+
+    function randInt(min, max) { // inclusive
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function clampOps() {
+      const mul = $("opMul").checked;
+      const div = $("opDiv").checked;
+      if (!mul && !div) $("opMul").checked = true;
+    }
+
+    function pickOperation() {
+      const mul = $("opMul").checked;
+      const div = $("opDiv").checked;
+      if (mul && div) return (Math.random() < 0.5) ? "mul" : "div";
+      if (mul) return "mul";
+      return "div";
+    }
+
+    function pickTable() {
+      if ($("autoTable").checked) return randInt(2, 9);
+      return parseInt($("tableSelect").value, 10);
+    }
+
+    function fmtSecs(ms) {
+      const s = ms / 1000;
+      if (s < 10) return s.toFixed(2) + "s";
+      if (s < 60) return s.toFixed(1) + "s";
+      const m = Math.floor(s / 60);
+      const r = (s - m * 60).toFixed(1);
+      return `${m}m ${r}s`;
+    }
+
+    // ===== State =====
+    let totalQuestions = 10;
+    let currentIndex = 0;
+    let current = null;
+    let questionStart = 0;
+
+    let attempts = 0;
+    let correctAttempts = 0;
+    let wrongAttempts = 0;
+
+    let logRows = [];
+
+    // ===== UI =====
+    function setStatus(text, kind) {
+      const el = $("status");
+      el.classList.remove("ok", "bad", "warn");
+      el.classList.add(kind);
+      el.innerHTML = text;
+    }
+
+    function renderStats() {
+      $("statQ").textContent = `${currentIndex}/${totalQuestions}`;
+      $("statCorrect").textContent = String(correctAttempts);
+      $("statWrong").textContent = String(wrongAttempts);
+      const acc = attempts ? Math.round((correctAttempts / attempts) * 100) : 0;
+      $("statAcc").textContent = `${acc}%`;
+      return acc;
+    }
+
+    function renderLog() {
+      const body = $("logBody");
+      body.innerHTML = "";
+
+      if (logRows.length === 0) {
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 6;
+        td.className = "small";
+        td.textContent = "Chưa có dữ liệu.";
+        tr.appendChild(td);
+        body.appendChild(tr);
+        return;
+      }
+
+      for (const row of logRows) {
+        const tr = document.createElement("tr");
+
+        const tdN = document.createElement("td");
+        tdN.textContent = row.n;
+        tr.appendChild(tdN);
+
+        const tdExpr = document.createElement("td");
+        tdExpr.textContent = row.expr;
+        tr.appendChild(tdExpr);
+
+        const tdAns = document.createElement("td");
+        tdAns.textContent = row.answer;
+        tr.appendChild(tdAns);
+
+        const tdOk = document.createElement("td");
+        const tag = document.createElement("span");
+        tag.className = "tag " + (row.ok ? "ok" : "bad");
+        tag.textContent = row.ok ? "Đúng" : "Sai";
+        tdOk.appendChild(tag);
+        tr.appendChild(tdOk);
+
+        const tdTime = document.createElement("td");
+        tdTime.textContent = row.time;
+        tr.appendChild(tdTime);
+
+        const tdAcc = document.createElement("td");
+        tdAcc.textContent = row.acc;
+        tr.appendChild(tdAcc);
+
+        body.appendChild(tr);
+      }
+    }
+
+    function updateQuestionUI() {
+      if (!current) {
+        $("qA").textContent = "—";
+        $("qB").textContent = "—";
+        $("qOp").textContent = "×";
+        $("answer").value = "";
+        $("btnSubmit").disabled = true;
+        $("btnNext").disabled = true;
+        return;
+      }
+
+      $("qA").textContent = String(current.a);
+      $("qB").textContent = String(current.b);
+      $("qOp").textContent = (current.op === "mul") ? "×" : "÷";
+      $("answer").value = "";
+      $("answer").focus();
+
+      $("btnSubmit").disabled = false;
+      $("btnNext").disabled = true;
+    }
+
+    function makeQuestion() {
+      clampOps();
+      const op = pickOperation();
+      const table = pickTable();
+
+      if (op === "mul") {
+        const a = table;
+        const b = randInt(1, 10);
+        const correct = a * b;
+        return {
+          op, table,
+          a, b,
+          correct,
+          exprText: `${a} × ${b} = ?`
+        };
+      } else {
+        const divisor = table;
+        const x = randInt(1, 10);
+        const dividend = divisor * x;
+        return {
+          op, table,
+          a: dividend,
+          b: divisor,
+          correct: x,
+          exprText: `${dividend} ÷ ${divisor} = ?`
+        };
+      }
+    }
+
+    function startSession() {
+      clampOps();
+
+      currentIndex = 0;
+      attempts = 0;
+      correctAttempts = 0;
+      wrongAttempts = 0;
+
+      logRows = [];
+      renderLog();
+      renderStats();
+
+      nextQuestion(true);
+    }
+
+    function nextQuestion(isFirst=false) {
+      if (currentIndex >= totalQuestions && !isFirst) {
+        setStatus(
+          `Hoàn thành ${totalQuestions} câu 🎉<br><span class="small">Bạn có thể bấm “Bắt đầu / Làm lại” để làm phiên mới.</span>`,
+          "ok"
+        );
+        current = null;
+        updateQuestionUI();
+        $("btnSubmit").disabled = true;
+        $("btnNext").disabled = true;
+        return;
+      }
+
+      currentIndex = isFirst ? 1 : (currentIndex + 1);
+      current = makeQuestion();
+      questionStart = performance.now();
+      updateQuestionUI();
+
+      const opName = (current.op === "mul") ? "phép nhân" : "phép chia";
+      setStatus(
+        `Câu ${currentIndex}/${totalQuestions}: <b>${current.exprText}</b><br><span class="small">Đang luyện ${opName}. (Bảng: ${current.table})</span>`,
+        "warn"
+      );
+      renderStats();
+    }
+
+    function submitAnswer() {
+      if (!current) return;
+
+      const raw = $("answer").value.trim();
+      const userVal = raw === "" ? NaN : Number(raw);
+      const elapsed = performance.now() - questionStart;
+
+      attempts += 1;
+
+      const ok = Number.isFinite(userVal) && (userVal === current.correct);
+
+      if (ok) {
+        correctAttempts += 1;
+        setStatus(
+          `✅ Đúng rồi! <b>${current.exprText}</b> (Đáp án: <b>${current.correct}</b>)<br><span class="small">Đang chuyển sang câu tiếp theo…</span>`,
+          "ok"
+        );
+
+        const acc = renderStats();
+
+        logRows.unshift({
+          n: logRows.length + 1,
+          expr: current.exprText.replace("?", "□"),
+          answer: raw,
+          ok: true,
+          time: fmtSecs(elapsed),
+          acc: `${acc}%`
+        });
+        renderLog();
+
+        setTimeout(() => nextQuestion(false), 600);
+
+      } else {
+        wrongAttempts += 1;
+        setStatus(
+          `❌ Chưa đúng. Hãy thử lại nhé!<br><span class="small">Giữ nguyên câu hỏi hiện tại.</span>`,
+          "bad"
+        );
+
+        const acc = renderStats();
+
+        logRows.unshift({
+          n: logRows.length + 1,
+          expr: current.exprText.replace("?", "□"),
+          answer: raw === "" ? "(trống)" : raw,
+          ok: false,
+          time: fmtSecs(elapsed),
+          acc: `${acc}%`
+        });
+        renderLog();
+
+        $("answer").value = "";
+        $("answer").focus();
+      }
+    }
+
+    function clearLog() {
+      logRows = [];
+      renderLog();
+    }
+
+    // ===== Events =====
+    $("opMul").addEventListener("change", clampOps);
+    $("opDiv").addEventListener("change", clampOps);
+
+    $("btnStart").addEventListener("click", startSession);
+    $("btnSubmit").addEventListener("click", submitAnswer);
+    $("btnNext").addEventListener("click", () => nextQuestion(false));
+    $("btnClearLog").addEventListener("click", clearLog);
+
+    $("answer").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !$("btnSubmit").disabled) {
+        e.preventDefault();
+        submitAnswer();
+      }
+    });
+  </script>
+</body>
+</html>

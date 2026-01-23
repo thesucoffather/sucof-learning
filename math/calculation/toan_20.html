@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Luyện toán phạm vi 20</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    .question-box {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .expression {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .expression span {
+      display: inline-block;
+      min-width: 40px;
+    }
+
+    input[type="number"] {
+      font-size: 1.5rem;
+      padding: 5px 10px;
+      width: 100px;
+      text-align: center;
+    }
+
+    .button-row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 8px 16px;
+    }
+
+    .info {
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+      min-height: 1.4em;
+    }
+
+    .timer {
+      margin-top: 5px;
+      font-style: italic;
+      color: #555;
+    }
+
+    .stats {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Toán phạm vi 20</h1>
+
+  <div class="question-box">
+    <div class="expression" id="expression">
+      <!-- A ± B = C sẽ hiển thị ở đây -->
+    </div>
+
+    <input id="answerInput" type="number" inputmode="numeric" autocomplete="off">
+
+    <div class="button-row">
+      <button id="submitBtn">Nộp bài</button>
+      <button id="newBtn">Bài mới</button>
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+    <div class="timer" id="timer">Thời gian: 0.0 giây</div>
+
+    <div class="stats">
+      <div id="correctCount">Số lần đúng: 0 / Tổng: 0</div>
+      <div id="wrongCount">Số lần sai: 0 / Tổng: 0</div>
+      <div id="accuracy">Tỷ lệ đúng: 0%</div>
+      <div id="avgTime">Thời gian TB (lần đúng): 0.0 giây</div>
+    </div>
+  </div>
+
+  <div class="info">
+    Gợi ý:
+    <ul>
+      <li>Số trong phạm vi 0–20.</li>
+      <li>Phép cộng: A + B ≤ 20.</li>
+      <li>Phép trừ: A − B ≥ 0.</li>
+      <li>Tỷ lệ cộng/trừ: khoảng 50% – 50%.</li>
+      <li>Chỉ khi bấm "Bài mới" thì mới ra phép tính mới.</li>
+      <li>Mỗi lần bấm "Nộp bài" sẽ tính là 1 lần nộp.</li>
+    </ul>
+  </div>
+
+  <script>
+    // Biến lưu phép tính hiện tại
+    let currentA = 0;
+    let currentB = 0;
+    let currentC = 0;
+    let currentOp = "+"; // "+" hoặc "-"
+    let hiddenIndex = 0; // 0: A  1: B  2: C
+    let correctAnswer = 0;
+
+    // Biến cho timer
+    let startTime = 0;
+
+    // Biến thống kê
+    let totalCorrectAttempts = 0; // số lần nộp đúng
+    let totalWrongAttempts = 0;   // số lần nộp sai
+    let totalAttempts = 0;        // tổng số lần nộp
+    let totalTimeSec = 0;         // tổng thời gian của các lần đúng (giây)
+
+    // Lấy các phần tử DOM
+    const expressionEl = document.getElementById("expression");
+    const answerInput = document.getElementById("answerInput");
+    const submitBtn = document.getElementById("submitBtn");
+    const newBtn = document.getElementById("newBtn");
+    const feedbackEl = document.getElementById("feedback");
+    const timerEl = document.getElementById("timer");
+    const correctCountEl = document.getElementById("correctCount");
+    const wrongCountEl = document.getElementById("wrongCount");
+    const accuracyEl = document.getElementById("accuracy");
+    const avgTimeEl = document.getElementById("avgTime");
+
+    // Hàm random số nguyên trong [min, max]
+    function randInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // Tạo phép cộng: A + B = C, với C <= 20
+    function generateAddition() {
+      const A = randInt(0, 20);
+      const maxB = 20 - A;
+      const B = randInt(0, maxB);
+      const C = A + B;
+      return { A, B, C, op: "+" };
+    }
+
+    // Tạo phép trừ: A - B = C, với C >= 0
+    function generateSubtraction() {
+      const A = randInt(0, 20);
+      const B = randInt(0, A); // để A - B >= 0
+      const C = A - B;
+      return { A, B, C, op: "-" };
+    }
+
+    // Cập nhật thống kê hiển thị
+    function updateStats() {
+      correctCountEl.textContent =
+        "Số lần đúng: " + totalCorrectAttempts + " / Tổng: " + totalAttempts;
+
+      wrongCountEl.textContent =
+        "Số lần sai: " + totalWrongAttempts + " / Tổng: " + totalAttempts;
+
+      let accuracy = 0;
+      if (totalAttempts > 0) {
+        accuracy = Math.round((totalCorrectAttempts / totalAttempts) * 100);
+      }
+      accuracyEl.textContent = "Tỷ lệ đúng: " + accuracy + "%";
+
+      let avg = 0;
+      if (totalCorrectAttempts > 0) {
+        avg = totalTimeSec / totalCorrectAttempts;
+      }
+      avgTimeEl.textContent =
+        "Thời gian TB (lần đúng): " + avg.toFixed(1) + " giây";
+    }
+
+    // Tạo 1 phép tính mới và hiển thị
+    function newQuestion() {
+      // Chọn cộng hay trừ ngẫu nhiên (50/50)
+      const isAdd = Math.random() < 0.5;
+
+      let eq;
+      if (isAdd) {
+        eq = generateAddition();
+      } else {
+        eq = generateSubtraction();
+      }
+
+      currentA = eq.A;
+      currentB = eq.B;
+      currentC = eq.C;
+      currentOp = eq.op;
+
+      // Chọn vị trí ẩn ngẫu nhiên: 0 = A, 1 = B, 2 = C
+      hiddenIndex = randInt(0, 2);
+
+      // Xác định đáp án đúng
+      if (hiddenIndex === 0) {
+        correctAnswer = currentA;
+      } else if (hiddenIndex === 1) {
+        correctAnswer = currentB;
+      } else {
+        correctAnswer = currentC;
+      }
+
+      // Tạo chuỗi hiển thị, chỗ ẩn dùng ô vuông
+      let displayA = (hiddenIndex === 0) ? "□" : currentA;
+      let displayB = (hiddenIndex === 1) ? "□" : currentB;
+      let displayC = (hiddenIndex === 2) ? "□" : currentC;
+
+      expressionEl.innerHTML =
+        '<span>' + displayA + '</span>' +
+        '<span>' + currentOp + '</span>' +
+        '<span>' + displayB + '</span>' +
+        '<span>=</span>' +
+        '<span>' + displayC + '</span>';
+
+      // Reset input, feedback, timer cho câu mới
+      answerInput.value = "";
+      feedbackEl.textContent = "";
+      timerEl.textContent = "Thời gian: 0.0 giây";
+
+      // Focus input
+      answerInput.focus();
+
+      // Lưu thời gian bắt đầu câu này
+      startTime = Date.now();
+    }
+
+    // Xử lý khi bấm "Nộp bài"
+    function checkAnswer() {
+      const value = answerInput.value.trim();
+
+      // Không tính là 1 lần nộp nếu chưa nhập gì
+      if (value === "") {
+        feedbackEl.textContent = "Hãy nhập đáp án.";
+        return;
+      }
+
+      const userAnswer = Number(value);
+
+      // Mỗi lần bấm "Nộp bài" với input không rỗng -> 1 lần nộp
+      totalAttempts += 1;
+
+      if (userAnswer === correctAnswer) {
+        // Tính thời gian cho lần đúng này
+        const elapsedMs = Date.now() - startTime;
+        const elapsedSec = elapsedMs / 1000;
+
+        feedbackEl.textContent = "Đúng rồi! 🎉";
+        timerEl.textContent = "Thời gian: " + elapsedSec.toFixed(1) + " giây";
+
+        totalCorrectAttempts += 1;
+        totalTimeSec += elapsedSec;
+      } else {
+        feedbackEl.textContent = "Chưa đúng, thử lại nhé.";
+        totalWrongAttempts += 1;
+      }
+
+      // Cập nhật thống kê sau mỗi lần nộp
+      updateStats();
+
+      if (userAnswer !== correctAnswer) {
+        // Không đổi phép tính, chỉ bôi chọn input để bé gõ lại
+        answerInput.select();
+      }
+    }
+
+    // Gắn event
+    submitBtn.addEventListener("click", checkAnswer);
+    newBtn.addEventListener("click", newQuestion);
+
+    // Cho phép bấm Enter để nộp
+    answerInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        checkAnswer();
+      }
+    });
+
+    // Khởi tạo câu đầu tiên
+    newQuestion();
+    updateStats();
+  </script>
+</body>
+</html>

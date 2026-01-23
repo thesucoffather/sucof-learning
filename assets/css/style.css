@@ -10,6 +10,9 @@
 
   --english:#3b82f6;
   --math:#22c55e;
+  --cal20:#c5a722;
+  --cal100:#2d22c5;
+  --mult:#c52261;
 
   --gap:18px;
 }
@@ -83,6 +86,9 @@ body{
 
 .btn-english{ background:var(--english); }
 .btn-math{ background:var(--math); }
+.btn-cal20{ background:var(--cal20); }
+.btn-cal100{ background:var(--cal100); }
+.btn-mult{ background:var(--mult); }
 
 .row{
   display:flex;
