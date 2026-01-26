@@ -251,6 +251,7 @@
             // chỉ encode khoảng trắng
             let safeName = fileName.replaceAll(" ", "%20");
             safeName = safeName.toLowerCase();
+            console.log( "final safeName:", safeName );
             return base + "/" + safeName;
         }
 
