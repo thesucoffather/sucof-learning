@@ -83,3 +83,41 @@ Position,Between,Ở giữa,,between-m
 Position,Next to,Kế bên,,next-to-m
 Position,Here,Ở đây,,here-m
 Position,There,Ở đằng kia,,there-m
+Animal,bird,Con chim,,bird-m
+Animal,Cat,Con mèo,,cat-m
+Animal,Dog,Con chó,,dog-m
+Animal,Fish,Con cá,,fish-m
+Animal,Goat,Dê,,goat-m
+Animal,Donkey,Lừa,,donkey-m
+Animal,Bee,Ong,,bee-m
+Animal,Sheep,Cừu,,sheep-m
+Animal,Chicken,Gà,,chicken-m
+Animal,Cow,Bò,,cow-m
+Animal,Crocodile,Cá sấu,,crocodile-m
+Animal,Duck,Vịt,,duck-m
+Animal,Jellyfish,Sứa,,jellyfish-m
+Animal,Elephant,Voi,,elephant-m
+Animal,Frog,Ếch,,frog-m
+Animal,Giraffe,Hươu cao cổ,,giraffe-m
+Animal,Polar Bear,Gấu bắc cực,,polar-bear-m
+Animal,Hippo,Hà mã,,hippo-m
+Animal,Horse,Ngựa,,horse-m
+Animal,Lizard,Thằn lằn,,lizard-m
+Animal,Monkey,Khỉ,,monkey-m
+Animal,Mouse,Con chuột,,mouse-m
+Animal,Mice,Con chuột (nhiều con),,mice-m
+Animal,Snake,Rắn,,snake-m
+Animal,Spider,Nhện,,spider-m
+Animal,Tiger,Hổ,,tiger-m
+Transport,Bicycle,Xe đạp,,bicycle-m
+Transport,Bike,Xe đạp (từ rút gọn),,bike-m
+Transport,Bus,Xe buýt,,bus-m
+Transport,Boat,Tàu,,boat-m
+Transport,Motorbike,Xe máy (anh),,motorbike-m
+Transport,Motorcycle,Xe máy (mỹ),,motorcycle-m
+Transport,Plane,Máy bay,,plane-m
+Transport,Ship,Tàu thủy,,ship-m
+Transport,Helicopter,Trực thăng,,helicopter-m
+Transport,Train,Tàu hỏa,,train-m
+Transport,Truck,Xe tải (mỹ),,truck-m
+Transport,Lorry,Xe tải (anh),,lorry-m
