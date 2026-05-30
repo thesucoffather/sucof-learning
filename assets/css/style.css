@@ -87,7 +87,7 @@ body{
 
 .btn-english{ background:var(--english); }
 .btn-math{ background:var(--math); }
-.btn-books{ background:var(--math); }
+.btn-books{ background:var(--books); }
 .btn-cal20{ background:var(--cal20); }
 .btn-cal100{ background:var(--cal100); }
 .btn-mult{ background:var(--mult); }
