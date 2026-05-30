@@ -1,11 +1,6 @@
 const MANIFEST_FILES = ["book.json", "books.json"];
 const AUDIO_EXTENSIONS = ["mp3", "wav", "m4a", "ogg", "aac"];
-const DICTIONARY_DB_URLS = [
-  "https://github.com/minhqnd/dictionary/releases/download/v2.0.0/dictionary.db",
-  "assets/dictionary.db"
-];
 const DICTIONARY_API_URL = "https://dict.minhqnd.com/api/v1/lookup";
-const SQL_WASM_PATH = "assets/sql-wasm.wasm";
 const WORD_LONG_PRESS_MS = 1200;
 
 const libraryPage = document.getElementById("libraryPage");
@@ -62,7 +57,6 @@ let speechStartedAt = 0;
 let speechBaseTime = 0;
 let speechRate = 1;
 let speechPlaying = false;
-let dictionaryDbPromise = null;
 
 init();
 
@@ -510,79 +504,7 @@ function closeDictionary() {
 }
 
 async function lookupDictionary(word) {
-  try {
-    const apiEntry = await lookupDictionaryApi(word);
-
-    if (apiEntry) {
-      return apiEntry;
-    }
-  } catch (error) {
-    console.warn("Dictionary API lookup unavailable:", error);
-  }
-
-  try {
-    return await lookupDictionaryDb(word);
-  } catch (error) {
-    console.warn("Dictionary database lookup unavailable:", error);
-    return null;
-  }
-}
-
-async function lookupDictionaryDb(word) {
-  const db = await loadDictionaryDb();
-
-  for (const candidate of candidateLookupWords(word)) {
-    const row = getDictionaryWordRow(db, candidate);
-
-    if (row) {
-      return buildDictionaryEntry(db, word, row);
-    }
-  }
-
-  return null;
-}
-
-async function loadDictionaryDb() {
-  if (dictionaryDbPromise) {
-    return dictionaryDbPromise;
-  }
-
-  dictionaryDbPromise = (async () => {
-    if (typeof initSqlJs !== "function") {
-      throw new Error("sql.js is not loaded.");
-    }
-
-    const SQL = await initSqlJs({
-      locateFile: () => SQL_WASM_PATH
-    });
-
-    const response = await fetchFirstOk(DICTIONARY_DB_URLS);
-
-    const buffer = await response.arrayBuffer();
-    return new SQL.Database(new Uint8Array(buffer));
-  })();
-
-  return dictionaryDbPromise;
-}
-
-async function fetchFirstOk(urls) {
-  const errors = [];
-
-  for (const url of urls) {
-    try {
-      const response = await fetch(url);
-
-      if (response.ok) {
-        return response;
-      }
-
-      errors.push(`${url} returned ${response.status}`);
-    } catch (error) {
-      errors.push(`${url} failed`);
-    }
-  }
-
-  throw new Error("Cannot load dictionary.db. " + errors.join("; "));
+  return lookupDictionaryApi(word);
 }
 
 async function lookupDictionaryApi(word) {
@@ -670,86 +592,6 @@ function candidateLookupWords(word) {
   }
 
   return [...new Set(candidates)];
-}
-
-function getDictionaryWordRow(db, word) {
-  const rows = selectRows(
-    db,
-    "select id, word from words where lower(word) = lower(?) and lang_code = 'en' order by id limit 1",
-    [word]
-  );
-
-  return rows[0] || null;
-}
-
-function buildDictionaryEntry(db, lookupWord, row) {
-  const ipaRows = selectRows(
-    db,
-    `
-      select ipa from pronunciations
-      where word_id = ?
-      order by
-        case
-          when lower(coalesce(region, '')) like '%received%' then 0
-          when lower(coalesce(region, '')) like '%british%' then 1
-          when lower(coalesce(region, '')) like '%uk%' then 2
-          else 3
-        end,
-        id
-      limit 1
-    `,
-    [row.id]
-  );
-
-  const definitionRows = selectRows(
-    db,
-    `
-      select d.definition
-      from word_definitions wd
-      join definitions d on d.id = wd.definition_id
-      where wd.word_id = ?
-        and d.definition_lang = 'vi'
-        and d.definition is not null
-      order by wd.id
-      limit 3
-    `,
-    [row.id]
-  );
-
-  const translationRows = selectRows(
-    db,
-    "select translation from translations where word_id = ? and lang_code = 'vi' order by id limit 1",
-    [row.id]
-  );
-
-  const meanings = definitionRows.map((item) => item.definition).filter(Boolean);
-
-  if (!meanings.length && translationRows[0]?.translation) {
-    meanings.push(translationRows[0].translation);
-  }
-
-  return {
-    word: row.word || lookupWord,
-    ipa: ipaRows[0]?.ipa || "",
-    meaning: meanings.join(" ")
-  };
-}
-
-function selectRows(db, sql, params = []) {
-  const statement = db.prepare(sql);
-  const rows = [];
-
-  try {
-    statement.bind(params);
-
-    while (statement.step()) {
-      rows.push(statement.getAsObject());
-    }
-  } finally {
-    statement.free();
-  }
-
-  return rows;
 }
 
 function cleanLookupWord(value) {
