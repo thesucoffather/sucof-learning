@@ -1,0 +1,896 @@
+{
+  "source_file": "C:\\Users\\thinh\\OneDrive\\02-sucof\\story\\story.wav",
+  "model": "tiny.en",
+  "language": "en",
+  "language_probability": 1,
+  "duration": 62.971,
+  "text": "The mother gave her baby a red apple. The baby tried to eat the apple. His mouth was too small and he didn't have any teeth. His brother took the apple. His brother ate the apple. The baby cried. His brother gave the baby a blue ball to play with. The baby smiled. His brother took the ball from the baby. He rolled the ball on the floor. The brown and white dog picked up the ball. The dog chewed on the ball. The baby cried again. His brother picked up the cat. He put the cat on the bed with the baby. The baby pulled the cat's tail. The cat jumped off the bed. The dog chased the cat. The baby cried again. His brother let the baby hold a sock. The baby played with the sock. The baby was happy.",
+  "segments": [
+    {
+      "id": 1,
+      "start": 0.0,
+      "end": 3.86,
+      "text": "The mother gave her baby a red apple.",
+      "words": [
+        {
+          "start": 0.0,
+          "end": 0.54,
+          "text": "The"
+        },
+        {
+          "start": 0.54,
+          "end": 0.94,
+          "text": "mother"
+        },
+        {
+          "start": 0.94,
+          "end": 1.42,
+          "text": "gave"
+        },
+        {
+          "start": 1.42,
+          "end": 1.72,
+          "text": "her"
+        },
+        {
+          "start": 1.72,
+          "end": 2.3,
+          "text": "baby"
+        },
+        {
+          "start": 2.3,
+          "end": 2.82,
+          "text": "a"
+        },
+        {
+          "start": 2.82,
+          "end": 3.26,
+          "text": "red"
+        },
+        {
+          "start": 3.26,
+          "end": 3.86,
+          "text": "apple."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 4.5,
+      "end": 7.0,
+      "text": "The baby tried to eat the apple.",
+      "words": [
+        {
+          "start": 4.5,
+          "end": 4.7,
+          "text": "The"
+        },
+        {
+          "start": 4.7,
+          "end": 5.22,
+          "text": "baby"
+        },
+        {
+          "start": 5.22,
+          "end": 5.92,
+          "text": "tried"
+        },
+        {
+          "start": 5.92,
+          "end": 6.08,
+          "text": "to"
+        },
+        {
+          "start": 6.08,
+          "end": 6.34,
+          "text": "eat"
+        },
+        {
+          "start": 6.34,
+          "end": 6.62,
+          "text": "the"
+        },
+        {
+          "start": 6.62,
+          "end": 7.0,
+          "text": "apple."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 7.62,
+      "end": 12.24,
+      "text": "His mouth was too small and he didn't have any teeth.",
+      "words": [
+        {
+          "start": 7.62,
+          "end": 7.86,
+          "text": "His"
+        },
+        {
+          "start": 7.86,
+          "end": 8.3,
+          "text": "mouth"
+        },
+        {
+          "start": 8.3,
+          "end": 8.76,
+          "text": "was"
+        },
+        {
+          "start": 8.76,
+          "end": 9.22,
+          "text": "too"
+        },
+        {
+          "start": 9.22,
+          "end": 9.76,
+          "text": "small"
+        },
+        {
+          "start": 9.76,
+          "end": 10.46,
+          "text": "and"
+        },
+        {
+          "start": 10.46,
+          "end": 10.78,
+          "text": "he"
+        },
+        {
+          "start": 10.78,
+          "end": 11.14,
+          "text": "didn't"
+        },
+        {
+          "start": 11.14,
+          "end": 11.48,
+          "text": "have"
+        },
+        {
+          "start": 11.48,
+          "end": 11.78,
+          "text": "any"
+        },
+        {
+          "start": 11.78,
+          "end": 12.24,
+          "text": "teeth."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 13.02,
+      "end": 14.68,
+      "text": "His brother took the apple.",
+      "words": [
+        {
+          "start": 13.02,
+          "end": 13.28,
+          "text": "His"
+        },
+        {
+          "start": 13.28,
+          "end": 13.78,
+          "text": "brother"
+        },
+        {
+          "start": 13.78,
+          "end": 14.08,
+          "text": "took"
+        },
+        {
+          "start": 14.08,
+          "end": 14.38,
+          "text": "the"
+        },
+        {
+          "start": 14.38,
+          "end": 14.68,
+          "text": "apple."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 15.4,
+      "end": 17.1,
+      "text": "His brother ate the apple.",
+      "words": [
+        {
+          "start": 15.4,
+          "end": 15.66,
+          "text": "His"
+        },
+        {
+          "start": 15.66,
+          "end": 16.2,
+          "text": "brother"
+        },
+        {
+          "start": 16.2,
+          "end": 16.56,
+          "text": "ate"
+        },
+        {
+          "start": 16.56,
+          "end": 16.82,
+          "text": "the"
+        },
+        {
+          "start": 16.82,
+          "end": 17.1,
+          "text": "apple."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 17.82,
+      "end": 19.16,
+      "text": "The baby cried.",
+      "words": [
+        {
+          "start": 17.82,
+          "end": 18.02,
+          "text": "The"
+        },
+        {
+          "start": 18.02,
+          "end": 18.58,
+          "text": "baby"
+        },
+        {
+          "start": 18.58,
+          "end": 19.16,
+          "text": "cried."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 20.02,
+      "end": 23.82,
+      "text": "His brother gave the baby a blue ball to play with.",
+      "words": [
+        {
+          "start": 20.02,
+          "end": 20.3,
+          "text": "His"
+        },
+        {
+          "start": 20.3,
+          "end": 20.62,
+          "text": "brother"
+        },
+        {
+          "start": 20.62,
+          "end": 21.08,
+          "text": "gave"
+        },
+        {
+          "start": 21.08,
+          "end": 21.32,
+          "text": "the"
+        },
+        {
+          "start": 21.32,
+          "end": 21.86,
+          "text": "baby"
+        },
+        {
+          "start": 21.86,
+          "end": 22.2,
+          "text": "a"
+        },
+        {
+          "start": 22.2,
+          "end": 22.5,
+          "text": "blue"
+        },
+        {
+          "start": 22.5,
+          "end": 22.88,
+          "text": "ball"
+        },
+        {
+          "start": 22.88,
+          "end": 23.08,
+          "text": "to"
+        },
+        {
+          "start": 23.08,
+          "end": 23.32,
+          "text": "play"
+        },
+        {
+          "start": 23.32,
+          "end": 23.82,
+          "text": "with."
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 24.24,
+      "end": 25.42,
+      "text": "The baby smiled.",
+      "words": [
+        {
+          "start": 24.24,
+          "end": 24.42,
+          "text": "The"
+        },
+        {
+          "start": 24.42,
+          "end": 24.88,
+          "text": "baby"
+        },
+        {
+          "start": 24.88,
+          "end": 25.42,
+          "text": "smiled."
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "start": 26.14,
+      "end": 28.7,
+      "text": "His brother took the ball from the baby.",
+      "words": [
+        {
+          "start": 26.14,
+          "end": 26.48,
+          "text": "His"
+        },
+        {
+          "start": 26.48,
+          "end": 26.82,
+          "text": "brother"
+        },
+        {
+          "start": 26.82,
+          "end": 27.26,
+          "text": "took"
+        },
+        {
+          "start": 27.26,
+          "end": 27.54,
+          "text": "the"
+        },
+        {
+          "start": 27.54,
+          "end": 27.78,
+          "text": "ball"
+        },
+        {
+          "start": 27.78,
+          "end": 28.08,
+          "text": "from"
+        },
+        {
+          "start": 28.08,
+          "end": 28.24,
+          "text": "the"
+        },
+        {
+          "start": 28.24,
+          "end": 28.7,
+          "text": "baby."
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "start": 29.24,
+      "end": 31.56,
+      "text": "He rolled the ball on the floor.",
+      "words": [
+        {
+          "start": 29.24,
+          "end": 29.58,
+          "text": "He"
+        },
+        {
+          "start": 29.58,
+          "end": 30.0,
+          "text": "rolled"
+        },
+        {
+          "start": 30.0,
+          "end": 30.3,
+          "text": "the"
+        },
+        {
+          "start": 30.3,
+          "end": 30.6,
+          "text": "ball"
+        },
+        {
+          "start": 30.6,
+          "end": 30.88,
+          "text": "on"
+        },
+        {
+          "start": 30.88,
+          "end": 31.1,
+          "text": "the"
+        },
+        {
+          "start": 31.1,
+          "end": 31.56,
+          "text": "floor."
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "start": 32.28,
+      "end": 35.18,
+      "text": "The brown and white dog picked up the ball.",
+      "words": [
+        {
+          "start": 32.28,
+          "end": 32.46,
+          "text": "The"
+        },
+        {
+          "start": 32.46,
+          "end": 32.92,
+          "text": "brown"
+        },
+        {
+          "start": 32.92,
+          "end": 33.16,
+          "text": "and"
+        },
+        {
+          "start": 33.16,
+          "end": 33.54,
+          "text": "white"
+        },
+        {
+          "start": 33.54,
+          "end": 33.86,
+          "text": "dog"
+        },
+        {
+          "start": 33.86,
+          "end": 34.3,
+          "text": "picked"
+        },
+        {
+          "start": 34.3,
+          "end": 34.58,
+          "text": "up"
+        },
+        {
+          "start": 34.58,
+          "end": 34.7,
+          "text": "the"
+        },
+        {
+          "start": 34.7,
+          "end": 35.18,
+          "text": "ball."
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "start": 35.66,
+      "end": 37.38,
+      "text": "The dog chewed on the ball.",
+      "words": [
+        {
+          "start": 35.66,
+          "end": 35.78,
+          "text": "The"
+        },
+        {
+          "start": 35.78,
+          "end": 36.16,
+          "text": "dog"
+        },
+        {
+          "start": 36.16,
+          "end": 36.66,
+          "text": "chewed"
+        },
+        {
+          "start": 36.66,
+          "end": 36.88,
+          "text": "on"
+        },
+        {
+          "start": 36.88,
+          "end": 37.04,
+          "text": "the"
+        },
+        {
+          "start": 37.04,
+          "end": 37.38,
+          "text": "ball."
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "start": 37.94,
+      "end": 39.44,
+      "text": "The baby cried again.",
+      "words": [
+        {
+          "start": 37.94,
+          "end": 38.12,
+          "text": "The"
+        },
+        {
+          "start": 38.12,
+          "end": 38.56,
+          "text": "baby"
+        },
+        {
+          "start": 38.56,
+          "end": 38.92,
+          "text": "cried"
+        },
+        {
+          "start": 38.92,
+          "end": 39.44,
+          "text": "again."
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "start": 40.04,
+      "end": 42.02,
+      "text": "His brother picked up the cat.",
+      "words": [
+        {
+          "start": 40.04,
+          "end": 40.48,
+          "text": "His"
+        },
+        {
+          "start": 40.48,
+          "end": 40.86,
+          "text": "brother"
+        },
+        {
+          "start": 40.86,
+          "end": 41.26,
+          "text": "picked"
+        },
+        {
+          "start": 41.26,
+          "end": 41.52,
+          "text": "up"
+        },
+        {
+          "start": 41.52,
+          "end": 41.74,
+          "text": "the"
+        },
+        {
+          "start": 41.74,
+          "end": 42.02,
+          "text": "cat."
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "start": 42.66,
+      "end": 45.24,
+      "text": "He put the cat on the bed with the baby.",
+      "words": [
+        {
+          "start": 42.66,
+          "end": 42.82,
+          "text": "He"
+        },
+        {
+          "start": 42.82,
+          "end": 43.1,
+          "text": "put"
+        },
+        {
+          "start": 43.1,
+          "end": 43.32,
+          "text": "the"
+        },
+        {
+          "start": 43.32,
+          "end": 43.56,
+          "text": "cat"
+        },
+        {
+          "start": 43.56,
+          "end": 43.92,
+          "text": "on"
+        },
+        {
+          "start": 43.92,
+          "end": 44.14,
+          "text": "the"
+        },
+        {
+          "start": 44.14,
+          "end": 44.34,
+          "text": "bed"
+        },
+        {
+          "start": 44.34,
+          "end": 44.72,
+          "text": "with"
+        },
+        {
+          "start": 44.72,
+          "end": 44.88,
+          "text": "the"
+        },
+        {
+          "start": 44.88,
+          "end": 45.24,
+          "text": "baby."
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "start": 45.92,
+      "end": 48.26,
+      "text": "The baby pulled the cat's tail.",
+      "words": [
+        {
+          "start": 45.92,
+          "end": 46.18,
+          "text": "The"
+        },
+        {
+          "start": 46.18,
+          "end": 46.68,
+          "text": "baby"
+        },
+        {
+          "start": 46.68,
+          "end": 47.16,
+          "text": "pulled"
+        },
+        {
+          "start": 47.16,
+          "end": 47.46,
+          "text": "the"
+        },
+        {
+          "start": 47.46,
+          "end": 47.94,
+          "text": "cat's"
+        },
+        {
+          "start": 47.94,
+          "end": 48.26,
+          "text": "tail."
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "start": 48.86,
+      "end": 50.66,
+      "text": "The cat jumped off the bed.",
+      "words": [
+        {
+          "start": 48.86,
+          "end": 49.14,
+          "text": "The"
+        },
+        {
+          "start": 49.14,
+          "end": 49.48,
+          "text": "cat"
+        },
+        {
+          "start": 49.48,
+          "end": 49.92,
+          "text": "jumped"
+        },
+        {
+          "start": 49.92,
+          "end": 50.22,
+          "text": "off"
+        },
+        {
+          "start": 50.22,
+          "end": 50.38,
+          "text": "the"
+        },
+        {
+          "start": 50.38,
+          "end": 50.66,
+          "text": "bed."
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "start": 51.2,
+      "end": 52.86,
+      "text": "The dog chased the cat.",
+      "words": [
+        {
+          "start": 51.2,
+          "end": 51.4,
+          "text": "The"
+        },
+        {
+          "start": 51.4,
+          "end": 51.92,
+          "text": "dog"
+        },
+        {
+          "start": 51.92,
+          "end": 52.28,
+          "text": "chased"
+        },
+        {
+          "start": 52.28,
+          "end": 52.56,
+          "text": "the"
+        },
+        {
+          "start": 52.56,
+          "end": 52.86,
+          "text": "cat."
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "start": 53.42,
+      "end": 55.14,
+      "text": "The baby cried again.",
+      "words": [
+        {
+          "start": 53.42,
+          "end": 53.66,
+          "text": "The"
+        },
+        {
+          "start": 53.66,
+          "end": 54.18,
+          "text": "baby"
+        },
+        {
+          "start": 54.18,
+          "end": 54.52,
+          "text": "cried"
+        },
+        {
+          "start": 54.52,
+          "end": 55.14,
+          "text": "again."
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "start": 55.76,
+      "end": 58.42,
+      "text": "His brother let the baby hold a sock.",
+      "words": [
+        {
+          "start": 55.76,
+          "end": 56.1,
+          "text": "His"
+        },
+        {
+          "start": 56.1,
+          "end": 56.44,
+          "text": "brother"
+        },
+        {
+          "start": 56.44,
+          "end": 56.84,
+          "text": "let"
+        },
+        {
+          "start": 56.84,
+          "end": 57.28,
+          "text": "the"
+        },
+        {
+          "start": 57.28,
+          "end": 57.46,
+          "text": "baby"
+        },
+        {
+          "start": 57.46,
+          "end": 57.84,
+          "text": "hold"
+        },
+        {
+          "start": 57.84,
+          "end": 58.16,
+          "text": "a"
+        },
+        {
+          "start": 58.16,
+          "end": 58.42,
+          "text": "sock."
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "start": 59.06,
+      "end": 60.76,
+      "text": "The baby played with the sock.",
+      "words": [
+        {
+          "start": 59.06,
+          "end": 59.32,
+          "text": "The"
+        },
+        {
+          "start": 59.32,
+          "end": 59.66,
+          "text": "baby"
+        },
+        {
+          "start": 59.66,
+          "end": 60.04,
+          "text": "played"
+        },
+        {
+          "start": 60.04,
+          "end": 60.3,
+          "text": "with"
+        },
+        {
+          "start": 60.3,
+          "end": 60.48,
+          "text": "the"
+        },
+        {
+          "start": 60.48,
+          "end": 60.76,
+          "text": "sock."
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "start": 61.36,
+      "end": 62.62,
+      "text": "The baby was happy.",
+      "words": [
+        {
+          "start": 61.36,
+          "end": 61.54,
+          "text": "The"
+        },
+        {
+          "start": 61.54,
+          "end": 61.9,
+          "text": "baby"
+        },
+        {
+          "start": 61.9,
+          "end": 62.32,
+          "text": "was"
+        },
+        {
+          "start": 62.32,
+          "end": 62.62,
+          "text": "happy."
+        }
+      ]
+    }
+  ]
+}

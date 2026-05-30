@@ -1,0 +1,18 @@
+[
+  {
+    "id": "book001",
+    "title": "A Baby and a Sock",
+    "category": "Beginner",
+    "text": "books/book001/story.txt",
+    "timing": "books/book001/story.timeline.json",
+    "audio": "books/book001/story.wav"
+  },
+  {
+    "id": "book002",
+    "title": "Birds and a Baby",
+    "category": "Beginner",
+    "text": "books/book002/story.txt",
+    "timing": "books/book002/story.json",
+    "audio": "books/book002/story.wav"
+  }
+]

@@ -10,6 +10,7 @@
 
   --english:#3b82f6;
   --math:#22c55e;
+  --books: #49b96b;
   --cal20:#c5a722;
   --cal100:#2d22c5;
   --mult:#c52261;
@@ -86,6 +87,7 @@ body{
 
 .btn-english{ background:var(--english); }
 .btn-math{ background:var(--math); }
+.btn-books{ background:var(--math); }
 .btn-cal20{ background:var(--cal20); }
 .btn-cal100{ background:var(--cal100); }
 .btn-mult{ background:var(--mult); }

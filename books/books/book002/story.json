@@ -1,0 +1,874 @@
+{
+  "source_file": "C:\\Users\\thinh\\OneDrive\\02-sucof\\story\\story.wav",
+  "model": "tiny.en",
+  "language": "en",
+  "language_probability": 1,
+  "duration": 68.731,
+  "text": "The baby was lying on her back, a blue bird flew in through the window. The blue bird had blue eyes. It sat on the baby's crib. The bird had a bell around its neck. The bell rang. The baby smiled. The baby reached for the bell. The bird shook its head. The bell fell off the bird's neck. It fell next to the baby. The baby picked up the bell. The baby rang the bell. Another blue bird flew in through the window. This blue bird also had blue eyes. The baby had brown eyes. The birds looked at the baby. The baby looked at the birds. The baby rang the bell again. Both birds flew away. The baby started to cry. His mama came in to the room. The baby smiled. Mama saw the bell. She asked the baby where the bell came from. The baby pointed at the window.",
+  "segments": [
+    {
+      "id": 1,
+      "start": 0.0,
+      "end": 6.7,
+      "text": "The baby was lying on her back, a blue bird flew in through the window.",
+      "words": [
+        {
+          "start": 0.0,
+          "end": 0.6,
+          "text": "The"
+        },
+        {
+          "start": 0.6,
+          "end": 1.1,
+          "text": "baby"
+        },
+        {
+          "start": 1.1,
+          "end": 1.72,
+          "text": "was"
+        },
+        {
+          "start": 1.72,
+          "end": 2.14,
+          "text": "lying"
+        },
+        {
+          "start": 2.14,
+          "end": 2.42,
+          "text": "on"
+        },
+        {
+          "start": 2.42,
+          "end": 2.64,
+          "text": "her"
+        },
+        {
+          "start": 2.64,
+          "end": 3.16,
+          "text": "back,"
+        },
+        {
+          "start": 3.82,
+          "end": 3.98,
+          "text": "a"
+        },
+        {
+          "start": 3.98,
+          "end": 4.36,
+          "text": "blue"
+        },
+        {
+          "start": 4.36,
+          "end": 4.78,
+          "text": "bird"
+        },
+        {
+          "start": 4.78,
+          "end": 5.3,
+          "text": "flew"
+        },
+        {
+          "start": 5.3,
+          "end": 5.76,
+          "text": "in"
+        },
+        {
+          "start": 5.76,
+          "end": 6.0,
+          "text": "through"
+        },
+        {
+          "start": 6.0,
+          "end": 6.26,
+          "text": "the"
+        },
+        {
+          "start": 6.26,
+          "end": 6.7,
+          "text": "window."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 7.7,
+      "end": 12.52,
+      "text": "The blue bird had blue eyes. It sat on the baby's crib.",
+      "words": [
+        {
+          "start": 7.7,
+          "end": 7.7,
+          "text": "The"
+        },
+        {
+          "start": 7.7,
+          "end": 8.04,
+          "text": "blue"
+        },
+        {
+          "start": 8.04,
+          "end": 8.42,
+          "text": "bird"
+        },
+        {
+          "start": 8.42,
+          "end": 8.8,
+          "text": "had"
+        },
+        {
+          "start": 8.8,
+          "end": 9.18,
+          "text": "blue"
+        },
+        {
+          "start": 9.18,
+          "end": 9.72,
+          "text": "eyes."
+        },
+        {
+          "start": 10.44,
+          "end": 10.72,
+          "text": "It"
+        },
+        {
+          "start": 10.72,
+          "end": 11.12,
+          "text": "sat"
+        },
+        {
+          "start": 11.12,
+          "end": 11.38,
+          "text": "on"
+        },
+        {
+          "start": 11.38,
+          "end": 11.62,
+          "text": "the"
+        },
+        {
+          "start": 11.62,
+          "end": 12.1,
+          "text": "baby's"
+        },
+        {
+          "start": 12.1,
+          "end": 12.52,
+          "text": "crib."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 13.36,
+      "end": 19.62,
+      "text": "The bird had a bell around its neck. The bell rang. The baby smiled.",
+      "words": [
+        {
+          "start": 13.36,
+          "end": 13.56,
+          "text": "The"
+        },
+        {
+          "start": 13.56,
+          "end": 13.9,
+          "text": "bird"
+        },
+        {
+          "start": 13.9,
+          "end": 14.2,
+          "text": "had"
+        },
+        {
+          "start": 14.2,
+          "end": 14.44,
+          "text": "a"
+        },
+        {
+          "start": 14.44,
+          "end": 14.76,
+          "text": "bell"
+        },
+        {
+          "start": 14.76,
+          "end": 15.16,
+          "text": "around"
+        },
+        {
+          "start": 15.16,
+          "end": 15.44,
+          "text": "its"
+        },
+        {
+          "start": 15.44,
+          "end": 15.88,
+          "text": "neck."
+        },
+        {
+          "start": 16.66,
+          "end": 16.72,
+          "text": "The"
+        },
+        {
+          "start": 16.72,
+          "end": 17.16,
+          "text": "bell"
+        },
+        {
+          "start": 17.16,
+          "end": 17.66,
+          "text": "rang."
+        },
+        {
+          "start": 18.28,
+          "end": 18.46,
+          "text": "The"
+        },
+        {
+          "start": 18.46,
+          "end": 19.06,
+          "text": "baby"
+        },
+        {
+          "start": 19.06,
+          "end": 19.62,
+          "text": "smiled."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 20.36,
+      "end": 24.82,
+      "text": "The baby reached for the bell. The bird shook its head.",
+      "words": [
+        {
+          "start": 20.36,
+          "end": 20.56,
+          "text": "The"
+        },
+        {
+          "start": 20.56,
+          "end": 21.16,
+          "text": "baby"
+        },
+        {
+          "start": 21.16,
+          "end": 21.58,
+          "text": "reached"
+        },
+        {
+          "start": 21.58,
+          "end": 21.88,
+          "text": "for"
+        },
+        {
+          "start": 21.88,
+          "end": 22.08,
+          "text": "the"
+        },
+        {
+          "start": 22.08,
+          "end": 22.36,
+          "text": "bell."
+        },
+        {
+          "start": 23.1,
+          "end": 23.42,
+          "text": "The"
+        },
+        {
+          "start": 23.42,
+          "end": 23.9,
+          "text": "bird"
+        },
+        {
+          "start": 23.9,
+          "end": 24.1,
+          "text": "shook"
+        },
+        {
+          "start": 24.1,
+          "end": 24.4,
+          "text": "its"
+        },
+        {
+          "start": 24.4,
+          "end": 24.82,
+          "text": "head."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 24.82,
+      "end": 30.32,
+      "text": "The bell fell off the bird's neck. It fell next to the baby.",
+      "words": [
+        {
+          "start": 24.82,
+          "end": 25.7,
+          "text": "The"
+        },
+        {
+          "start": 25.7,
+          "end": 26.04,
+          "text": "bell"
+        },
+        {
+          "start": 26.04,
+          "end": 26.56,
+          "text": "fell"
+        },
+        {
+          "start": 26.56,
+          "end": 26.98,
+          "text": "off"
+        },
+        {
+          "start": 26.98,
+          "end": 27.14,
+          "text": "the"
+        },
+        {
+          "start": 27.14,
+          "end": 27.58,
+          "text": "bird's"
+        },
+        {
+          "start": 27.58,
+          "end": 27.98,
+          "text": "neck."
+        },
+        {
+          "start": 28.74,
+          "end": 28.76,
+          "text": "It"
+        },
+        {
+          "start": 28.76,
+          "end": 29.2,
+          "text": "fell"
+        },
+        {
+          "start": 29.2,
+          "end": 29.68,
+          "text": "next"
+        },
+        {
+          "start": 29.68,
+          "end": 29.88,
+          "text": "to"
+        },
+        {
+          "start": 29.88,
+          "end": 29.96,
+          "text": "the"
+        },
+        {
+          "start": 29.96,
+          "end": 30.32,
+          "text": "baby."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 31.16,
+      "end": 35.12,
+      "text": "The baby picked up the bell. The baby rang the bell.",
+      "words": [
+        {
+          "start": 31.16,
+          "end": 31.34,
+          "text": "The"
+        },
+        {
+          "start": 31.34,
+          "end": 31.8,
+          "text": "baby"
+        },
+        {
+          "start": 31.8,
+          "end": 32.14,
+          "text": "picked"
+        },
+        {
+          "start": 32.14,
+          "end": 32.46,
+          "text": "up"
+        },
+        {
+          "start": 32.46,
+          "end": 32.68,
+          "text": "the"
+        },
+        {
+          "start": 32.68,
+          "end": 33.04,
+          "text": "bell."
+        },
+        {
+          "start": 33.54,
+          "end": 33.66,
+          "text": "The"
+        },
+        {
+          "start": 33.66,
+          "end": 34.1,
+          "text": "baby"
+        },
+        {
+          "start": 34.1,
+          "end": 34.56,
+          "text": "rang"
+        },
+        {
+          "start": 34.56,
+          "end": 34.74,
+          "text": "the"
+        },
+        {
+          "start": 34.74,
+          "end": 35.12,
+          "text": "bell."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 35.78,
+      "end": 38.48,
+      "text": "Another blue bird flew in through the window.",
+      "words": [
+        {
+          "start": 35.78,
+          "end": 36.08,
+          "text": "Another"
+        },
+        {
+          "start": 36.08,
+          "end": 36.54,
+          "text": "blue"
+        },
+        {
+          "start": 36.54,
+          "end": 36.96,
+          "text": "bird"
+        },
+        {
+          "start": 36.96,
+          "end": 37.28,
+          "text": "flew"
+        },
+        {
+          "start": 37.28,
+          "end": 37.68,
+          "text": "in"
+        },
+        {
+          "start": 37.68,
+          "end": 37.9,
+          "text": "through"
+        },
+        {
+          "start": 37.9,
+          "end": 38.16,
+          "text": "the"
+        },
+        {
+          "start": 38.16,
+          "end": 38.48,
+          "text": "window."
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 39.3,
+      "end": 44.22,
+      "text": "This blue bird also had blue eyes. The baby had brown eyes.",
+      "words": [
+        {
+          "start": 39.3,
+          "end": 39.64,
+          "text": "This"
+        },
+        {
+          "start": 39.64,
+          "end": 39.92,
+          "text": "blue"
+        },
+        {
+          "start": 39.92,
+          "end": 40.28,
+          "text": "bird"
+        },
+        {
+          "start": 40.28,
+          "end": 40.94,
+          "text": "also"
+        },
+        {
+          "start": 40.94,
+          "end": 41.24,
+          "text": "had"
+        },
+        {
+          "start": 41.24,
+          "end": 41.54,
+          "text": "blue"
+        },
+        {
+          "start": 41.54,
+          "end": 41.96,
+          "text": "eyes."
+        },
+        {
+          "start": 42.58,
+          "end": 42.72,
+          "text": "The"
+        },
+        {
+          "start": 42.72,
+          "end": 43.2,
+          "text": "baby"
+        },
+        {
+          "start": 43.2,
+          "end": 43.52,
+          "text": "had"
+        },
+        {
+          "start": 43.52,
+          "end": 43.84,
+          "text": "brown"
+        },
+        {
+          "start": 43.84,
+          "end": 44.22,
+          "text": "eyes."
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "start": 44.92,
+      "end": 49.22,
+      "text": "The birds looked at the baby. The baby looked at the birds.",
+      "words": [
+        {
+          "start": 44.92,
+          "end": 45.12,
+          "text": "The"
+        },
+        {
+          "start": 45.12,
+          "end": 45.52,
+          "text": "birds"
+        },
+        {
+          "start": 45.52,
+          "end": 46.0,
+          "text": "looked"
+        },
+        {
+          "start": 46.0,
+          "end": 46.26,
+          "text": "at"
+        },
+        {
+          "start": 46.26,
+          "end": 46.44,
+          "text": "the"
+        },
+        {
+          "start": 46.44,
+          "end": 46.78,
+          "text": "baby."
+        },
+        {
+          "start": 47.38,
+          "end": 47.58,
+          "text": "The"
+        },
+        {
+          "start": 47.58,
+          "end": 48.1,
+          "text": "baby"
+        },
+        {
+          "start": 48.1,
+          "end": 48.44,
+          "text": "looked"
+        },
+        {
+          "start": 48.44,
+          "end": 48.7,
+          "text": "at"
+        },
+        {
+          "start": 48.7,
+          "end": 48.84,
+          "text": "the"
+        },
+        {
+          "start": 48.84,
+          "end": 49.22,
+          "text": "birds."
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "start": 49.96,
+      "end": 53.82,
+      "text": "The baby rang the bell again. Both birds flew away.",
+      "words": [
+        {
+          "start": 49.96,
+          "end": 50.14,
+          "text": "The"
+        },
+        {
+          "start": 50.14,
+          "end": 50.52,
+          "text": "baby"
+        },
+        {
+          "start": 50.52,
+          "end": 50.96,
+          "text": "rang"
+        },
+        {
+          "start": 50.96,
+          "end": 51.1,
+          "text": "the"
+        },
+        {
+          "start": 51.1,
+          "end": 51.28,
+          "text": "bell"
+        },
+        {
+          "start": 51.28,
+          "end": 51.9,
+          "text": "again."
+        },
+        {
+          "start": 52.36,
+          "end": 52.7,
+          "text": "Both"
+        },
+        {
+          "start": 52.7,
+          "end": 53.08,
+          "text": "birds"
+        },
+        {
+          "start": 53.08,
+          "end": 53.44,
+          "text": "flew"
+        },
+        {
+          "start": 53.44,
+          "end": 53.82,
+          "text": "away."
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "start": 53.82,
+      "end": 60.74,
+      "text": "The baby started to cry. His mama came in to the room. The baby smiled.",
+      "words": [
+        {
+          "start": 53.82,
+          "end": 54.72,
+          "text": "The"
+        },
+        {
+          "start": 54.72,
+          "end": 55.12,
+          "text": "baby"
+        },
+        {
+          "start": 55.12,
+          "end": 55.66,
+          "text": "started"
+        },
+        {
+          "start": 55.66,
+          "end": 55.96,
+          "text": "to"
+        },
+        {
+          "start": 55.96,
+          "end": 56.44,
+          "text": "cry."
+        },
+        {
+          "start": 57.16,
+          "end": 57.36,
+          "text": "His"
+        },
+        {
+          "start": 57.36,
+          "end": 57.7,
+          "text": "mama"
+        },
+        {
+          "start": 57.7,
+          "end": 58.06,
+          "text": "came"
+        },
+        {
+          "start": 58.06,
+          "end": 58.34,
+          "text": "in"
+        },
+        {
+          "start": 58.34,
+          "end": 58.52,
+          "text": "to"
+        },
+        {
+          "start": 58.52,
+          "end": 58.64,
+          "text": "the"
+        },
+        {
+          "start": 58.64,
+          "end": 59.08,
+          "text": "room."
+        },
+        {
+          "start": 59.76,
+          "end": 59.78,
+          "text": "The"
+        },
+        {
+          "start": 59.78,
+          "end": 60.2,
+          "text": "baby"
+        },
+        {
+          "start": 60.2,
+          "end": 60.74,
+          "text": "smiled."
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "start": 61.58,
+      "end": 66.06,
+      "text": "Mama saw the bell. She asked the baby where the bell came from.",
+      "words": [
+        {
+          "start": 61.58,
+          "end": 61.72,
+          "text": "Mama"
+        },
+        {
+          "start": 61.72,
+          "end": 62.12,
+          "text": "saw"
+        },
+        {
+          "start": 62.12,
+          "end": 62.34,
+          "text": "the"
+        },
+        {
+          "start": 62.34,
+          "end": 62.66,
+          "text": "bell."
+        },
+        {
+          "start": 63.3,
+          "end": 63.58,
+          "text": "She"
+        },
+        {
+          "start": 63.58,
+          "end": 63.94,
+          "text": "asked"
+        },
+        {
+          "start": 63.94,
+          "end": 64.16,
+          "text": "the"
+        },
+        {
+          "start": 64.16,
+          "end": 64.44,
+          "text": "baby"
+        },
+        {
+          "start": 64.44,
+          "end": 64.66,
+          "text": "where"
+        },
+        {
+          "start": 64.66,
+          "end": 65.14,
+          "text": "the"
+        },
+        {
+          "start": 65.14,
+          "end": 65.14,
+          "text": "bell"
+        },
+        {
+          "start": 65.14,
+          "end": 65.52,
+          "text": "came"
+        },
+        {
+          "start": 65.52,
+          "end": 66.06,
+          "text": "from."
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "start": 66.5,
+      "end": 68.38,
+      "text": "The baby pointed at the window.",
+      "words": [
+        {
+          "start": 66.5,
+          "end": 66.72,
+          "text": "The"
+        },
+        {
+          "start": 66.72,
+          "end": 67.1,
+          "text": "baby"
+        },
+        {
+          "start": 67.1,
+          "end": 67.64,
+          "text": "pointed"
+        },
+        {
+          "start": 67.64,
+          "end": 67.92,
+          "text": "at"
+        },
+        {
+          "start": 67.92,
+          "end": 68.1,
+          "text": "the"
+        },
+        {
+          "start": 68.1,
+          "end": 68.38,
+          "text": "window."
+        }
+      ]
+    }
+  ]
+}

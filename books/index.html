@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>English Read Along</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- LIBRARY PAGE -->
+    <section id="libraryPage" class="page">
+
+      <header class="app-header">
+        <div>
+          <div class="app-title">English Stories</div>
+          <div class="app-subtitle">Listen, read, and follow the words</div>
+        </div>
+
+        <button id="darkModeBtn" class="icon-btn" title="Dark mode">
+          🌙
+        </button>
+      </header>
+
+      <div id="continueSection" class="section hidden">
+        <div class="section-title">Continue Reading</div>
+        <div id="continueBook"></div>
+      </div>
+
+      <div class="toolbar">
+        <input
+          id="searchInput"
+          class="search-input"
+          type="text"
+          placeholder="Search story..."
+        />
+
+        <select id="categoryFilter" class="category-select">
+          <option value="all">All</option>
+        </select>
+      </div>
+
+      <div class="section-title">All Stories</div>
+
+      <div id="appMessage" class="app-message hidden"></div>
+
+      <div id="bookList" class="book-list"></div>
+
+    </section>
+
+    <!-- READER PAGE -->
+    <section id="readerPage" class="page hidden">
+
+      <header class="reader-header">
+        <button id="backBtn" class="icon-btn">←</button>
+
+        <div class="reader-title-wrap">
+          <div id="storyTitle" class="reader-title"></div>
+          <div id="storyCategory" class="reader-subtitle"></div>
+        </div>
+
+        <button id="fullscreenBtn" class="icon-btn">⛶</button>
+      </header>
+
+      <main id="storyText" class="story-text"></main>
+
+      <footer class="player-panel">
+
+        <div class="time-row">
+          <span id="currentTimeLabel">00:00</span>
+          <span id="durationLabel">00:00</span>
+        </div>
+
+        <input
+          id="progress"
+          class="progress"
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+        />
+
+        <div class="control-row">
+          <button id="prevBtn" class="control-btn">⏮</button>
+          <button id="playBtn" class="play-btn">▶</button>
+          <button id="nextBtn" class="control-btn">⏭</button>
+        </div>
+
+        <div class="speed-row">
+          <button class="speed-btn" data-rate="0.8">0.8x</button>
+          <button class="speed-btn active-speed" data-rate="1">1.0x</button>
+          <button class="speed-btn" data-rate="1.2">1.2x</button>
+        </div>
+
+      </footer>
+
+    </section>
+
+  </div>
+
+  <audio id="audio" preload="metadata"></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
