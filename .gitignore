@@ -2,3 +2,9 @@
 .scripts/
 .agents/
 books/.scripts/
+
+# local large/offline assets
+books/assets/dictionary.db
+
+# local backups created during edits
+*.bak-*

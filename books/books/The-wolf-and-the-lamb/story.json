@@ -1,0 +1,706 @@
+{
+  "source_file": "D:\\git01-github\\sucof-learning\\books\\.scripts\\process_new_story\\The-wolf-and-the-lamb.story.wav",
+  "model": "tiny.en",
+  "language": "en",
+  "language_probability": 1,
+  "duration": 52.691,
+  "text": "One day, a lamb was eating sweet grass away from her flock of sheep. She didn't notice a wolf walking nearer to her. When she saw the wolf, she started pleading. Please, don't eat me. My stomach is full of grass. You can wait a while to make my meat taste much better. The grass in my stomach will be digested quickly if you let me dance. The wolf agreed. While the lamb was dancing, she had a new idea. She said, I can dance faster if you take my bell and rent it so hard. The wolf took the bell and started to ring so hard. The shepherd heard the sound and ran quickly to save the lamb's life.",
+  "segments": [
+    {
+      "id": 1,
+      "start": 0.05,
+      "end": 6.39,
+      "text": "One day, a lamb was eating sweet grass away from her flock of sheep.",
+      "words": [
+        {
+          "start": 0.05,
+          "end": 0.79,
+          "text": "One"
+        },
+        {
+          "start": 0.79,
+          "end": 1.39,
+          "text": "day,"
+        },
+        {
+          "start": 1.87,
+          "end": 2.05,
+          "text": "a"
+        },
+        {
+          "start": 2.05,
+          "end": 2.35,
+          "text": "lamb"
+        },
+        {
+          "start": 2.35,
+          "end": 2.69,
+          "text": "was"
+        },
+        {
+          "start": 2.69,
+          "end": 3.21,
+          "text": "eating"
+        },
+        {
+          "start": 3.21,
+          "end": 3.81,
+          "text": "sweet"
+        },
+        {
+          "start": 3.81,
+          "end": 4.33,
+          "text": "grass"
+        },
+        {
+          "start": 4.33,
+          "end": 4.79,
+          "text": "away"
+        },
+        {
+          "start": 4.79,
+          "end": 5.17,
+          "text": "from"
+        },
+        {
+          "start": 5.17,
+          "end": 5.47,
+          "text": "her"
+        },
+        {
+          "start": 5.47,
+          "end": 5.71,
+          "text": "flock"
+        },
+        {
+          "start": 5.71,
+          "end": 5.97,
+          "text": "of"
+        },
+        {
+          "start": 5.97,
+          "end": 6.39,
+          "text": "sheep."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 7.19,
+      "end": 10.85,
+      "text": "She didn't notice a wolf walking nearer to her.",
+      "words": [
+        {
+          "start": 7.19,
+          "end": 7.41,
+          "text": "She"
+        },
+        {
+          "start": 7.41,
+          "end": 7.83,
+          "text": "didn't"
+        },
+        {
+          "start": 7.83,
+          "end": 8.33,
+          "text": "notice"
+        },
+        {
+          "start": 8.33,
+          "end": 8.69,
+          "text": "a"
+        },
+        {
+          "start": 8.69,
+          "end": 9.11,
+          "text": "wolf"
+        },
+        {
+          "start": 9.11,
+          "end": 9.61,
+          "text": "walking"
+        },
+        {
+          "start": 9.61,
+          "end": 10.05,
+          "text": "nearer"
+        },
+        {
+          "start": 10.05,
+          "end": 10.33,
+          "text": "to"
+        },
+        {
+          "start": 10.33,
+          "end": 10.85,
+          "text": "her."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 11.67,
+      "end": 14.87,
+      "text": "When she saw the wolf, she started pleading.",
+      "words": [
+        {
+          "start": 11.67,
+          "end": 11.93,
+          "text": "When"
+        },
+        {
+          "start": 11.93,
+          "end": 12.23,
+          "text": "she"
+        },
+        {
+          "start": 12.23,
+          "end": 12.51,
+          "text": "saw"
+        },
+        {
+          "start": 12.51,
+          "end": 12.77,
+          "text": "the"
+        },
+        {
+          "start": 12.77,
+          "end": 13.15,
+          "text": "wolf,"
+        },
+        {
+          "start": 13.63,
+          "end": 13.87,
+          "text": "she"
+        },
+        {
+          "start": 13.87,
+          "end": 14.33,
+          "text": "started"
+        },
+        {
+          "start": 14.33,
+          "end": 14.87,
+          "text": "pleading."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 15.71,
+      "end": 17.69,
+      "text": "Please, don't eat me.",
+      "words": [
+        {
+          "start": 15.71,
+          "end": 16.37,
+          "text": "Please,"
+        },
+        {
+          "start": 16.61,
+          "end": 16.91,
+          "text": "don't"
+        },
+        {
+          "start": 16.91,
+          "end": 17.13,
+          "text": "eat"
+        },
+        {
+          "start": 17.13,
+          "end": 17.69,
+          "text": "me."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 18.17,
+      "end": 19.95,
+      "text": "My stomach is full of grass.",
+      "words": [
+        {
+          "start": 18.17,
+          "end": 18.33,
+          "text": "My"
+        },
+        {
+          "start": 18.33,
+          "end": 18.63,
+          "text": "stomach"
+        },
+        {
+          "start": 18.63,
+          "end": 19.03,
+          "text": "is"
+        },
+        {
+          "start": 19.03,
+          "end": 19.25,
+          "text": "full"
+        },
+        {
+          "start": 19.25,
+          "end": 19.51,
+          "text": "of"
+        },
+        {
+          "start": 19.51,
+          "end": 19.95,
+          "text": "grass."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 20.45,
+      "end": 23.87,
+      "text": "You can wait a while to make my meat taste much better.",
+      "words": [
+        {
+          "start": 20.45,
+          "end": 20.63,
+          "text": "You"
+        },
+        {
+          "start": 20.63,
+          "end": 20.81,
+          "text": "can"
+        },
+        {
+          "start": 20.81,
+          "end": 21.05,
+          "text": "wait"
+        },
+        {
+          "start": 21.05,
+          "end": 21.25,
+          "text": "a"
+        },
+        {
+          "start": 21.25,
+          "end": 21.55,
+          "text": "while"
+        },
+        {
+          "start": 21.55,
+          "end": 21.73,
+          "text": "to"
+        },
+        {
+          "start": 21.73,
+          "end": 22.01,
+          "text": "make"
+        },
+        {
+          "start": 22.01,
+          "end": 22.33,
+          "text": "my"
+        },
+        {
+          "start": 22.33,
+          "end": 22.63,
+          "text": "meat"
+        },
+        {
+          "start": 22.63,
+          "end": 23.07,
+          "text": "taste"
+        },
+        {
+          "start": 23.07,
+          "end": 23.47,
+          "text": "much"
+        },
+        {
+          "start": 23.47,
+          "end": 23.87,
+          "text": "better."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 24.61,
+      "end": 28.99,
+      "text": "The grass in my stomach will be digested quickly if you let me dance.",
+      "words": [
+        {
+          "start": 24.61,
+          "end": 24.79,
+          "text": "The"
+        },
+        {
+          "start": 24.79,
+          "end": 25.13,
+          "text": "grass"
+        },
+        {
+          "start": 25.13,
+          "end": 25.29,
+          "text": "in"
+        },
+        {
+          "start": 25.29,
+          "end": 25.59,
+          "text": "my"
+        },
+        {
+          "start": 25.59,
+          "end": 25.93,
+          "text": "stomach"
+        },
+        {
+          "start": 25.93,
+          "end": 26.19,
+          "text": "will"
+        },
+        {
+          "start": 26.19,
+          "end": 26.45,
+          "text": "be"
+        },
+        {
+          "start": 26.45,
+          "end": 27.01,
+          "text": "digested"
+        },
+        {
+          "start": 27.01,
+          "end": 27.53,
+          "text": "quickly"
+        },
+        {
+          "start": 27.53,
+          "end": 27.89,
+          "text": "if"
+        },
+        {
+          "start": 27.89,
+          "end": 28.03,
+          "text": "you"
+        },
+        {
+          "start": 28.03,
+          "end": 28.23,
+          "text": "let"
+        },
+        {
+          "start": 28.23,
+          "end": 28.45,
+          "text": "me"
+        },
+        {
+          "start": 28.45,
+          "end": 28.99,
+          "text": "dance."
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 29.81,
+      "end": 30.93,
+      "text": "The wolf agreed.",
+      "words": [
+        {
+          "start": 29.81,
+          "end": 30.15,
+          "text": "The"
+        },
+        {
+          "start": 30.15,
+          "end": 30.45,
+          "text": "wolf"
+        },
+        {
+          "start": 30.45,
+          "end": 30.93,
+          "text": "agreed."
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "start": 32.05,
+      "end": 35.57,
+      "text": "While the lamb was dancing, she had a new idea.",
+      "words": [
+        {
+          "start": 32.05,
+          "end": 32.41,
+          "text": "While"
+        },
+        {
+          "start": 32.41,
+          "end": 32.65,
+          "text": "the"
+        },
+        {
+          "start": 32.65,
+          "end": 32.89,
+          "text": "lamb"
+        },
+        {
+          "start": 32.89,
+          "end": 33.15,
+          "text": "was"
+        },
+        {
+          "start": 33.15,
+          "end": 33.57,
+          "text": "dancing,"
+        },
+        {
+          "start": 34.15,
+          "end": 34.39,
+          "text": "she"
+        },
+        {
+          "start": 34.39,
+          "end": 34.65,
+          "text": "had"
+        },
+        {
+          "start": 34.65,
+          "end": 34.83,
+          "text": "a"
+        },
+        {
+          "start": 34.83,
+          "end": 35.09,
+          "text": "new"
+        },
+        {
+          "start": 35.09,
+          "end": 35.57,
+          "text": "idea."
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "start": 36.47,
+      "end": 41.97,
+      "text": "She said, I can dance faster if you take my bell and rent it so hard.",
+      "words": [
+        {
+          "start": 36.47,
+          "end": 36.77,
+          "text": "She"
+        },
+        {
+          "start": 36.77,
+          "end": 37.11,
+          "text": "said,"
+        },
+        {
+          "start": 37.65,
+          "end": 37.87,
+          "text": "I"
+        },
+        {
+          "start": 37.87,
+          "end": 38.11,
+          "text": "can"
+        },
+        {
+          "start": 38.11,
+          "end": 38.47,
+          "text": "dance"
+        },
+        {
+          "start": 38.47,
+          "end": 38.97,
+          "text": "faster"
+        },
+        {
+          "start": 38.97,
+          "end": 39.35,
+          "text": "if"
+        },
+        {
+          "start": 39.35,
+          "end": 39.51,
+          "text": "you"
+        },
+        {
+          "start": 39.51,
+          "end": 39.79,
+          "text": "take"
+        },
+        {
+          "start": 39.79,
+          "end": 40.11,
+          "text": "my"
+        },
+        {
+          "start": 40.11,
+          "end": 40.47,
+          "text": "bell"
+        },
+        {
+          "start": 40.47,
+          "end": 40.79,
+          "text": "and"
+        },
+        {
+          "start": 40.79,
+          "end": 40.97,
+          "text": "rent"
+        },
+        {
+          "start": 40.97,
+          "end": 41.29,
+          "text": "it"
+        },
+        {
+          "start": 41.29,
+          "end": 41.55,
+          "text": "so"
+        },
+        {
+          "start": 41.55,
+          "end": 41.97,
+          "text": "hard."
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "start": 42.87,
+      "end": 46.73,
+      "text": "The wolf took the bell and started to ring so hard.",
+      "words": [
+        {
+          "start": 42.87,
+          "end": 43.13,
+          "text": "The"
+        },
+        {
+          "start": 43.13,
+          "end": 43.49,
+          "text": "wolf"
+        },
+        {
+          "start": 43.49,
+          "end": 43.77,
+          "text": "took"
+        },
+        {
+          "start": 43.77,
+          "end": 43.97,
+          "text": "the"
+        },
+        {
+          "start": 43.97,
+          "end": 44.35,
+          "text": "bell"
+        },
+        {
+          "start": 44.35,
+          "end": 44.87,
+          "text": "and"
+        },
+        {
+          "start": 44.87,
+          "end": 45.17,
+          "text": "started"
+        },
+        {
+          "start": 45.17,
+          "end": 45.51,
+          "text": "to"
+        },
+        {
+          "start": 45.51,
+          "end": 45.83,
+          "text": "ring"
+        },
+        {
+          "start": 45.83,
+          "end": 46.25,
+          "text": "so"
+        },
+        {
+          "start": 46.25,
+          "end": 46.73,
+          "text": "hard."
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "start": 47.49,
+      "end": 52.27,
+      "text": "The shepherd heard the sound and ran quickly to save the lamb's life.",
+      "words": [
+        {
+          "start": 47.49,
+          "end": 47.77,
+          "text": "The"
+        },
+        {
+          "start": 47.77,
+          "end": 48.05,
+          "text": "shepherd"
+        },
+        {
+          "start": 48.05,
+          "end": 48.51,
+          "text": "heard"
+        },
+        {
+          "start": 48.51,
+          "end": 48.77,
+          "text": "the"
+        },
+        {
+          "start": 48.77,
+          "end": 49.13,
+          "text": "sound"
+        },
+        {
+          "start": 49.13,
+          "end": 49.75,
+          "text": "and"
+        },
+        {
+          "start": 49.75,
+          "end": 50.01,
+          "text": "ran"
+        },
+        {
+          "start": 50.01,
+          "end": 50.39,
+          "text": "quickly"
+        },
+        {
+          "start": 50.39,
+          "end": 50.89,
+          "text": "to"
+        },
+        {
+          "start": 50.89,
+          "end": 51.21,
+          "text": "save"
+        },
+        {
+          "start": 51.21,
+          "end": 51.47,
+          "text": "the"
+        },
+        {
+          "start": 51.47,
+          "end": 51.87,
+          "text": "lamb's"
+        },
+        {
+          "start": 51.87,
+          "end": 52.27,
+          "text": "life."
+        }
+      ]
+    }
+  ]
+}

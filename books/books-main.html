@@ -91,6 +91,8 @@
         </div>
 
         <div class="speed-row">
+          <button class="speed-btn" data-rate="0.6">0.6x</button>
+          <button class="speed-btn" data-rate="0.7">0.7x</button>
           <button class="speed-btn" data-rate="0.8">0.8x</button>
           <button class="speed-btn active-speed" data-rate="1">1.0x</button>
           <button class="speed-btn" data-rate="1.2">1.2x</button>
@@ -102,8 +104,20 @@
 
   </div>
 
+  <div id="dictionaryOverlay" class="dictionary-overlay hidden">
+    <section class="dictionary-card" role="dialog" aria-modal="true" aria-labelledby="dictionaryWord">
+      <button id="dictionaryCloseBtn" class="dictionary-close" type="button" aria-label="Close dictionary">×</button>
+      <div class="dictionary-label">Dictionary</div>
+      <h2 id="dictionaryWord" class="dictionary-word"></h2>
+      <div id="dictionaryIpa" class="dictionary-ipa"></div>
+      <div id="dictionaryMeaning" class="dictionary-meaning"></div>
+      <div class="dictionary-source">Source: dict.minhqnd.com</div>
+    </section>
+  </div>
+
   <audio id="audio" preload="metadata"></audio>
 
+  <script src="assets/sql-wasm.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

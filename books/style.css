@@ -209,6 +209,9 @@ select {
   border-radius: 8px;
   padding: 2px 4px;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
   transition: 0.12s;
 }
 
@@ -309,6 +312,76 @@ select {
   background: var(--primary);
   color: white;
   border-color: var(--primary);
+}
+
+/* Dictionary */
+
+.dictionary-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.dictionary-card {
+  position: relative;
+  width: min(420px, 100%);
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.dictionary-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dictionary-label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.dictionary-word {
+  margin: 8px 42px 4px 0;
+  font-size: 30px;
+}
+
+.dictionary-ipa {
+  min-height: 22px;
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.dictionary-meaning {
+  margin-top: 14px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.dictionary-source {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 @media (max-width: 640px) {

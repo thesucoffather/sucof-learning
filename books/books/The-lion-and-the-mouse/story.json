@@ -1,0 +1,953 @@
+{
+  "source_file": "D:\\git01-github\\sucof-learning\\books\\.scripts\\process_new_story\\The-lion-and-the-mouse.story.wav",
+  "model": "tiny.en",
+  "language": "en",
+  "language_probability": 1,
+  "duration": 62.891,
+  "text": "A lion was asleep in the sun one day. A little mouse came out to play. The little mouse ran up the lion's neck and slid down his back. The lion caught him with a great big smack. I'm going to eat you, the lion roared his mouth open wide. No, no, please don't! The little mouse cried. Be kind to me, and one day I'll help you. I'm a lion. You're a mouse. What can you do? The lion laughed very hard and the mouse ran away. But the mouse was out walking the very next day. He heard a big roar and squeaked when he saw the king of the jungle tied to a tree. But the mouse had a plan to set him free. The mouse worked quickly and chewed through the rope. The lion said, Oh, little mouse, I had no hope. You were right, little mouse. Thank you. I'm free. You're the best friend there ever could be.",
+  "segments": [
+    {
+      "id": 1,
+      "start": 0.05,
+      "end": 3.37,
+      "text": "A lion was asleep in the sun one day.",
+      "words": [
+        {
+          "start": 0.05,
+          "end": 0.73,
+          "text": "A"
+        },
+        {
+          "start": 0.73,
+          "end": 1.19,
+          "text": "lion"
+        },
+        {
+          "start": 1.19,
+          "end": 1.53,
+          "text": "was"
+        },
+        {
+          "start": 1.53,
+          "end": 2.07,
+          "text": "asleep"
+        },
+        {
+          "start": 2.07,
+          "end": 2.35,
+          "text": "in"
+        },
+        {
+          "start": 2.35,
+          "end": 2.51,
+          "text": "the"
+        },
+        {
+          "start": 2.51,
+          "end": 2.75,
+          "text": "sun"
+        },
+        {
+          "start": 2.75,
+          "end": 3.05,
+          "text": "one"
+        },
+        {
+          "start": 3.05,
+          "end": 3.37,
+          "text": "day."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 4.11,
+      "end": 6.17,
+      "text": "A little mouse came out to play.",
+      "words": [
+        {
+          "start": 4.11,
+          "end": 4.19,
+          "text": "A"
+        },
+        {
+          "start": 4.19,
+          "end": 4.57,
+          "text": "little"
+        },
+        {
+          "start": 4.57,
+          "end": 4.99,
+          "text": "mouse"
+        },
+        {
+          "start": 4.99,
+          "end": 5.27,
+          "text": "came"
+        },
+        {
+          "start": 5.27,
+          "end": 5.55,
+          "text": "out"
+        },
+        {
+          "start": 5.55,
+          "end": 5.79,
+          "text": "to"
+        },
+        {
+          "start": 5.79,
+          "end": 6.17,
+          "text": "play."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 6.77,
+      "end": 11.09,
+      "text": "The little mouse ran up the lion's neck and slid down his back.",
+      "words": [
+        {
+          "start": 6.77,
+          "end": 7.03,
+          "text": "The"
+        },
+        {
+          "start": 7.03,
+          "end": 7.37,
+          "text": "little"
+        },
+        {
+          "start": 7.37,
+          "end": 7.81,
+          "text": "mouse"
+        },
+        {
+          "start": 7.81,
+          "end": 8.15,
+          "text": "ran"
+        },
+        {
+          "start": 8.15,
+          "end": 8.41,
+          "text": "up"
+        },
+        {
+          "start": 8.41,
+          "end": 8.71,
+          "text": "the"
+        },
+        {
+          "start": 8.71,
+          "end": 9.11,
+          "text": "lion's"
+        },
+        {
+          "start": 9.11,
+          "end": 9.47,
+          "text": "neck"
+        },
+        {
+          "start": 9.47,
+          "end": 9.95,
+          "text": "and"
+        },
+        {
+          "start": 9.95,
+          "end": 10.17,
+          "text": "slid"
+        },
+        {
+          "start": 10.17,
+          "end": 10.45,
+          "text": "down"
+        },
+        {
+          "start": 10.45,
+          "end": 10.65,
+          "text": "his"
+        },
+        {
+          "start": 10.65,
+          "end": 11.09,
+          "text": "back."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 11.65,
+      "end": 14.67,
+      "text": "The lion caught him with a great big smack.",
+      "words": [
+        {
+          "start": 11.65,
+          "end": 11.93,
+          "text": "The"
+        },
+        {
+          "start": 11.93,
+          "end": 12.37,
+          "text": "lion"
+        },
+        {
+          "start": 12.37,
+          "end": 12.67,
+          "text": "caught"
+        },
+        {
+          "start": 12.67,
+          "end": 12.97,
+          "text": "him"
+        },
+        {
+          "start": 12.97,
+          "end": 13.19,
+          "text": "with"
+        },
+        {
+          "start": 13.19,
+          "end": 13.41,
+          "text": "a"
+        },
+        {
+          "start": 13.41,
+          "end": 13.81,
+          "text": "great"
+        },
+        {
+          "start": 13.81,
+          "end": 14.27,
+          "text": "big"
+        },
+        {
+          "start": 14.27,
+          "end": 14.67,
+          "text": "smack."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 15.41,
+      "end": 20.35,
+      "text": "I'm going to eat you, the lion roared his mouth open wide.",
+      "words": [
+        {
+          "start": 15.41,
+          "end": 15.87,
+          "text": "I'm"
+        },
+        {
+          "start": 15.87,
+          "end": 16.31,
+          "text": "going"
+        },
+        {
+          "start": 16.31,
+          "end": 16.51,
+          "text": "to"
+        },
+        {
+          "start": 16.51,
+          "end": 16.77,
+          "text": "eat"
+        },
+        {
+          "start": 16.77,
+          "end": 17.27,
+          "text": "you,"
+        },
+        {
+          "start": 17.57,
+          "end": 17.69,
+          "text": "the"
+        },
+        {
+          "start": 17.69,
+          "end": 18.07,
+          "text": "lion"
+        },
+        {
+          "start": 18.07,
+          "end": 18.49,
+          "text": "roared"
+        },
+        {
+          "start": 18.49,
+          "end": 19.03,
+          "text": "his"
+        },
+        {
+          "start": 19.03,
+          "end": 19.43,
+          "text": "mouth"
+        },
+        {
+          "start": 19.43,
+          "end": 19.87,
+          "text": "open"
+        },
+        {
+          "start": 19.87,
+          "end": 20.35,
+          "text": "wide."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 20.85,
+      "end": 24.11,
+      "text": "No, no, please don't! The little mouse cried.",
+      "words": [
+        {
+          "start": 20.85,
+          "end": 21.29,
+          "text": "No,"
+        },
+        {
+          "start": 21.45,
+          "end": 21.75,
+          "text": "no,"
+        },
+        {
+          "start": 21.75,
+          "end": 22.05,
+          "text": "please"
+        },
+        {
+          "start": 22.05,
+          "end": 22.59,
+          "text": "don't!"
+        },
+        {
+          "start": 22.93,
+          "end": 23.05,
+          "text": "The"
+        },
+        {
+          "start": 23.05,
+          "end": 23.33,
+          "text": "little"
+        },
+        {
+          "start": 23.33,
+          "end": 23.67,
+          "text": "mouse"
+        },
+        {
+          "start": 23.67,
+          "end": 24.11,
+          "text": "cried."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 24.73,
+      "end": 27.59,
+      "text": "Be kind to me, and one day I'll help you.",
+      "words": [
+        {
+          "start": 24.73,
+          "end": 25.05,
+          "text": "Be"
+        },
+        {
+          "start": 25.05,
+          "end": 25.33,
+          "text": "kind"
+        },
+        {
+          "start": 25.33,
+          "end": 25.49,
+          "text": "to"
+        },
+        {
+          "start": 25.49,
+          "end": 25.91,
+          "text": "me,"
+        },
+        {
+          "start": 25.95,
+          "end": 26.15,
+          "text": "and"
+        },
+        {
+          "start": 26.15,
+          "end": 26.41,
+          "text": "one"
+        },
+        {
+          "start": 26.41,
+          "end": 26.57,
+          "text": "day"
+        },
+        {
+          "start": 26.57,
+          "end": 26.79,
+          "text": "I'll"
+        },
+        {
+          "start": 26.79,
+          "end": 27.07,
+          "text": "help"
+        },
+        {
+          "start": 27.07,
+          "end": 27.59,
+          "text": "you."
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 27.59,
+      "end": 31.87,
+      "text": "I'm a lion. You're a mouse. What can you do?",
+      "words": [
+        {
+          "start": 27.59,
+          "end": 28.47,
+          "text": "I'm"
+        },
+        {
+          "start": 28.47,
+          "end": 28.73,
+          "text": "a"
+        },
+        {
+          "start": 28.73,
+          "end": 29.07,
+          "text": "lion."
+        },
+        {
+          "start": 29.55,
+          "end": 29.81,
+          "text": "You're"
+        },
+        {
+          "start": 29.81,
+          "end": 29.99,
+          "text": "a"
+        },
+        {
+          "start": 29.99,
+          "end": 30.35,
+          "text": "mouse."
+        },
+        {
+          "start": 30.69,
+          "end": 30.91,
+          "text": "What"
+        },
+        {
+          "start": 30.91,
+          "end": 31.11,
+          "text": "can"
+        },
+        {
+          "start": 31.11,
+          "end": 31.31,
+          "text": "you"
+        },
+        {
+          "start": 31.31,
+          "end": 31.87,
+          "text": "do?"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "start": 32.31,
+      "end": 35.85,
+      "text": "The lion laughed very hard and the mouse ran away.",
+      "words": [
+        {
+          "start": 32.31,
+          "end": 32.53,
+          "text": "The"
+        },
+        {
+          "start": 32.53,
+          "end": 32.97,
+          "text": "lion"
+        },
+        {
+          "start": 32.97,
+          "end": 33.43,
+          "text": "laughed"
+        },
+        {
+          "start": 33.43,
+          "end": 33.97,
+          "text": "very"
+        },
+        {
+          "start": 33.97,
+          "end": 34.31,
+          "text": "hard"
+        },
+        {
+          "start": 34.31,
+          "end": 34.65,
+          "text": "and"
+        },
+        {
+          "start": 34.65,
+          "end": 34.91,
+          "text": "the"
+        },
+        {
+          "start": 34.91,
+          "end": 35.21,
+          "text": "mouse"
+        },
+        {
+          "start": 35.21,
+          "end": 35.45,
+          "text": "ran"
+        },
+        {
+          "start": 35.45,
+          "end": 35.85,
+          "text": "away."
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "start": 36.61,
+      "end": 39.39,
+      "text": "But the mouse was out walking the very next day.",
+      "words": [
+        {
+          "start": 36.61,
+          "end": 36.83,
+          "text": "But"
+        },
+        {
+          "start": 36.83,
+          "end": 37.05,
+          "text": "the"
+        },
+        {
+          "start": 37.05,
+          "end": 37.31,
+          "text": "mouse"
+        },
+        {
+          "start": 37.31,
+          "end": 37.57,
+          "text": "was"
+        },
+        {
+          "start": 37.57,
+          "end": 37.83,
+          "text": "out"
+        },
+        {
+          "start": 37.83,
+          "end": 38.19,
+          "text": "walking"
+        },
+        {
+          "start": 38.19,
+          "end": 38.47,
+          "text": "the"
+        },
+        {
+          "start": 38.47,
+          "end": 38.69,
+          "text": "very"
+        },
+        {
+          "start": 38.69,
+          "end": 38.97,
+          "text": "next"
+        },
+        {
+          "start": 38.97,
+          "end": 39.39,
+          "text": "day."
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "start": 39.89,
+      "end": 45.85,
+      "text": "He heard a big roar and squeaked when he saw the king of the jungle tied to a tree.",
+      "words": [
+        {
+          "start": 39.89,
+          "end": 40.11,
+          "text": "He"
+        },
+        {
+          "start": 40.11,
+          "end": 40.47,
+          "text": "heard"
+        },
+        {
+          "start": 40.47,
+          "end": 40.67,
+          "text": "a"
+        },
+        {
+          "start": 40.67,
+          "end": 41.01,
+          "text": "big"
+        },
+        {
+          "start": 41.01,
+          "end": 41.37,
+          "text": "roar"
+        },
+        {
+          "start": 41.37,
+          "end": 41.97,
+          "text": "and"
+        },
+        {
+          "start": 41.97,
+          "end": 42.35,
+          "text": "squeaked"
+        },
+        {
+          "start": 42.35,
+          "end": 42.57,
+          "text": "when"
+        },
+        {
+          "start": 42.57,
+          "end": 42.83,
+          "text": "he"
+        },
+        {
+          "start": 42.83,
+          "end": 43.15,
+          "text": "saw"
+        },
+        {
+          "start": 43.15,
+          "end": 43.55,
+          "text": "the"
+        },
+        {
+          "start": 43.55,
+          "end": 43.79,
+          "text": "king"
+        },
+        {
+          "start": 43.79,
+          "end": 43.95,
+          "text": "of"
+        },
+        {
+          "start": 43.95,
+          "end": 44.27,
+          "text": "the"
+        },
+        {
+          "start": 44.27,
+          "end": 44.59,
+          "text": "jungle"
+        },
+        {
+          "start": 44.59,
+          "end": 44.99,
+          "text": "tied"
+        },
+        {
+          "start": 44.99,
+          "end": 45.19,
+          "text": "to"
+        },
+        {
+          "start": 45.19,
+          "end": 45.43,
+          "text": "a"
+        },
+        {
+          "start": 45.43,
+          "end": 45.85,
+          "text": "tree."
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "start": 46.31,
+      "end": 48.89,
+      "text": "But the mouse had a plan to set him free.",
+      "words": [
+        {
+          "start": 46.31,
+          "end": 46.51,
+          "text": "But"
+        },
+        {
+          "start": 46.51,
+          "end": 46.75,
+          "text": "the"
+        },
+        {
+          "start": 46.75,
+          "end": 46.97,
+          "text": "mouse"
+        },
+        {
+          "start": 46.97,
+          "end": 47.27,
+          "text": "had"
+        },
+        {
+          "start": 47.27,
+          "end": 47.39,
+          "text": "a"
+        },
+        {
+          "start": 47.39,
+          "end": 47.73,
+          "text": "plan"
+        },
+        {
+          "start": 47.73,
+          "end": 47.93,
+          "text": "to"
+        },
+        {
+          "start": 47.93,
+          "end": 48.17,
+          "text": "set"
+        },
+        {
+          "start": 48.17,
+          "end": 48.43,
+          "text": "him"
+        },
+        {
+          "start": 48.43,
+          "end": 48.89,
+          "text": "free."
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "start": 49.51,
+      "end": 52.59,
+      "text": "The mouse worked quickly and chewed through the rope.",
+      "words": [
+        {
+          "start": 49.51,
+          "end": 49.73,
+          "text": "The"
+        },
+        {
+          "start": 49.73,
+          "end": 50.11,
+          "text": "mouse"
+        },
+        {
+          "start": 50.11,
+          "end": 50.43,
+          "text": "worked"
+        },
+        {
+          "start": 50.43,
+          "end": 50.85,
+          "text": "quickly"
+        },
+        {
+          "start": 50.85,
+          "end": 51.41,
+          "text": "and"
+        },
+        {
+          "start": 51.41,
+          "end": 51.73,
+          "text": "chewed"
+        },
+        {
+          "start": 51.73,
+          "end": 52.07,
+          "text": "through"
+        },
+        {
+          "start": 52.07,
+          "end": 52.27,
+          "text": "the"
+        },
+        {
+          "start": 52.27,
+          "end": 52.59,
+          "text": "rope."
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "start": 53.23,
+      "end": 56.67,
+      "text": "The lion said, Oh, little mouse, I had no hope.",
+      "words": [
+        {
+          "start": 53.23,
+          "end": 53.51,
+          "text": "The"
+        },
+        {
+          "start": 53.51,
+          "end": 53.79,
+          "text": "lion"
+        },
+        {
+          "start": 53.79,
+          "end": 54.31,
+          "text": "said,"
+        },
+        {
+          "start": 54.81,
+          "end": 54.87,
+          "text": "Oh,"
+        },
+        {
+          "start": 54.99,
+          "end": 55.21,
+          "text": "little"
+        },
+        {
+          "start": 55.21,
+          "end": 55.59,
+          "text": "mouse,"
+        },
+        {
+          "start": 55.77,
+          "end": 55.85,
+          "text": "I"
+        },
+        {
+          "start": 55.85,
+          "end": 56.05,
+          "text": "had"
+        },
+        {
+          "start": 56.05,
+          "end": 56.31,
+          "text": "no"
+        },
+        {
+          "start": 56.31,
+          "end": 56.67,
+          "text": "hope."
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "start": 56.67,
+      "end": 58.31,
+      "text": "You were right, little mouse.",
+      "words": [
+        {
+          "start": 56.67,
+          "end": 57.29,
+          "text": "You"
+        },
+        {
+          "start": 57.29,
+          "end": 57.51,
+          "text": "were"
+        },
+        {
+          "start": 57.51,
+          "end": 57.77,
+          "text": "right,"
+        },
+        {
+          "start": 57.97,
+          "end": 57.97,
+          "text": "little"
+        },
+        {
+          "start": 57.97,
+          "end": 58.31,
+          "text": "mouse."
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "start": 58.91,
+      "end": 62.77,
+      "text": "Thank you. I'm free. You're the best friend there ever could be.",
+      "words": [
+        {
+          "start": 58.91,
+          "end": 59.01,
+          "text": "Thank"
+        },
+        {
+          "start": 59.01,
+          "end": 59.33,
+          "text": "you."
+        },
+        {
+          "start": 59.67,
+          "end": 59.73,
+          "text": "I'm"
+        },
+        {
+          "start": 59.73,
+          "end": 60.19,
+          "text": "free."
+        },
+        {
+          "start": 60.51,
+          "end": 60.73,
+          "text": "You're"
+        },
+        {
+          "start": 60.73,
+          "end": 60.97,
+          "text": "the"
+        },
+        {
+          "start": 60.97,
+          "end": 61.35,
+          "text": "best"
+        },
+        {
+          "start": 61.35,
+          "end": 61.67,
+          "text": "friend"
+        },
+        {
+          "start": 61.67,
+          "end": 61.99,
+          "text": "there"
+        },
+        {
+          "start": 61.99,
+          "end": 62.27,
+          "text": "ever"
+        },
+        {
+          "start": 62.27,
+          "end": 62.49,
+          "text": "could"
+        },
+        {
+          "start": 62.49,
+          "end": 62.77,
+          "text": "be."
+        }
+      ]
+    }
+  ]
+}

@@ -14,5 +14,29 @@
     "text": "books/book002/story.txt",
     "timing": "books/book002/story.json",
     "audio": "books/book002/story.wav"
+  },
+  {
+    "id": "The-Fox-and-the-grapes",
+    "title": "The Fox and the grapes",
+    "category": "Beginner",
+    "text": "books/The-Fox-and-the-grapes/story.txt",
+    "timing": "books/The-Fox-and-the-grapes/story.json",
+    "audio": "books/The-Fox-and-the-grapes/story.wav"
+  },
+  {
+    "id": "The-lion-and-the-mouse",
+    "title": "The lion and the mouse",
+    "category": "Beginner",
+    "text": "books/The-lion-and-the-mouse/story.txt",
+    "timing": "books/The-lion-and-the-mouse/story.json",
+    "audio": "books/The-lion-and-the-mouse/story.wav"
+  },
+  {
+    "id": "The-wolf-and-the-lamb",
+    "title": "The wolf and the lamb",
+    "category": "Beginner",
+    "text": "books/The-wolf-and-the-lamb/story.txt",
+    "timing": "books/The-wolf-and-the-lamb/story.json",
+    "audio": "books/The-wolf-and-the-lamb/story.wav"
   }
 ]

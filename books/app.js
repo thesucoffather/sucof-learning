@@ -1,5 +1,11 @@
 const MANIFEST_FILES = ["book.json", "books.json"];
 const AUDIO_EXTENSIONS = ["mp3", "wav", "m4a", "ogg", "aac"];
+const DICTIONARY_DB_URLS = [
+  "https://github.com/minhqnd/dictionary/releases/download/v2.0.0/dictionary.db",
+  "assets/dictionary.db"
+];
+const SQL_WASM_PATH = "assets/sql-wasm.wasm";
+const WORD_LONG_PRESS_MS = 1200;
 
 const libraryPage = document.getElementById("libraryPage");
 const readerPage = document.getElementById("readerPage");
@@ -29,6 +35,12 @@ const progress = document.getElementById("progress");
 const currentTimeLabel = document.getElementById("currentTimeLabel");
 const durationLabel = document.getElementById("durationLabel");
 
+const dictionaryOverlay = document.getElementById("dictionaryOverlay");
+const dictionaryCloseBtn = document.getElementById("dictionaryCloseBtn");
+const dictionaryWord = document.getElementById("dictionaryWord");
+const dictionaryIpa = document.getElementById("dictionaryIpa");
+const dictionaryMeaning = document.getElementById("dictionaryMeaning");
+
 let books = [];
 let currentBookIndex = -1;
 let currentBook = null;
@@ -49,6 +61,7 @@ let speechStartedAt = 0;
 let speechBaseTime = 0;
 let speechRate = 1;
 let speechPlaying = false;
+let dictionaryDbPromise = null;
 
 init();
 
@@ -198,6 +211,19 @@ function bindEvents() {
 
   fullscreenBtn.addEventListener("click", toggleFullscreen);
   darkModeBtn.addEventListener("click", toggleDarkMode);
+
+  dictionaryCloseBtn.addEventListener("click", closeDictionary);
+  dictionaryOverlay.addEventListener("click", (event) => {
+    if (event.target === dictionaryOverlay) {
+      closeDictionary();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeDictionary();
+    }
+  });
 
   document.querySelectorAll(".speed-btn").forEach((button) => {
     button.addEventListener("click", () => {
@@ -392,6 +418,8 @@ function renderWords() {
 
   words.forEach((item, index) => {
     const span = document.createElement("span");
+    let longPressTimer = null;
+    let longPressTriggered = false;
 
     span.className = "word";
     span.id = "word-" + index;
@@ -400,12 +428,251 @@ function renderWords() {
     span.dataset.index = index;
     span.dataset.sentence = item.sentence;
 
-    span.addEventListener("click", () => {
+    span.addEventListener("pointerdown", (event) => {
+      if (event.button !== undefined && event.button !== 0) {
+        return;
+      }
+
+      longPressTriggered = false;
+      window.clearTimeout(longPressTimer);
+
+      longPressTimer = window.setTimeout(() => {
+        longPressTriggered = true;
+        openDictionary(item.word);
+      }, WORD_LONG_PRESS_MS);
+    });
+
+    span.addEventListener("pointerup", () => {
+      window.clearTimeout(longPressTimer);
+    });
+
+    span.addEventListener("pointerleave", () => {
+      window.clearTimeout(longPressTimer);
+    });
+
+    span.addEventListener("pointercancel", () => {
+      window.clearTimeout(longPressTimer);
+    });
+
+    span.addEventListener("contextmenu", (event) => {
+      event.preventDefault();
+    });
+
+    span.addEventListener("click", (event) => {
+      if (longPressTriggered) {
+        event.preventDefault();
+        event.stopPropagation();
+        longPressTriggered = false;
+        return;
+      }
+
       jumpToWord(index);
     });
 
     storyText.appendChild(span);
   });
+}
+
+async function openDictionary(rawWord) {
+  const word = cleanLookupWord(rawWord);
+
+  if (!word) {
+    return;
+  }
+
+  pause();
+  showDictionary(word, "", "Đang tra từ...");
+
+  try {
+    const entry = await lookupDictionary(word);
+
+    if (!entry) {
+      showDictionary(word, "", "Không tìm thấy nghĩa tiếng Việt.");
+      return;
+    }
+
+    showDictionary(entry.word || word, entry.ipa, entry.meaning || "Không tìm thấy nghĩa tiếng Việt.");
+  } catch {
+    showDictionary(word, "", "Không tra được từ điển. Kiểm tra kết nối mạng.");
+  }
+}
+
+function showDictionary(word, ipa, meaning) {
+  dictionaryWord.textContent = word;
+  dictionaryIpa.textContent = ipa || "";
+  dictionaryMeaning.textContent = meaning || "";
+  dictionaryOverlay.classList.remove("hidden");
+}
+
+function closeDictionary() {
+  dictionaryOverlay.classList.add("hidden");
+}
+
+async function lookupDictionary(word) {
+  const db = await loadDictionaryDb();
+
+  for (const candidate of candidateLookupWords(word)) {
+    const row = getDictionaryWordRow(db, candidate);
+
+    if (row) {
+      return buildDictionaryEntry(db, word, row);
+    }
+  }
+
+  return null;
+}
+
+async function loadDictionaryDb() {
+  if (dictionaryDbPromise) {
+    return dictionaryDbPromise;
+  }
+
+  dictionaryDbPromise = (async () => {
+    if (typeof initSqlJs !== "function") {
+      throw new Error("sql.js is not loaded.");
+    }
+
+    const SQL = await initSqlJs({
+      locateFile: () => SQL_WASM_PATH
+    });
+
+    const response = await fetchFirstOk(DICTIONARY_DB_URLS);
+
+    const buffer = await response.arrayBuffer();
+    return new SQL.Database(new Uint8Array(buffer));
+  })();
+
+  return dictionaryDbPromise;
+}
+
+async function fetchFirstOk(urls) {
+  const errors = [];
+
+  for (const url of urls) {
+    try {
+      const response = await fetch(url);
+
+      if (response.ok) {
+        return response;
+      }
+
+      errors.push(`${url} returned ${response.status}`);
+    } catch (error) {
+      errors.push(`${url} failed`);
+    }
+  }
+
+  throw new Error("Cannot load dictionary.db. " + errors.join("; "));
+}
+
+function candidateLookupWords(word) {
+  const candidates = [word];
+
+  if (word.endsWith("'s")) {
+    candidates.push(word.slice(0, -2));
+  }
+
+  if (word.endsWith("ies") && word.length > 4) {
+    candidates.push(word.slice(0, -3) + "y");
+  }
+
+  if (word.endsWith("es") && word.length > 3) {
+    candidates.push(word.slice(0, -2));
+  }
+
+  if (word.endsWith("s") && word.length > 3) {
+    candidates.push(word.slice(0, -1));
+  }
+
+  return [...new Set(candidates)];
+}
+
+function getDictionaryWordRow(db, word) {
+  const rows = selectRows(
+    db,
+    "select id, word from words where lower(word) = lower(?) and lang_code = 'en' order by id limit 1",
+    [word]
+  );
+
+  return rows[0] || null;
+}
+
+function buildDictionaryEntry(db, lookupWord, row) {
+  const ipaRows = selectRows(
+    db,
+    `
+      select ipa from pronunciations
+      where word_id = ?
+      order by
+        case
+          when lower(coalesce(region, '')) like '%received%' then 0
+          when lower(coalesce(region, '')) like '%british%' then 1
+          when lower(coalesce(region, '')) like '%uk%' then 2
+          else 3
+        end,
+        id
+      limit 1
+    `,
+    [row.id]
+  );
+
+  const definitionRows = selectRows(
+    db,
+    `
+      select d.definition
+      from word_definitions wd
+      join definitions d on d.id = wd.definition_id
+      where wd.word_id = ?
+        and d.definition_lang = 'vi'
+        and d.definition is not null
+      order by wd.id
+      limit 3
+    `,
+    [row.id]
+  );
+
+  const translationRows = selectRows(
+    db,
+    "select translation from translations where word_id = ? and lang_code = 'vi' order by id limit 1",
+    [row.id]
+  );
+
+  const meanings = definitionRows.map((item) => item.definition).filter(Boolean);
+
+  if (!meanings.length && translationRows[0]?.translation) {
+    meanings.push(translationRows[0].translation);
+  }
+
+  return {
+    word: row.word || lookupWord,
+    ipa: ipaRows[0]?.ipa || "",
+    meaning: meanings.join(" ")
+  };
+}
+
+function selectRows(db, sql, params = []) {
+  const statement = db.prepare(sql);
+  const rows = [];
+
+  try {
+    statement.bind(params);
+
+    while (statement.step()) {
+      rows.push(statement.getAsObject());
+    }
+  } finally {
+    statement.free();
+  }
+
+  return rows;
+}
+
+function cleanLookupWord(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/^[^a-z]+|[^a-z]+$/g, "")
+    .replace(/'s$/g, "")
+    .replace(/[^a-z'-]/g, "");
 }
 
 async function findAudioSource(book) {
