@@ -510,14 +510,26 @@ function closeDictionary() {
 }
 
 async function lookupDictionary(word) {
-  let db = null;
+  try {
+    const apiEntry = await lookupDictionaryApi(word);
+
+    if (apiEntry) {
+      return apiEntry;
+    }
+  } catch (error) {
+    console.warn("Dictionary API lookup unavailable:", error);
+  }
 
   try {
-    db = await loadDictionaryDb();
+    return await lookupDictionaryDb(word);
   } catch (error) {
     console.warn("Dictionary database lookup unavailable:", error);
-    return lookupDictionaryApi(word);
+    return null;
   }
+}
+
+async function lookupDictionaryDb(word) {
+  const db = await loadDictionaryDb();
 
   for (const candidate of candidateLookupWords(word)) {
     const row = getDictionaryWordRow(db, candidate);
@@ -527,7 +539,7 @@ async function lookupDictionary(word) {
     }
   }
 
-  return lookupDictionaryApi(word);
+  return null;
 }
 
 async function loadDictionaryDb() {
@@ -580,7 +592,13 @@ async function lookupDictionaryApi(word) {
     url.searchParams.set("lang", "en");
     url.searchParams.set("def_lang", "vi");
 
-    const response = await fetch(url.toString());
+    let response;
+
+    try {
+      response = await fetch(url.toString());
+    } catch {
+      continue;
+    }
 
     if (!response.ok) {
       continue;
