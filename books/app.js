@@ -4,6 +4,7 @@ const DICTIONARY_DB_URLS = [
   "https://github.com/minhqnd/dictionary/releases/download/v2.0.0/dictionary.db",
   "assets/dictionary.db"
 ];
+const DICTIONARY_API_URL = "https://dict.minhqnd.com/api/v1/lookup";
 const SQL_WASM_PATH = "assets/sql-wasm.wasm";
 const WORD_LONG_PRESS_MS = 1200;
 
@@ -509,7 +510,14 @@ function closeDictionary() {
 }
 
 async function lookupDictionary(word) {
-  const db = await loadDictionaryDb();
+  let db = null;
+
+  try {
+    db = await loadDictionaryDb();
+  } catch (error) {
+    console.warn("Dictionary database lookup unavailable:", error);
+    return lookupDictionaryApi(word);
+  }
 
   for (const candidate of candidateLookupWords(word)) {
     const row = getDictionaryWordRow(db, candidate);
@@ -519,7 +527,7 @@ async function lookupDictionary(word) {
     }
   }
 
-  return null;
+  return lookupDictionaryApi(word);
 }
 
 async function loadDictionaryDb() {
@@ -563,6 +571,65 @@ async function fetchFirstOk(urls) {
   }
 
   throw new Error("Cannot load dictionary.db. " + errors.join("; "));
+}
+
+async function lookupDictionaryApi(word) {
+  for (const candidate of candidateLookupWords(word)) {
+    const url = new URL(DICTIONARY_API_URL);
+    url.searchParams.set("word", candidate);
+    url.searchParams.set("lang", "en");
+    url.searchParams.set("def_lang", "vi");
+
+    const response = await fetch(url.toString());
+
+    if (!response.ok) {
+      continue;
+    }
+
+    const data = await response.json();
+    const entry = normalizeDictionaryApiResult(data, word);
+
+    if (entry) {
+      return entry;
+    }
+  }
+
+  return null;
+}
+
+function normalizeDictionaryApiResult(data, lookupWord) {
+  if (!data || data.exists === false) {
+    return null;
+  }
+
+  const results = Array.isArray(data.results) ? data.results : [];
+  const meanings = results.flatMap((result) => Array.isArray(result.meanings) ? result.meanings : []);
+  const pronunciations = results.flatMap((result) => Array.isArray(result.pronunciations) ? result.pronunciations : []);
+  const translations = results.flatMap((result) => Array.isArray(result.translations) ? result.translations : []);
+
+  const viMeanings = meanings
+    .filter((item) => item.definition_lang === "vi" && item.definition)
+    .slice(0, 3)
+    .map((item) => item.definition);
+
+  if (!viMeanings.length) {
+    const translation = translations.find((item) => item.lang_code === "vi" && item.translation);
+
+    if (translation) {
+      viMeanings.push(translation.translation);
+    }
+  }
+
+  const ipa =
+    pronunciations.find((item) => String(item.region || "").toLowerCase().includes("received"))?.ipa ||
+    pronunciations.find((item) => item.ipa)?.ipa ||
+    "";
+
+  return {
+    word: data.word || lookupWord,
+    ipa,
+    meaning: viMeanings.join(" ")
+  };
 }
 
 function candidateLookupWords(word) {
