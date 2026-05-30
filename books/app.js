@@ -560,16 +560,51 @@ function normalizeDictionaryApiResult(data, lookupWord) {
     }
   }
 
-  const ipa =
-    pronunciations.find((item) => String(item.region || "").toLowerCase().includes("received"))?.ipa ||
-    pronunciations.find((item) => item.ipa)?.ipa ||
-    "";
+  const ipa = selectBritishIpa(pronunciations);
 
   return {
     word: data.word || lookupWord,
     ipa,
     meaning: viMeanings.join(" ")
   };
+}
+
+function selectBritishIpa(pronunciations) {
+  const items = pronunciations
+    .filter((item) => item && item.ipa && looksLikeIpa(item.ipa))
+    .map((item) => ({
+      ipa: item.ipa,
+      region: String(item.region || "").toLowerCase()
+    }));
+
+  if (!items.length) {
+    return "";
+  }
+
+  return (
+    items.find((item) => item.region.includes("received"))?.ipa ||
+    items.find((item) => item.region.includes("rp"))?.ipa ||
+    items.find((item) => item.region.includes("british"))?.ipa ||
+    items.find((item) => item.region.includes("uk"))?.ipa ||
+    items.find((item) => item.region.includes("gb"))?.ipa ||
+    items.find((item) => item.region.includes("england"))?.ipa ||
+    items.find((item) => !item.region.includes("american") && !item.region.includes("us"))?.ipa ||
+    items[0].ipa
+  );
+}
+
+function looksLikeIpa(value) {
+  const text = String(value || "").trim();
+
+  if (/[āēīōūăĕĭŏŭ]/i.test(text)) {
+    return false;
+  }
+
+  return (
+    text.startsWith("/") ||
+    text.startsWith("[") ||
+    /[ɑɒæəɜɛɪʊʌɔːˈˌθðʃʒŋ]/.test(text)
+  );
 }
 
 function candidateLookupWords(word) {
