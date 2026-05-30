@@ -100,6 +100,14 @@
       min-height: 1.4em;
     }
 
+    .feedback-ok {
+      color: #2563eb;
+    }
+
+    .feedback-bad {
+      color: #dc2626;
+    }
+
     .timer {
       margin-top: 5px;
       font-style: italic;
@@ -185,6 +193,7 @@
     let correctAnswer = 0;
     let startTime = 0;
     let nextQuestionTimer = null;
+    let clearWrongAnswerTimer = null;
 
     let totalCorrectAttempts = 0;
     let totalWrongAttempts = 0;
@@ -338,8 +347,22 @@
         "Thời gian TB (lần đúng): " + avg.toFixed(1) + " giây";
     }
 
+    function setFeedback(message, type) {
+      feedbackEl.textContent = message;
+      feedbackEl.className = "feedback";
+
+      if (type === "ok") {
+        feedbackEl.classList.add("feedback-ok");
+      }
+
+      if (type === "bad") {
+        feedbackEl.classList.add("feedback-bad");
+      }
+    }
+
     function newQuestion() {
       window.clearTimeout(nextQuestionTimer);
+      window.clearTimeout(clearWrongAnswerTimer);
       normalizeSettingsUI();
 
       try {
@@ -348,12 +371,12 @@
         renderQuestion(currentQuestion);
         answerInput.disabled = false;
         submitBtn.disabled = false;
-        feedbackEl.textContent = "";
+        setFeedback("", "");
       } catch (error) {
         currentQuestion = null;
         correctAnswer = 0;
         expressionEl.textContent = "Không tạo được bài.";
-        feedbackEl.textContent = error.message;
+        setFeedback(error.message, "bad");
         answerInput.disabled = true;
         submitBtn.disabled = true;
       }
@@ -367,10 +390,12 @@
     function checkAnswer() {
       if (!currentQuestion) return;
 
+      window.clearTimeout(clearWrongAnswerTimer);
+
       const value = answerInput.value.trim();
 
       if (value === "") {
-        feedbackEl.textContent = "Hãy nhập đáp án.";
+        setFeedback("Hãy nhập đáp án.", "bad");
         return;
       }
 
@@ -380,7 +405,7 @@
       if (userAnswer === correctAnswer) {
         const elapsedSec = (Date.now() - startTime) / 1000;
 
-        feedbackEl.textContent = "Đúng rồi! 🎉 Bài mới sẽ hiện sau 2 giây.";
+        setFeedback("Đúng rồi! 🎉 Bài mới sẽ hiện sau 2 giây.", "ok");
         timerEl.textContent = "Thời gian: " + elapsedSec.toFixed(1) + " giây";
 
         totalCorrectAttempts += 1;
@@ -390,9 +415,13 @@
 
         nextQuestionTimer = window.setTimeout(newQuestion, 2000);
       } else {
-        feedbackEl.textContent = "Chưa đúng, thử lại nhé.";
+        setFeedback("Chưa đúng, thử lại nhé.", "bad");
         totalWrongAttempts += 1;
         answerInput.select();
+        clearWrongAnswerTimer = window.setTimeout(() => {
+          answerInput.value = "";
+          answerInput.focus();
+        }, 2000);
       }
 
       updateStats();
