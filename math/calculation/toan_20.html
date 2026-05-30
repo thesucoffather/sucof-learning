@@ -31,6 +31,36 @@
       background: #f9fafb;
     }
 
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .settings-title {
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+
+    .settings-toggle {
+      font-size: 0.95rem;
+      padding: 6px 12px;
+    }
+
+    .settings-box.collapsed .settings-grid {
+      display: none;
+    }
+
+    .settings-box.collapsed {
+      padding-bottom: 12px;
+    }
+
+    .settings-box.collapsed .settings-header {
+      margin-bottom: 0;
+    }
+
     .settings-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -125,7 +155,12 @@
 
   <h1>Toán phạm vi 20</h1>
 
-  <div class="settings-box">
+  <div class="settings-box collapsed" id="settingsBox">
+    <div class="settings-header">
+      <div class="settings-title">Cài đặt bài toán</div>
+      <button id="settingsToggleBtn" class="settings-toggle" type="button">Hiện cài đặt ▼</button>
+    </div>
+
     <div class="settings-grid">
       <div class="field">
         <label for="overValueInput">Giới hạn kết quả</label>
@@ -215,6 +250,8 @@
     const operationSelect = document.getElementById("operationSelect");
     const termCountInput = document.getElementById("termCountInput");
     const hiddenModeSelect = document.getElementById("hiddenModeSelect");
+    const settingsBox = document.getElementById("settingsBox");
+    const settingsToggleBtn = document.getElementById("settingsToggleBtn");
 
     function randInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -360,7 +397,17 @@
       }
     }
 
-    function newQuestion() {
+    function setSettingsCollapsed(collapsed) {
+      settingsBox.classList.toggle("collapsed", collapsed);
+      settingsToggleBtn.textContent = collapsed ? "Hiện cài đặt ▼" : "Ẩn cài đặt ▲";
+    }
+
+    function focusQuestion() {
+      answerInput.focus();
+      answerInput.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function newQuestion(options = {}) {
       window.clearTimeout(nextQuestionTimer);
       window.clearTimeout(clearWrongAnswerTimer);
       normalizeSettingsUI();
@@ -383,7 +430,10 @@
 
       answerInput.value = "";
       timerEl.textContent = "Thời gian: 0.0 giây";
-      answerInput.focus();
+      if (options.collapseSettings) {
+        setSettingsCollapsed(true);
+      }
+      focusQuestion();
       startTime = Date.now();
     }
 
@@ -429,6 +479,9 @@
 
     submitBtn.addEventListener("click", checkAnswer);
     newBtn.addEventListener("click", newQuestion);
+    settingsToggleBtn.addEventListener("click", () => {
+      setSettingsCollapsed(!settingsBox.classList.contains("collapsed"));
+    });
 
     answerInput.addEventListener("keydown", function (event) {
       if (event.key === "Enter") {
@@ -437,7 +490,7 @@
     });
 
     [overValueInput, operationSelect, termCountInput, hiddenModeSelect].forEach((control) => {
-      control.addEventListener("change", newQuestion);
+      control.addEventListener("change", () => newQuestion({ collapseSettings: true }));
     });
 
     newQuestion();
